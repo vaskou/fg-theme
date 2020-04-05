@@ -6,8 +6,11 @@ const concat = require('gulp-concat');
 const minify = require('gulp-minify');
 const del = require('del');
 const autoprefixer = require('gulp-autoprefixer');
+const sourcemaps = require('gulp-sourcemaps');
 
 gulp.task('clean:output', function () {
+    del('style.css');
+    del('style.css.map');
     return del('assets/**/*');
 });
 
@@ -32,13 +35,17 @@ gulp.task('build:scripts', function () {
 
 gulp.task('build:styles', function () {
 
-    return gulp.src('./src/sass/styles.scss')
+    return gulp.src('./src/sass/style.scss')
+        .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
+        .pipe( sourcemaps.write({ includeContent: false }) )
+        .pipe( sourcemaps.init({ loadMaps: true }) )
         .pipe(autoprefixer({
             cascade: false
         }))
         .pipe(cleanCSS({compatibility: 'ie8'}))
-        .pipe(gulp.dest('./assets/css'))
+        .pipe( sourcemaps.write( './' ) )
+        .pipe(gulp.dest('./'))
         .pipe(browserSync.stream());
 
 });
