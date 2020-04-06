@@ -7,10 +7,13 @@ const minify = require('gulp-minify');
 const del = require('del');
 const autoprefixer = require('gulp-autoprefixer');
 const sourcemaps = require('gulp-sourcemaps');
+const rename = require('gulp-rename');
+const replace = require('gulp-replace');
+
 
 gulp.task('clean:output', function () {
     del('style.css');
-    del('style.css.map');
+    del('style.min.css');
     return del('assets/**/*');
 });
 
@@ -35,16 +38,17 @@ gulp.task('build:scripts', function () {
 
 gulp.task('build:styles', function () {
 
-    return gulp.src('./src/sass/style.scss')
-        .pipe(sourcemaps.init())
+    return gulp.src(['./src/sass/style.scss'], {allowEmpty: true})
+        .pipe(replace('@charset "UTF-8";', ''))
+        .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(sass().on('error', sass.logError))
-        .pipe( sourcemaps.write({ includeContent: false }) )
-        .pipe( sourcemaps.init({ loadMaps: true }) )
+        .pipe(sourcemaps.write({includeContent: false, sourceRoot: './src/sass/'}))
+        .pipe(gulp.dest('./'))
         .pipe(autoprefixer({
             cascade: false
         }))
-        .pipe(cleanCSS({compatibility: 'ie8'}))
-        .pipe( sourcemaps.write( './' ) )
+        .pipe(rename({suffix: '.min'}))
+        .pipe(cleanCSS())
         .pipe(gulp.dest('./'))
         .pipe(browserSync.stream());
 
@@ -66,4 +70,4 @@ gulp.task('watch:changes', function (cb) {
 
 });
 
-exports.default = gulp.series('build', 'watch:changes');
+exports.default = gulp.task('default', gulp.series('build', 'watch:changes'));

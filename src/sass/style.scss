@@ -20,7 +20,7 @@ Normalizing styles have been helped along thanks to the fine work of
 Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 */
 
-@import "../../node_modules/uikit/src/scss/variables-theme.scss";
-@import "../../node_modules/uikit/src/scss/mixins-theme.scss";
+@import "./node_modules/uikit/src/scss/variables-theme.scss";
+@import "./node_modules/uikit/src/scss/mixins-theme.scss";
 
-@import "../../node_modules/uikit/src/scss/uikit-theme.scss";
+@import "./node_modules/uikit/src/scss/uikit-theme.scss";
