@@ -24,6 +24,7 @@ class Fremediti_Guitars_Theme {
 		add_action( 'widgets_init', array( $this, 'register_sidebar' ) );
 
 		Fremediti_Guitars_Customizer::getInstance();
+		Fremediti_Guitars_Metaboxes::getInstance();
 	}
 
 	/**
