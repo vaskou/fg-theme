@@ -44,6 +44,7 @@ gulp.task('build:styles', function () {
         .pipe(sass().on('error', sass.logError))
         .pipe(sourcemaps.write({includeContent: false, sourceRoot: './src/sass/'}))
         .pipe(gulp.dest('./'))
+        .pipe(browserSync.stream())
         .pipe(autoprefixer({
             cascade: false
         }))

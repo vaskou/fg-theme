@@ -30,7 +30,7 @@
             <div class="uk-container">
                 <nav id="site-navigation" class="main-navigation uk-navbar-container" uk-navbar>
                     <div class="uk-navbar-left">
-                        <div class="site-branding uk-navbar-item uk-logo">
+                        <div class="site-branding uk-logo">
 							<?php the_custom_logo(); ?>
                         </div><!-- .site-branding -->
 
@@ -39,13 +39,28 @@
 							'theme_location' => 'menu-1',
 							'menu_id'        => 'primary-menu',
 							'menu_class'     => 'uk-navbar-nav',
-							'walker'         => new Fremediti_Guitars_Nav_Walker()
+							'walker'         => new Fremediti_Guitars_Nav_Walker(),
+							'fg_menu_type'   => 'main'
 						) );
 						?>
-                        <a class="uk-navbar-toggle" uk-navbar-toggle-icon href="#"></a>
+                        <a class="uk-navbar-toggle uk-hidden@m" uk-navbar-toggle-icon uk-toggle href="#offcanvas"></a>
                     </div>
                 </nav><!-- #site-navigation -->
 
+            </div>
+        </div>
+        <div id="offcanvas" uk-offcanvas="overlay: true;">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+				<?php
+				wp_nav_menu( array(
+					'theme_location' => 'menu-1',
+					'menu_id'        => 'primary-menu',
+					'menu_class'     => 'uk-nav',
+		            'walker'         => new Fremediti_Guitars_Nav_Walker(),
+					'fg_menu_type'   => 'offcanvas'
+				) );
+				?>
             </div>
         </div>
     </header><!-- #masthead -->

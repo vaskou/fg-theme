@@ -25,8 +25,18 @@ class Fremediti_Guitars_Nav_Walker extends Walker_Nav_Menu {
 		$indent = str_repeat( $t, $depth );
 
 		// Default class.
-		$classes = array( 'sub-menu', 'uk-nav', 'uk-navbar-dropdown-nav' );
+		$classes = array( 'sub-menu', 'uk-nav' );
 
+		$pre = '';
+		if ( isset( $args->fg_menu_type ) ) {
+			if ( 'main' == $args->fg_menu_type ) {
+				$classes[] = 'uk-dropdown-nav';
+				$pre       = "<div class='uk-navbar-dropdown'>";
+			}
+			if ( 'offcanvas' == $args->fg_menu_type ) {
+				$classes[] = 'uk-nav-sub';
+			}
+		}
 		/**
 		 * Filters the CSS class(es) applied to a menu list element.
 		 *
@@ -40,7 +50,7 @@ class Fremediti_Guitars_Nav_Walker extends Walker_Nav_Menu {
 		$class_names = join( ' ', apply_filters( 'nav_menu_submenu_css_class', $classes, $args, $depth ) );
 		$class_names = $class_names ? ' class="' . esc_attr( $class_names ) . '"' : '';
 
-		$output .= "{$n}{$indent}<div class='uk-navbar-dropdown'><ul$class_names>{$n}";
+		$output .= "{$n}{$indent}{$pre}<ul$class_names>{$n}";
 	}
 
 	/**
@@ -64,7 +74,12 @@ class Fremediti_Guitars_Nav_Walker extends Walker_Nav_Menu {
 			$n = "\n";
 		}
 		$indent = str_repeat( $t, $depth );
-		$output .= "$indent</ul></div>{$n}";
+		$post   = '';
+		if ( isset( $args->fg_menu_type ) && 'main' == $args->fg_menu_type ) {
+			$classes[] = 'uk-dropdown-nav';
+			$post      = "</div>";
+		}
+		$output .= "$indent</ul>{$post}{$n}";
 	}
 
 	/**
@@ -97,6 +112,10 @@ class Fremediti_Guitars_Nav_Walker extends Walker_Nav_Menu {
 
 		if ( $item->current || $item->current_item_ancestor || $item->current_item_parent ) {
 			$classes[] = 'uk-active';
+		}
+
+		if ( in_array( 'menu-item-has-children', $classes ) ) {
+			$classes[] = 'uk-parent';
 		}
 
 		/**
