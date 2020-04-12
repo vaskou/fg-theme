@@ -38,7 +38,7 @@
 						wp_nav_menu( array(
 							'theme_location' => 'menu-1',
 							'menu_id'        => 'primary-menu',
-							'menu_class'     => 'uk-navbar-nav',
+							'menu_class'     => 'uk-navbar-nav uk-visible@m',
 							'walker'         => new Fremediti_Guitars_Nav_Walker(),
 							'fg_menu_type'   => 'main'
 						) );
@@ -54,7 +54,7 @@
                 <button class="uk-offcanvas-close" type="button" uk-close></button>
 				<?php
 				wp_nav_menu( array(
-					'theme_location' => 'menu-1',
+					'theme_location' => 'offcanvas',
 					'menu_id'        => 'primary-menu',
 					'menu_class'     => 'uk-nav',
 		            'walker'         => new Fremediti_Guitars_Nav_Walker(),

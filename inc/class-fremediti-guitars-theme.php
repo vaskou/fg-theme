@@ -32,6 +32,8 @@ class Fremediti_Guitars_Theme {
 	 */
 	function fremediti_guitars_scripts() {
 
+		wp_enqueue_style( 'ubuntu-fonts', 'https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap' );
+
 		$version = $this->_get_file_version( FREMEDITI_GUITARS_THEME_PATH . '/style.css' );
 		wp_enqueue_style( 'fremediti-guitars-style', FREMEDITI_GUITARS_THEME_URL . '/style.css', array(), $version );
 
@@ -79,7 +81,8 @@ class Fremediti_Guitars_Theme {
 
 		// This theme uses wp_nav_menu() in one location.
 		register_nav_menus( array(
-			'menu-1' => esc_html__( 'Primary', 'fremediti-guitars' ),
+			'menu-1'    => esc_html__( 'Primary', 'fremediti-guitars' ),
+			'offcanvas' => esc_html__( 'Offcanvas', 'fremediti-guitars' ),
 		) );
 
 		/*
@@ -136,15 +139,50 @@ class Fremediti_Guitars_Theme {
 	 * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
 	 */
 	public function register_sidebar() {
-		register_sidebar( array(
-			'name'          => esc_html__( 'Sidebar', 'fremediti-guitars' ),
-			'id'            => 'sidebar-1',
-			'description'   => esc_html__( 'Add widgets here.', 'fremediti-guitars' ),
+		$shared_args = array(
 			'before_widget' => '<section id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</section>',
-			'before_title'  => '<h2 class="widget-title">',
-			'after_title'   => '</h2>',
-		) );
+			'before_title'  => '<h3 class="widget-title">',
+			'after_title'   => '</h3>',
+		);
+
+		$sidebars = array(
+			array(
+				'name'        => esc_html__( 'Sidebar', 'fremediti-guitars' ),
+				'id'          => 'sidebar-1',
+				'description' => esc_html__( 'Add widgets here.', 'fremediti-guitars' ),
+			),
+			array(
+				'name'        => __( 'Footer #1', 'fremediti-guitars' ),
+				'id'          => 'footer-1',
+				'description' => __( 'Widgets in this area will be displayed in the second column in the footer.', 'fremediti-guitars' ),
+			),
+			array(
+				'name'        => __( 'Footer #2', 'fremediti-guitars' ),
+				'id'          => 'footer-2',
+				'description' => __( 'Widgets in this area will be displayed in the second column in the footer.', 'fremediti-guitars' ),
+			),
+			array(
+				'name'        => __( 'Footer #3', 'fremediti-guitars' ),
+				'id'          => 'footer-3',
+				'description' => __( 'Widgets in this area will be displayed in the second column in the footer.', 'fremediti-guitars' ),
+			),
+			array(
+				'name'        => __( 'Footer #4', 'fremediti-guitars' ),
+				'id'          => 'footer-4',
+				'description' => __( 'Widgets in this area will be displayed in the second column in the footer.', 'fremediti-guitars' ),
+			),
+			array(
+				'name'        => __( 'Footer #5', 'fremediti-guitars' ),
+				'id'          => 'footer-5',
+				'description' => __( 'Widgets in this area will be displayed in the second column in the footer.', 'fremediti-guitars' ),
+			),
+		);
+
+		foreach ( $sidebars as $sidebar ) {
+			register_sidebar( array_merge( $shared_args, $sidebar ) );
+		}
+
 	}
 
 	private function _get_file_version( $filename ) {
