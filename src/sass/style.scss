@@ -30,6 +30,51 @@ $navbar-dropdown-width: 250px;
 
 @import "./node_modules/uikit/src/scss/uikit-theme.scss";
 
+/* Navbar */
+.fg-navbar-sticky {
+  background: #fff;
+  border-bottom: 1px solid #e5e5e5;
+  box-sizing: border-box;
+}
+
+/* Logo */
+.site-branding {
+  position: absolute;
+  top: 0;
+  z-index: 1100;
+
+  a {
+    display: block;
+  }
+
+  img {
+    max-width: 175px;
+  }
+}
+
+/* Menu */
+.main-navigation {
+  position: unset;
+}
+
+.menu-main-menu-container {
+  margin-left: 200px;
+
+  .uk-navbar-nav > li > a {
+    align-items: unset;
+    line-height: 100px;
+    max-height: 70px;
+    min-height: 70px;
+  }
+}
+
+.megamenu {
+  .megamenu-wrapper {
+    margin-top: 0 !important;
+    width: 100%;
+  }
+}
+
 /* Footer */
 $footer-background-color: #363636;
 $footer-text-color: #d4d2c6;

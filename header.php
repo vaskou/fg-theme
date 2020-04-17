@@ -23,12 +23,12 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 <div id="page" class="site">
-    <a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'fremediti-guitars' ); ?></a>
+<!--    <a class="skip-link screen-reader-text" href="#content">--><?php //esc_html_e( 'Skip to content', 'fremediti-guitars' ); ?><!--</a>-->
 
     <header id="masthead" class="site-header">
-        <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+        <div class="fg-navbar-sticky" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
             <div class="uk-container">
-                <nav id="site-navigation" class="main-navigation uk-navbar-container" uk-navbar>
+                <nav id="site-navigation" class="main-navigation uk-navbar-container" uk-navbar="offset:1;">
                     <div class="uk-navbar-left">
                         <div class="site-branding uk-logo">
 							<?php the_custom_logo(); ?>

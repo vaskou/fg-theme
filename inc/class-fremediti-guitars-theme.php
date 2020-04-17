@@ -22,6 +22,9 @@ class Fremediti_Guitars_Theme {
 		add_action( 'after_setup_theme', array( $this, 'setup' ) );
 		add_action( 'after_setup_theme', array( $this, 'content_width' ), 0 );
 		add_action( 'widgets_init', array( $this, 'register_sidebar' ) );
+		add_action( 'wp_nav_menu_item_custom_fields', array( $this, 'guitar_menu_enable' ), 10, 5 );
+		add_action( 'wp_update_nav_menu_item', array( $this, 'update_custom_menu_options' ), 10, 3 );
+		add_action( 'walker_nav_menu_start_el', array( $this, 'guitar_menu' ), 10, 4 );
 
 		Fremediti_Guitars_Customizer::getInstance();
 		Fremediti_Guitars_Metaboxes::getInstance();
@@ -183,6 +186,110 @@ class Fremediti_Guitars_Theme {
 			register_sidebar( array_merge( $shared_args, $sidebar ) );
 		}
 
+	}
+
+	public function guitar_menu_enable( $item_id, $item, $depth, $args, $id ) {
+		$value = get_post_meta( $item_id, '_menu_item_guitar_menu_enable', true );
+		?>
+        <p class="">
+            <label for="edit-menu-item-guitar-menu-enable-<?php echo $item_id; ?>">
+                <input type="checkbox" id="edit-menu-item-guitar-menu-enable-<?php echo $item_id; ?>" value="_blank" name="menu-item-guitar-menu-enable[<?php echo $item_id; ?>]"<?php checked( $value, '_blank' ); ?> />
+				<?php _e( 'Enable Guitar Menu', 'fremediti-guitars' ); ?>
+            </label>
+        </p>
+		<?php
+	}
+
+	public function update_custom_menu_options( $menu_id, $menu_item_db_id, $args ) {
+		if ( ! empty( $_REQUEST['menu-item-guitar-menu-enable'][ $menu_item_db_id ] ) ) {
+			update_post_meta( $menu_item_db_id, '_menu_item_guitar_menu_enable', sanitize_key( $_REQUEST['menu-item-guitar-menu-enable'][ $menu_item_db_id ] ) );
+		} else {
+			delete_post_meta( $menu_item_db_id, '_menu_item_guitar_menu_enable' );
+		}
+	}
+
+	/**
+	 * @param $item_output string
+	 * @param $item WP_Post
+	 * @param $depth integer
+	 * @param $args stdClass
+	 *
+	 * @return mixed
+	 */
+	public function guitar_menu( $item_output, $item, $depth, $args ) {
+
+		if ( ! class_exists( 'FG_Guitars_Post_Type' ) ) {
+			return $item_output;
+		}
+
+		$is_guitar_mega_menu = get_post_meta( $item->ID, '_menu_item_guitar_menu_enable', true );
+
+		if ( ! $is_guitar_mega_menu ) {
+			return $item_output;
+		}
+
+		$guitars = FG_Guitars_Post_Type::getInstance();
+
+//		var_dump( $guitars->get_categories_items_array() );
+		$categories_items_array = $guitars->get_categories_items_array();
+
+		if ( empty( $categories_items_array ) ) {
+			return $item_output;
+		}
+
+		ob_start();
+		?>
+        <div class="uk-navbar-dropdown megamenu-wrapper" uk-dropdown="boundary: .fg-navbar-sticky; boundary-align: true;">
+            <div class="uk-container">
+                <div uk-grid>
+                    <div class="uk-width-1-5@m">
+                        <ul uk-tab="connect: #menu-categories;">
+							<?php
+							foreach ( $categories_items_array as $categories ):
+								?>
+                                <li class=""><a href="<?php echo get_term_link( $categories['cat_id'] ); ?>"><?php echo esc_html( $categories['cat_name'] ); ?></a></li>
+							<?php
+							endforeach;
+							?>
+                        </ul>
+                    </div>
+                    <div class="uk-width-4-5@m">
+                        <ul id="menu-categories" class="uk-switcher">
+							<?php
+							foreach ( $categories_items_array as $categories ):
+								?>
+                                <li class="">
+                                    <div uk-slider>
+                                        <ul class="uk-slider-items uk-child-width-1-4@m uk-grid">
+											<?php
+											foreach ( $categories['items'] as $guitar ):
+												?>
+                                                <li class="uk-text-center">
+                                                    <a href="<?php echo get_permalink( $guitar['id'] ); ?>">
+														<?php echo $guitar['image']; ?>
+                                                        <div><?php echo esc_html( $guitar['title'] ); ?></div>
+                                                    </a>
+                                                </li>
+											<?php
+											endforeach;
+											?>
+                                        </ul>
+                                    </div>
+                                </li>
+							<?php
+							endforeach;
+							?>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<?php
+		$html = ob_get_clean();
+
+		$item_output .= $html;
+
+		return $item_output;
 	}
 
 	private function _get_file_version( $filename ) {
