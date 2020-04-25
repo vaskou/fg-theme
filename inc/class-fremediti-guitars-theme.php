@@ -243,7 +243,7 @@ class Fremediti_Guitars_Theme {
             <div class="uk-container">
                 <div uk-grid>
                     <div class="uk-width-1-5@m">
-                        <ul uk-tab="connect: #menu-categories;">
+                        <ul class="uk-tab-left" uk-tab="connect: #menu-categories;">
 							<?php
 							foreach ( $categories_items_array as $categories ):
 								?>
