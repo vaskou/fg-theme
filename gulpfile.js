@@ -31,7 +31,8 @@ gulp.task('build:scripts', function () {
             },
             noSource: true
         }))
-        .pipe(gulp.dest('./assets/js'));
+        .pipe(gulp.dest('./assets/js'))
+        .pipe(browserSync.stream());
 
 });
 

@@ -25,6 +25,9 @@ class Fremediti_Guitars_Theme {
 		add_action( 'wp_nav_menu_item_custom_fields', array( $this, 'guitar_menu_enable' ), 10, 5 );
 		add_action( 'wp_update_nav_menu_item', array( $this, 'update_custom_menu_options' ), 10, 3 );
 		add_action( 'walker_nav_menu_start_el', array( $this, 'guitar_menu' ), 10, 4 );
+		add_filter( 'get_the_archive_title', array( $this, 'get_the_archive_title' ) );
+		//TODO: uk-img
+//		add_filter( 'wp_get_attachment_image_attributes', array( $this, 'add_image_class' ) );
 
 		Fremediti_Guitars_Customizer::getInstance();
 		Fremediti_Guitars_Metaboxes::getInstance();
@@ -239,15 +242,17 @@ class Fremediti_Guitars_Theme {
 
 		ob_start();
 		?>
-        <div class="uk-navbar-dropdown megamenu-wrapper" uk-dropdown="boundary: .fg-navbar-sticky; boundary-align: true;">
+        <div class="uk-navbar-dropdown megamenu-wrapper fg-guitar-menu-guitars" uk-dropdown="boundary: .fg-navbar-sticky; boundary-align: true;">
             <div class="uk-container">
                 <div uk-grid>
                     <div class="uk-width-1-5@m">
-                        <ul class="uk-tab-left" uk-tab="connect: #menu-categories;">
+                        <ul class="uk-tab-left fg-guitar-menu-tabs" uk-tab="connect: #menu-categories;animation: uk-animation-fade;">
 							<?php
+							$i = 0;
 							foreach ( $categories_items_array as $categories ):
+								$i ++;
 								?>
-                                <li class=""><a href="<?php echo get_term_link( $categories['cat_id'] ); ?>"><?php echo esc_html( $categories['cat_name'] ); ?></a></li>
+                                <li class="fg-cat-<?php echo $i; ?>"><a href="<?php echo get_term_link( $categories['cat_id'] ); ?>" class="fg-category-menu-link"><?php echo esc_html( $categories['cat_name'] ); ?></a></li>
 							<?php
 							endforeach;
 							?>
@@ -290,6 +295,29 @@ class Fremediti_Guitars_Theme {
 		$item_output .= $html;
 
 		return $item_output;
+	}
+
+	public function get_the_archive_title( $title ) {
+		// From get_the_archive_title function
+		if ( is_tax() ) {
+			$queried_object = get_queried_object();
+			if ( $queried_object ) {
+				$title = sprintf( __( '%1$s' ), single_term_title( '', false ) );
+			}
+		}
+
+		return $title;
+	}
+
+	public function add_image_class( $attr ) {
+		if ( empty( $attr['uk-img'] ) ) {
+			$attr['uk-img'] = '';
+		}
+		if(empty($attr['data-src'])){
+			$attr['data-src'] = $attr['src'];
+        }
+
+		return $attr;
 	}
 
 	private function _get_file_version( $filename ) {
