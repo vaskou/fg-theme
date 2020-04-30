@@ -35,6 +35,11 @@ $footer-text-color: #d4d2c6;
 $border-color: #dddddd;
 
 /* General */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .site-content {
   margin-top: 40px;
   margin-bottom: 40px;
@@ -118,4 +123,32 @@ $border-color: #dddddd;
 .fg-box {
   border: 1px solid $border-color;
   padding: 20px;
+}
+
+/* Description List */
+@media (min-width: 768px) {
+  .uk-description-list.horizontal > dt {
+    clear: both;
+    float: left;
+    font-size: 1rem;
+    margin-top: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 160px;
+  }
+  .uk-description-list.horizontal > dd {
+    margin-left: 180px;
+  }
+}
+
+/**/
+.fg-specs {
+  &:last-child {
+    .uk-table tr:first-child {
+      @media (max-width: $breakpoint-small-max) {
+        border-top: $table-divider-border-width solid $table-divider-border;
+      }
+    }
+  }
 }

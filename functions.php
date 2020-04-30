@@ -25,5 +25,7 @@ require get_template_directory() . '/inc/class-fremediti-guitars-nav-walker.php'
 
 require get_template_directory() . '/inc/class-fremediti-guitars-metaboxes.php';
 
+require get_template_directory() . '/inc/class-fremediti-guitars-fg-guitars.php';
+
 
 Fremediti_Guitars_Theme::getInstance()->init();

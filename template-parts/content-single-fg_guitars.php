@@ -5,6 +5,12 @@ $image_gallery = FG_Guitars_Images_Fields::getInstance()->getImageGallery( $post
 $featured_image_id = array_key_first( $image_gallery );
 $image_gallery     = array_slice( $image_gallery, 1, null, true );
 
+$short_description = FG_Guitars_Short_Description_Fields::getInstance();
+$specifications    = FG_Guitars_Specifications_Fields::getInstance();
+$sounds            = FG_Guitars_Sounds_Fields::getInstance();
+$features          = FG_Guitars_Features_Fields::getInstance();
+$pricing           = FG_Guitars_Pricing_Fields::getInstance();
+
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -33,17 +39,68 @@ $image_gallery     = array_slice( $image_gallery, 1, null, true );
             </div>
         </div>
     </div>
-    <div class="fg-box uk-text-center">
-		<?php
-		$link     = get_permalink();
-		$image_id = FG_Guitars_Images_Fields::getInstance()->getMenuImageID( get_the_ID() );
 
-		?>
-        <a href="<?php echo $link; ?>" class="uk-display-block ">
-			<?php echo wp_get_attachment_image( $image_id, 'full' ); ?>
-        </a>
-        <a href="<?php echo $link; ?>" class="uk-display-block ">
-			<?php the_title( '<h3 class="entry-title">', '</h3>' ); ?>
-        </a>
+    <div>
+        <ul class="" uk-tab>
+            <li><a><?php echo __( 'Overview', 'fremediti-guitars' ); ?></a></li>
+            <li><a><?php echo $specifications->getMetaboxId(); ?></a></li>
+            <li><a><?php echo $sounds->getMetaboxId(); ?></a></li>
+			<?php
+			if ( $features->isEnabled() ):
+				?>
+                <li><a><?php echo $features->getMetaboxId(); ?></a></li>
+			<?php
+			endif;
+			?>
+            <li><a><?php echo $pricing->getMetaboxId(); ?></a></li>
+        </ul>
+        <ul class="uk-switcher">
+            <!-- Overview -->
+            <li>
+                <div class="uk-child-width-1-2@m" uk-grid>
+                    <div>
+                        <h3><?php esc_attr_e( $short_description->getTitle( $post_id ) ); ?></h3>
+                        <hr>
+                        <div class="uk-text-justify">
+							<?php the_content(); ?>
+                        </div>
+                    </div>
+                    <div>
+                        <h3><?php _e( 'Description', 'fremediti-guitars' ); ?></h3>
+                        <hr>
+                        <dl class="uk-description-list horizontal">
+                            <dt class="uk-text-right@m"><?php esc_attr_e( $short_description->getNameLabel() ); ?></dt>
+                            <dd><?php esc_attr_e( $short_description->getName( $post_id ) ); ?></dd>
+                            <dt class="uk-text-right@m"><?php esc_attr_e( $short_description->getTypeLabel() ); ?></dt>
+                            <dd><?php esc_attr_e( $short_description->getType( $post_id ) ); ?></dd>
+                            <dt class="uk-text-right@m"><?php esc_attr_e( $short_description->getStyleLabel() ); ?></dt>
+                            <dd><?php esc_attr_e( $short_description->getStyle( $post_id ) ); ?></dd>
+                            <dt class="uk-text-right@m"><?php esc_attr_e( $short_description->getPhotoLabel() ); ?></dt>
+                            <dd><?php esc_attr_e( $short_description->getPhoto( $post_id ) ); ?></dd>
+                        </dl>
+                    </div>
+                </div>
+            </li>
+            <!-- Overview End -->
+
+            <!-- Specifications -->
+            <li>
+                <div class="uk-child-width-1-2@m fg-specs" uk-grid>
+                    <?php echo Fremediti_Guitars_FG_Guitars::getInstance()->get_specs_html($post_id); ?>
+                </div>
+            </li>
+            <!-- Specifications End -->
+
+            <li></li>
+			<?php
+			if ( $features->isEnabled() ):
+				?>
+                <li></li>
+			<?php
+			endif;
+			?>
+            <li></li>
+        </ul>
     </div>
+
 </article>

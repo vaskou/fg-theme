@@ -38,7 +38,7 @@ class Fremediti_Guitars_Theme {
 	 */
 	function fremediti_guitars_scripts() {
 
-		wp_enqueue_style( 'ubuntu-fonts', 'https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap' );
+		wp_enqueue_style( 'ubuntu-fonts', 'https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i&display=swap' );
 
 		$version = $this->_get_file_version( FREMEDITI_GUITARS_THEME_PATH . '/style.css' );
 		wp_enqueue_style( 'fremediti-guitars-style', FREMEDITI_GUITARS_THEME_URL . '/style.css', array(), $version );
@@ -87,7 +87,7 @@ class Fremediti_Guitars_Theme {
 
 		// This theme uses wp_nav_menu() in one location.
 		register_nav_menus( array(
-			'menu-1'    => esc_html__( 'Primary', 'fremediti-guitars' ),
+			'primary'   => esc_html__( 'Primary', 'fremediti-guitars' ),
 			'offcanvas' => esc_html__( 'Offcanvas', 'fremediti-guitars' ),
 		) );
 
@@ -313,9 +313,9 @@ class Fremediti_Guitars_Theme {
 		if ( empty( $attr['uk-img'] ) ) {
 			$attr['uk-img'] = '';
 		}
-		if(empty($attr['data-src'])){
+		if ( empty( $attr['data-src'] ) ) {
 			$attr['data-src'] = $attr['src'];
-        }
+		}
 
 		return $attr;
 	}

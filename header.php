@@ -23,7 +23,7 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 <div id="page" class="site">
-<!--    <a class="skip-link screen-reader-text" href="#content">--><?php //esc_html_e( 'Skip to content', 'fremediti-guitars' ); ?><!--</a>-->
+    <!--    <a class="skip-link screen-reader-text" href="#content">--><?php //esc_html_e( 'Skip to content', 'fremediti-guitars' ); ?><!--</a>-->
 
     <header id="masthead" class="site-header">
         <div class="fg-navbar-sticky" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
@@ -35,13 +35,15 @@
                         </div><!-- .site-branding -->
 
 						<?php
-						wp_nav_menu( array(
-							'theme_location' => 'menu-1',
-							'menu_id'        => 'primary-menu',
-							'menu_class'     => 'uk-navbar-nav uk-visible@m',
-							'walker'         => new Fremediti_Guitars_Nav_Walker(),
-							'fg_menu_type'   => 'main'
-						) );
+						if ( has_nav_menu( 'primary' ) ):
+							wp_nav_menu( array(
+								'theme_location' => 'primary',
+								'menu_id'        => 'primary-menu',
+								'menu_class'     => 'uk-navbar-nav uk-visible@m',
+								'walker'         => new Fremediti_Guitars_Nav_Walker(),
+								'fg_menu_type'   => 'main'
+							) );
+						endif;
 						?>
                         <a class="uk-navbar-toggle uk-hidden@m" uk-navbar-toggle-icon uk-toggle href="#offcanvas"></a>
                     </div>
@@ -53,13 +55,15 @@
             <div class="uk-offcanvas-bar">
                 <button class="uk-offcanvas-close" type="button" uk-close></button>
 				<?php
-				wp_nav_menu( array(
-					'theme_location' => 'offcanvas',
-					'menu_id'        => 'primary-menu',
-					'menu_class'     => 'uk-nav',
-		            'walker'         => new Fremediti_Guitars_Nav_Walker(),
-					'fg_menu_type'   => 'offcanvas'
-				) );
+				if ( has_nav_menu( 'offcanvas' ) ):
+					wp_nav_menu( array(
+						'theme_location' => 'offcanvas',
+						'menu_id'        => 'primary-menu',
+						'menu_class'     => 'uk-nav',
+						'walker'         => new Fremediti_Guitars_Nav_Walker(),
+						'fg_menu_type'   => 'offcanvas'
+					) );
+				endif;
 				?>
             </div>
         </div>
