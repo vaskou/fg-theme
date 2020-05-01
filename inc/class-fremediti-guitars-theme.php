@@ -38,13 +38,15 @@ class Fremediti_Guitars_Theme {
 	 */
 	function fremediti_guitars_scripts() {
 
+		$prefix = defined( 'WP_DEBUG' ) && true === WP_DEBUG ? '' : '.min';
+
 		wp_enqueue_style( 'ubuntu-fonts', 'https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i&display=swap' );
 
-		$version = $this->_get_file_version( FREMEDITI_GUITARS_THEME_PATH . '/style.css' );
-		wp_enqueue_style( 'fremediti-guitars-style', FREMEDITI_GUITARS_THEME_URL . '/style.css', array(), $version );
+		$version = $this->_get_file_version( FREMEDITI_GUITARS_THEME_PATH . '/style' . $prefix . '.css' );
+		wp_enqueue_style( 'fremediti-guitars-style', FREMEDITI_GUITARS_THEME_URL . '/style' . $prefix . '.css', array(), $version );
 
-		$version = $this->_get_file_version( FREMEDITI_GUITARS_THEME_PATH . '/assets/js/scripts.js' );
-		wp_enqueue_script( 'fremediti-guitars-script', FREMEDITI_GUITARS_THEME_URL . '/assets/js/scripts.js', array( 'jquery' ), $version, true );
+		$version = $this->_get_file_version( FREMEDITI_GUITARS_THEME_PATH . '/assets/js/scripts' . $prefix . '.js' );
+		wp_enqueue_script( 'fremediti-guitars-script', FREMEDITI_GUITARS_THEME_URL . '/assets/js/scripts' . $prefix . '.js', array( 'jquery' ), $version, true );
 
 		if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 			wp_enqueue_script( 'comment-reply' );

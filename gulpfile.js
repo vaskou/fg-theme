@@ -14,7 +14,7 @@ const replace = require('gulp-replace');
 gulp.task('clean:output', function () {
     del('style.css');
     del('style.min.css');
-    return del('assets/**/*');
+    return del('assets/js/**/*');
 });
 
 gulp.task('build:scripts', function () {
@@ -25,9 +25,11 @@ gulp.task('build:scripts', function () {
         './src/js/scripts.js'
     ])
         .pipe(concat('scripts.js'))
+        .pipe(gulp.dest('./assets/js'))
+        .pipe(browserSync.stream())
         .pipe(minify({
             ext: {
-                min: '.js'
+                min: '.min.js'
             },
             noSource: true
         }))

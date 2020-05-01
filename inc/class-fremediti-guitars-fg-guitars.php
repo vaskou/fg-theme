@@ -4,7 +4,10 @@ defined( 'ABSPATH' ) or die();
 
 class Fremediti_Guitars_FG_Guitars {
 
+	private $short_description = object;
 	private $specifications = object;
+	private $sounds = object;
+	private $pricing = object;
 
 	private static $instance = null;
 
@@ -17,26 +20,53 @@ class Fremediti_Guitars_FG_Guitars {
 	}
 
 	private function __construct() {
+		if ( class_exists( 'FG_Guitars_Short_Description_Fields' ) ) {
+			$this->short_description = FG_Guitars_Short_Description_Fields::getInstance();
+		}
 		if ( class_exists( 'FG_Guitars_Specifications_Fields' ) ) {
 			$this->specifications = FG_Guitars_Specifications_Fields::getInstance();
 		}
-	}
-
-	public function get_specs( $post_id ) {
-		$new_specs = array();
-
-		$specs = $this->specifications->getPostMeta( $post_id );
-
-		foreach ( $specs as $spec ) {
-			$spec        = array_filter( $spec );
-			$new_specs[] = $spec;
+		if ( class_exists( 'FG_Guitars_Sounds_Fields' ) ) {
+			$this->sounds = FG_Guitars_Sounds_Fields::getInstance();
 		}
 
-		return $new_specs;
+		if ( class_exists( 'FG_Guitars_Pricing_Fields' ) ) {
+			$this->pricing = FG_Guitars_Pricing_Fields::getInstance();
+		}
+	}
+
+	public function get_short_description_html( $post_id ) {
+		ob_start();
+		?>
+        <div class="uk-child-width-1-2@m" uk-grid>
+            <div>
+                <h3><?php esc_attr_e( $this->short_description->getTitle( $post_id ) ); ?></h3>
+                <hr>
+                <div class="uk-text-justify">
+					<?php the_content(); ?>
+                </div>
+            </div>
+            <div>
+                <h3><?php _e( 'Description', 'fremediti-guitars' ); ?></h3>
+                <hr>
+                <dl class="uk-description-list horizontal">
+                    <dt class="uk-text-right@m"><?php esc_attr_e( $this->short_description->getNameLabel() ); ?></dt>
+                    <dd><?php esc_attr_e( $this->short_description->getName( $post_id ) ); ?></dd>
+                    <dt class="uk-text-right@m"><?php esc_attr_e( $this->short_description->getTypeLabel() ); ?></dt>
+                    <dd><?php esc_attr_e( $this->short_description->getType( $post_id ) ); ?></dd>
+                    <dt class="uk-text-right@m"><?php esc_attr_e( $this->short_description->getStyleLabel() ); ?></dt>
+                    <dd><?php esc_attr_e( $this->short_description->getStyle( $post_id ) ); ?></dd>
+                    <dt class="uk-text-right@m"><?php esc_attr_e( $this->short_description->getPhotoLabel() ); ?></dt>
+                    <dd><?php esc_attr_e( $this->short_description->getPhoto( $post_id ) ); ?></dd>
+                </dl>
+            </div>
+        </div>
+		<?php
+		return ob_get_clean();
 	}
 
 	public function get_specs_html( $post_id ) {
-		$specs = $this->get_specs( $post_id );
+		$specs = $this->_get_specs( $post_id );
 
 		$has_spec_variations = $this->specifications->hasVariations();
 
@@ -50,24 +80,119 @@ class Fremediti_Guitars_FG_Guitars {
 		return ob_get_clean();
 	}
 
+	public function get_sounds_html( $post_id ) {
+		$sounds = $this->sounds->getPostMeta( $post_id );
+
+		ob_start();
+		if ( ! empty( $sounds ) ):
+			?>
+            <div uk-lightbox>
+                <div class="uk-child-width-1-2 uk-child-width-1-4@m" uk-grid>
+					<?php
+					foreach ( $sounds as $sound ):
+						?>
+                        <a href="//youtube.com/watch?v=<?php echo $sound; ?>" data-attrs="width: 1280; height: 720;">
+                            <img src="//img.youtube.com/vi/<?php echo $sound; ?>/sddefault.jpg" alt="<?php _e( 'Guitar Video', 'fremediti-guitars' ); ?>"/>
+                        </a>
+					<?php
+					endforeach;
+					?>
+                </div>
+            </div>
+		<?php
+		else:
+			?>
+            <div class="uk-text-center uk-margin-top">
+                <img src="<?php echo FREMEDITI_GUITARS_THEME_URL ?>/assets/images/coming_soon.png" alt="<?php _e( 'Guitar Videos Coming Soon' ); ?>">
+            </div>
+		<?php
+		endif;
+
+		return ob_get_clean();
+	}
+
+	public function get_pricing_html( $post_id ) {
+		$pricing_items = $this->pricing->getPriceItems( $post_id );
+		$pricing_text  = $this->pricing->getPriceText( $post_id );
+		$base_price    = $this->pricing->getPrice( $post_id );
+		var_dump( $pricing_text );
+		ob_start();
+		?>
+        <div class="uk-child-width-1-2@m" uk-grid>
+			<?php
+			if ( ! empty( $pricing_items ) ):
+				?>
+                <div class="fg-guitar-pricing-extra-options">
+                    <h3><?php echo $this->pricing->getPriceItemsLabel(); ?></h3>
+                    <table class="uk-table uk-table-small uk-table-divider uk-table-responsive">
+                        <tbody>
+						<?php
+						foreach ( $pricing_items as $item ):
+							$item_price = number_format_i18n( $item['extra_option_price'] );
+							?>
+                            <tr>
+                                <td class="uk-width-5-6"><?php esc_attr_e( $item['extra_option'] ); ?></td>
+                                <td class="uk-width-1-6 uk-text-right">
+                                    <span class="fg-original-price">$<?php esc_attr_e( $item_price ); ?></span>
+                                    <span class="fg-converted-price uk-hidden">€183</span>
+                                </td>
+                            </tr>
+						<?php
+						endforeach;
+						?>
+                        </tbody>
+                    </table>
+                </div>
+			<?php
+			endif;
+			?>
+            <div class="fg-guitar-pricing">
+                <h3 class="fg-base-price uk-text-right@m">
+					<?php echo $this->pricing->getPriceLabel(); ?> : <span class="fg-original-price">$<?php esc_attr_e( number_format_i18n( $base_price ) ); ?>*</span>
+                    <span class="fg-converted-price uk-hidden">€3424* </span>
+                    <button class="uk-button fg-usd fg-currency-button fg-selected">$</button>
+                    <button class="uk-button fg-eur fg-currency-button">€</button>
+                </h3>
+            </div>
+        </div>
+		<?php
+		return ob_get_clean();
+	}
+
+	private function _get_specs( $post_id ) {
+		$new_specs = array();
+
+		$specs = $this->specifications->getPostMeta( $post_id );
+
+		foreach ( $specs as $spec ) {
+			$spec        = array_filter( $spec );
+			$new_specs[] = $spec;
+		}
+
+		return $new_specs;
+	}
+
 	private function _get_specs_tabs( $specs = array() ) {
 		ob_start();
 		?>
-        <ul uk-tab>
+        <ul class="fg-specs-variations-tabs" uk-tab>
 			<?php
-			foreach ( $specs as $spec ):
-				if ( ! empty( $spec['configuration_image_id'] ) ):
-					?>
-                    <li><a><?php echo wp_get_attachment_image( $spec['configuration_image_id'], 'thumbnail' ); ?></a></li>
-				<?php
-				endif;
+			foreach ( $specs as $key => $spec ):
+				?>
+                <li>
+                    <a href="">
+						<?php echo ! empty( $spec['configuration_image_id'] ) ?
+							wp_get_attachment_image( $spec['configuration_image_id'], 'thumbnail' ) :
+							sprintf( __( 'Configuration %s', 'fremediti-guitars' ), $key + 1 ); ?>
+                    </a>
+                </li>
+			<?php
 			endforeach;
 			?>
         </ul>
 		<?php
 		return ob_get_clean();
 	}
-
 
 	private function _get_specs_content( $specs = array() ) {
 		$has_spec_variations = $this->specifications->hasVariations();
@@ -134,7 +259,7 @@ class Fremediti_Guitars_FG_Guitars {
 	}
 
 	private function _divide_array( $array ) {
-		$half_array = count( $array ) / 2;
+		$half_array = round( count( $array ) / 2 );
 
 		return array(
 			array_slice( $array, 0, $half_array, true ),

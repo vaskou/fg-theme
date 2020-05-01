@@ -142,7 +142,13 @@ html {
   }
 }
 
-/**/
+/* Specs */
+.fg-specs-variations-tabs {
+  li {
+    align-self: flex-end;
+  }
+}
+
 .fg-specs {
   &:last-child {
     .uk-table tr:first-child {

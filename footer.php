@@ -43,7 +43,7 @@ for ( $i = 1; $i <= 5; $i ++ ) {
 			<div class="uk-container">
 				<div class="uk-grid-small uk-flex-right@m uk-flex-center" uk-grid>
 					<span class="">© 2016 Fremediti Guitars - All rights reserved. </span>
-					<span class="">::website by <a title="" href="http://www.yesinternet.gr" target="_blank">YES Internet</a></span>
+					<span class="">::website by <a title="" href="http://www.yesinternet.gr" target="_blank" rel="noreferrer">YES Internet</a></span>
 				</div>
 			</div>
 		</div><!-- .site-info -->
