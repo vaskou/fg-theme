@@ -85,9 +85,7 @@ $pricing           = FG_Guitars_Pricing_Fields::getInstance();
 
             <!-- Specifications -->
             <li>
-                <div class="uk-child-width-1-2@m fg-specs" uk-grid>
-                    <?php echo Fremediti_Guitars_FG_Guitars::getInstance()->get_specs_html($post_id); ?>
-                </div>
+				<?php echo Fremediti_Guitars_FG_Guitars::getInstance()->get_specs_html( $post_id ); ?>
             </li>
             <!-- Specifications End -->
 

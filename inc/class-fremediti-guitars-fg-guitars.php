@@ -27,14 +27,9 @@ class Fremediti_Guitars_FG_Guitars {
 
 		$specs = $this->specifications->getPostMeta( $post_id );
 
-		$has_spec_variations = $this->specifications->hasVariations();
-
-		if ( $has_spec_variations ) {
-			foreach ( $specs as $spec ) {
-				$new_specs[] = $this->_divide_array( $spec );
-			}
-		} else {
-			$new_specs = $this->_divide_array( $specs[0] );
+		foreach ( $specs as $spec ) {
+			$spec        = array_filter( $spec );
+			$new_specs[] = $spec;
 		}
 
 		return $new_specs;
@@ -43,14 +38,71 @@ class Fremediti_Guitars_FG_Guitars {
 	public function get_specs_html( $post_id ) {
 		$specs = $this->get_specs( $post_id );
 
+		$has_spec_variations = $this->specifications->hasVariations();
+
 		ob_start();
-		foreach ( $specs as $spec ):
+		if ( $has_spec_variations ):
+			echo $this->_get_specs_tabs( $specs );
+		endif;
+
+		echo $this->_get_specs_content( $specs );
+
+		return ob_get_clean();
+	}
+
+	private function _get_specs_tabs( $specs = array() ) {
+		ob_start();
+		?>
+        <ul uk-tab>
+			<?php
+			foreach ( $specs as $spec ):
+				if ( ! empty( $spec['configuration_image_id'] ) ):
+					?>
+                    <li><a><?php echo wp_get_attachment_image( $spec['configuration_image_id'], 'thumbnail' ); ?></a></li>
+				<?php
+				endif;
+			endforeach;
 			?>
-            <div class="uk-margin-remove-top">
-				<?php echo $this->_specs_table( $spec ); ?>
-            </div>
+        </ul>
 		<?php
+		return ob_get_clean();
+	}
+
+
+	private function _get_specs_content( $specs = array() ) {
+		$has_spec_variations = $this->specifications->hasVariations();
+
+		echo $has_spec_variations ? '<ul class="uk-switcher uk-margin-top">' : '';
+
+		ob_start();
+
+		foreach ( $specs as $spec ):
+			unset( $spec['configuration_image_id'] );
+			unset( $spec['configuration_image'] );
+
+			$divided_specs = $this->_divide_array( $spec );
+
+			echo $has_spec_variations ? '<li>' : '';
+
+			?>
+            <div class="uk-child-width-1-2@m fg-specs" uk-grid>
+				<?php
+				foreach ( $divided_specs as $spec ):
+					?>
+                    <div class="uk-margin-remove-top">
+						<?php echo $this->_specs_table( $spec ); ?>
+                    </div>
+				<?php
+				endforeach;
+				?>
+            </div>
+			<?php
+
+			echo $has_spec_variations ? '</li>' : '';
+
 		endforeach;
+
+		echo $has_spec_variations ? '</ul>' : '';
 
 		return ob_get_clean();
 	}
@@ -82,11 +134,11 @@ class Fremediti_Guitars_FG_Guitars {
 	}
 
 	private function _divide_array( $array ) {
-		$half_array = (count( $array ) / 2) + 1;
+		$half_array = count( $array ) / 2;
 
 		return array(
 			array_slice( $array, 0, $half_array, true ),
-			array_slice( $array, $half_array + 1, null, true )
+			array_slice( $array, $half_array, null, true )
 		);
 	}
 }
