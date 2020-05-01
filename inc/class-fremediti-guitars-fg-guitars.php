@@ -115,7 +115,11 @@ class Fremediti_Guitars_FG_Guitars {
 		$pricing_items = $this->pricing->getPriceItems( $post_id );
 		$pricing_text  = $this->pricing->getPriceText( $post_id );
 		$base_price    = $this->pricing->getPrice( $post_id );
-		var_dump( $pricing_text );
+
+		if ( function_exists( 'currency_exchange_rates_convert' ) ) {
+			$base_price_converted = currency_exchange_rates_convert( $base_price, 'EUR' );
+		}
+
 		ob_start();
 		?>
         <div class="uk-child-width-1-2@m" uk-grid>
@@ -133,8 +137,17 @@ class Fremediti_Guitars_FG_Guitars {
                             <tr>
                                 <td class="uk-width-5-6"><?php esc_attr_e( $item['extra_option'] ); ?></td>
                                 <td class="uk-width-1-6 uk-text-right">
-                                    <span class="fg-original-price">$<?php esc_attr_e( $item_price ); ?></span>
-                                    <span class="fg-converted-price uk-hidden">€183</span>
+                                    <span class="fg-original-price">&dollar;<?php esc_attr_e( $item_price ); ?></span>
+									<?php
+									if ( function_exists( 'currency_exchange_rates_convert' ) ) {
+										$item_price_converted = currency_exchange_rates_convert( $item_price, 'EUR' );
+									}
+									if ( ! empty( $item_price_converted ) ):
+										?>
+                                        <span class="fg-converted-price uk-hidden">&euro;<?php esc_attr_e( number_format_i18n( $item_price_converted ) ); ?></span>
+									<?php
+									endif;
+									?>
                                 </td>
                             </tr>
 						<?php
@@ -148,11 +161,20 @@ class Fremediti_Guitars_FG_Guitars {
 			?>
             <div class="fg-guitar-pricing">
                 <h3 class="fg-base-price uk-text-right@m">
-					<?php echo $this->pricing->getPriceLabel(); ?> : <span class="fg-original-price">$<?php esc_attr_e( number_format_i18n( $base_price ) ); ?>*</span>
-                    <span class="fg-converted-price uk-hidden">€3424* </span>
-                    <button class="uk-button fg-usd fg-currency-button fg-selected">$</button>
-                    <button class="uk-button fg-eur fg-currency-button">€</button>
+					<?php echo $this->pricing->getPriceLabel(); ?> : <span class="fg-original-price">&dollar;<?php esc_attr_e( number_format_i18n( $base_price ) ); ?>*</span>
+					<?php
+					if ( ! empty( $base_price_converted ) ):
+						?>
+                        <span class="fg-converted-price uk-hidden">&euro;<?php esc_attr_e( number_format_i18n( $base_price_converted ) ); ?>* </span>
+                        <button class="uk-button fg-usd fg-currency-button fg-selected">&dollar;</button>
+                        <button class="uk-button fg-eur fg-currency-button">&euro;</button>
+					<?php
+					endif;
+					?>
                 </h3>
+                <div>
+					<?php esc_attr_e( $pricing_text ); ?>
+                </div>
             </div>
         </div>
 		<?php

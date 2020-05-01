@@ -42,6 +42,8 @@ class Fremediti_Guitars_Theme {
 
 		wp_enqueue_style( 'ubuntu-fonts', 'https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i&display=swap' );
 
+		wp_enqueue_script( 'js-cookie', 'https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js', array(), '2', true );
+
 		$version = $this->_get_file_version( FREMEDITI_GUITARS_THEME_PATH . '/style' . $prefix . '.css' );
 		wp_enqueue_style( 'fremediti-guitars-style', FREMEDITI_GUITARS_THEME_URL . '/style' . $prefix . '.css', array(), $version );
 
