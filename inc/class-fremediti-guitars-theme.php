@@ -175,17 +175,22 @@ class Fremediti_Guitars_Theme {
 			array(
 				'name'        => __( 'Footer #3', 'fremediti-guitars' ),
 				'id'          => 'footer-3',
-				'description' => __( 'Widgets in this area will be displayed in the second column in the footer.', 'fremediti-guitars' ),
+				'description' => __( 'Widgets in this area will be displayed in the third column in the footer.', 'fremediti-guitars' ),
 			),
 			array(
 				'name'        => __( 'Footer #4', 'fremediti-guitars' ),
 				'id'          => 'footer-4',
-				'description' => __( 'Widgets in this area will be displayed in the second column in the footer.', 'fremediti-guitars' ),
+				'description' => __( 'Widgets in this area will be displayed in the fourth column in the footer.', 'fremediti-guitars' ),
 			),
 			array(
 				'name'        => __( 'Footer #5', 'fremediti-guitars' ),
 				'id'          => 'footer-5',
-				'description' => __( 'Widgets in this area will be displayed in the second column in the footer.', 'fremediti-guitars' ),
+				'description' => __( 'Widgets in this area will be displayed in the fifth column in the footer.', 'fremediti-guitars' ),
+			),
+			array(
+				'name'        => __( 'Pre Footer', 'fremediti-guitars' ),
+				'id'          => 'pre-footer',
+				'description' => __( 'Widgets in this area will be displayed before the footer.', 'fremediti-guitars' ),
 			),
 		);
 

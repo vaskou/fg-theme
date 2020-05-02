@@ -41,7 +41,7 @@ class Fremediti_Guitars_Metaboxes {
         <div class="components-base-control">
             <label for="<?php echo $meta_key; ?>" class="components-base-control__label">
                 <input type="checkbox" id="<?php echo $meta_key; ?>" class="components-text-control__input" name="<?php echo $meta_key; ?>" value="on" <?php checked( $value, 'on' ); ?> />
-				<?php _e( 'Description for this field', 'textdomain' ); ?>
+				<?php _e( 'Enable sidebar for this page', 'fremediti-guitars' ); ?>
             </label>
         </div>
 		<?php

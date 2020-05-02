@@ -23,6 +23,11 @@ for ( $i = 1; $i <= 5; $i ++ ) {
 
 	</div><!-- #content -->
 
+    <div class="uk-container fg-pre-footer">
+        <div class="uk-margin-medium-top uk-margin-medium-bottom">
+            <?php dynamic_sidebar( 'pre-footer' ); ?>
+        </div>
+    </div>
 	<footer id="colophon" class="site-footer">
 		<div class="footer-widgets uk-container">
 			<div class="uk-child-width-1-<?php echo $footer_count; ?>@m uk-child-width-1-<?php echo ( $footer_count / 2 >= 1 ) ? '2' : '1'; ?>@s uk-child-width-1-1@xs" uk-grid>
