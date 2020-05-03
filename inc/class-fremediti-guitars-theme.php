@@ -18,6 +18,7 @@ class Fremediti_Guitars_Theme {
 	}
 
 	public function init() {
+		add_action( 'init', array( $this, 'add_editor_style' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'fremediti_guitars_scripts' ) );
 		add_action( 'after_setup_theme', array( $this, 'setup' ) );
 		add_action( 'after_setup_theme', array( $this, 'content_width' ), 0 );
@@ -31,6 +32,10 @@ class Fremediti_Guitars_Theme {
 
 		Fremediti_Guitars_Customizer::getInstance();
 		Fremediti_Guitars_Metaboxes::getInstance();
+	}
+
+	public function add_editor_style() {
+		add_editor_style( '/assets/admin/css/styles.css' );
 	}
 
 	/**
@@ -127,6 +132,8 @@ class Fremediti_Guitars_Theme {
 			'flex-width'  => true,
 			'flex-height' => true,
 		) );
+
+		add_theme_support( 'editor-styles' );
 	}
 
 	/**

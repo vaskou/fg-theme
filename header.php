@@ -68,5 +68,10 @@
             </div>
         </div>
     </header><!-- #masthead -->
-
-    <div id="content" class="site-content uk-container">
+	<?php
+	$container_class = '';
+	if ( ! Fremediti_Guitars_Metaboxes::is_full_width( get_the_ID() ) ) {
+		$container_class = 'uk-container';
+	}
+	?>
+    <div id="content" class="site-content <?php echo $container_class; ?>">

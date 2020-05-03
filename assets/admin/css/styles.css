@@ -1,0 +1,7 @@
+.wp-block {
+    max-width: 1200px;
+}
+
+.wp-block-group {
+    border: 1px dashed #dddddd;
+}
