@@ -36,6 +36,31 @@ class Fremediti_Guitars_Theme {
 
 	public function add_editor_style() {
 		add_editor_style( '/assets/admin/css/styles.css' );
+
+		if ( function_exists( 'register_block_type' ) ) {
+
+			wp_register_script(
+				'fremediti-guitars-grid-column',
+				FREMEDITI_GUITARS_THEME_URL . '/assets/admin/js/block-editor/grid-column.js',
+				array( 'wp-block-editor', 'wp-blocks', 'wp-element', 'wp-polyfill' ),
+				filemtime( FREMEDITI_GUITARS_THEME_PATH . '/assets/admin/js/block-editor/grid-column.js' )
+			);
+
+			register_block_type( 'fremediti-guitars/grid-column', array(
+				'editor_script' => 'fremediti-guitars-grid-column',
+			) );
+
+			wp_register_script(
+				'fremediti-guitars-grid',
+				FREMEDITI_GUITARS_THEME_URL . '/assets/admin/js/block-editor/grid.js',
+				array( 'wp-block-editor', 'wp-blocks', 'wp-element', 'wp-polyfill' ),
+				filemtime( FREMEDITI_GUITARS_THEME_PATH . '/assets/admin/js/block-editor/grid.js' )
+			);
+
+			register_block_type( 'fremediti-guitars/grid', array(
+				'editor_script' => 'fremediti-guitars-grid',
+			) );
+		}
 	}
 
 	/**

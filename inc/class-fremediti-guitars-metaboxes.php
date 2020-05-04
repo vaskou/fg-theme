@@ -89,9 +89,15 @@ class Fremediti_Guitars_Metaboxes {
 		}
 
 		foreach ( $meta_keys as $meta_key ) {
-			$mydata = sanitize_text_field( $_POST[ self::METABOX_PREFIX . $meta_key ] );
+			$key = self::METABOX_PREFIX . $meta_key;
 
-			update_post_meta( $post_id, self::METABOX_PREFIX . $meta_key, $mydata );
+			if ( empty( $_POST[ $key ] ) ) {
+				continue;
+			}
+
+			$mydata = sanitize_text_field( $_POST[ $key ] );
+
+			update_post_meta( $post_id, $key, $mydata );
 		}
 
 		return $post_id;
