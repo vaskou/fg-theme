@@ -118,10 +118,12 @@ if ( ! function_exists( 'fremediti_guitars_post_thumbnail' ) ) :
 	 * Wraps the post thumbnail in an anchor element on index views, or a div
 	 * element when on single views.
 	 */
-	function fremediti_guitars_post_thumbnail() {
+	function fremediti_guitars_post_thumbnail( $before = '', $after = '' ) {
 		if ( post_password_required() || is_attachment() || ! has_post_thumbnail() ) {
 			return;
 		}
+
+		echo $before;
 
 		if ( is_singular() ) :
 			?>
@@ -144,6 +146,8 @@ if ( ! function_exists( 'fremediti_guitars_post_thumbnail' ) ) :
 
 		<?php
 		endif; // End is_singular().
+
+        echo $after;
 	}
 endif;
 

@@ -161,7 +161,9 @@ class Fremediti_Guitars_FG_Guitars {
 			?>
             <div class="fg-guitar-pricing">
                 <h3 class="fg-base-price uk-text-right@m">
-					<?php echo $this->pricing->getPriceLabel(); ?> : <span class="fg-original-price">&dollar;<?php esc_attr_e( number_format_i18n( $base_price ) ); ?>*</span>
+	                <?php if ( ! empty( $base_price ) ): ?>
+		                <?php echo $this->pricing->getPriceLabel(); ?> : <span class="fg-original-price">&dollar;<?php esc_attr_e( number_format_i18n( $base_price ) ); ?>*</span>
+	                <?php endif; ?>
 					<?php
 					if ( ! empty( $base_price_converted ) ):
 						?>

@@ -345,6 +345,9 @@ class Fremediti_Guitars_Theme {
 			if ( $queried_object ) {
 				$title = sprintf( __( '%1$s' ), single_term_title( '', false ) );
 			}
+		}elseif ( is_post_type_archive() ) {
+			/* translators: Post type archive title. %s: Post type name. */
+			$title = sprintf( __( '%s' ), post_type_archive_title( '', false ) );
 		}
 
 		return $title;
