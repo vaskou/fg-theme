@@ -12,7 +12,7 @@
 <article id="post-<?php the_ID(); ?>" <?php post_class( 'uk-article' ); ?>>
     <header class="entry-header">
 		<?php
-		if ( is_singular() ) :
+		if ( is_singular( get_post_type() ) ) :
 			the_title( '<h1 class="entry-title uk-article-title">', '</h1>' );
 		else :
 			the_title( '<h2 class="entry-title uk-article-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );
@@ -29,7 +29,7 @@
 
 		<?php
 
-		if ( is_singular() ) :
+		if ( is_singular( get_post_type() ) ) :
 			if ( has_post_thumbnail() ):
 				?>
                 <div uk-lightbox>
@@ -40,7 +40,11 @@
 			<?php
 			endif;
 		else:
-			fremediti_guitars_post_thumbnail();
+			?>
+            <a href="<?php echo esc_url( get_permalink() ); ?>" rel="bookmark">
+				<?php fremediti_guitars_post_thumbnail(); ?>
+            </a>
+		<?php
 		endif;
 
 		?>

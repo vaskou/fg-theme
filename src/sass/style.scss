@@ -31,9 +31,18 @@ $global-link-hover-color: #d00000;
 $base-selection-background: #8b0000;
 $global-primary-background: #8b0000;
 
-
 @import "./node_modules/uikit/src/scss/variables-theme.scss";
 @import "./node_modules/uikit/src/scss/mixins-theme.scss";
+
+@mixin hook-dropdown-nav-item(){
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+@mixin hook-dropdown-nav-item-hover() {
+  color: #ffffff;
+  background: $global-primary-background;
+}
 
 @import "./node_modules/uikit/src/scss/uikit-theme.scss";
 
@@ -96,6 +105,15 @@ html {
   .megamenu-wrapper {
     margin-top: 0 !important;
     width: 100%;
+  }
+}
+
+.menu-item {
+  &:not(.megamenu){
+    .uk-navbar-dropdown {
+      padding-left: 0;
+      padding-right: 0;
+    }
   }
 }
 
