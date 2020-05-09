@@ -19,6 +19,7 @@ class Fremediti_Guitars_Theme {
 
 	public function init() {
 		add_action( 'init', array( $this, 'add_editor_style' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'fremediti_guitars_scripts' ) );
 		add_action( 'after_setup_theme', array( $this, 'setup' ) );
 		add_action( 'after_setup_theme', array( $this, 'content_width' ), 0 );
@@ -33,6 +34,7 @@ class Fremediti_Guitars_Theme {
 		Fremediti_Guitars_Customizer::getInstance();
 		Fremediti_Guitars_Metaboxes::getInstance();
 		Fremediti_Guitars_Gallery_Post_Type::getInstance()->init();
+		Fremediti_Guitars_Videos_Post_Type::getInstance()->init();
 	}
 
 	public function add_editor_style() {
@@ -62,6 +64,10 @@ class Fremediti_Guitars_Theme {
 				'editor_script' => 'fremediti-guitars-grid',
 			) );
 		}
+	}
+
+	public function admin_scripts() {
+		wp_enqueue_script( 'fremediti-guitars-admin-scripts', FREMEDITI_GUITARS_THEME_URL . '/assets/admin/js/scripts.js', array( 'jquery' ) );
 	}
 
 	/**
@@ -355,6 +361,10 @@ class Fremediti_Guitars_Theme {
 	}
 
 	public function add_image_class( $attr ) {
+		if ( is_admin() ) {
+			return $attr;
+		}
+
 		if ( empty( $attr['uk-img'] ) ) {
 			$attr['uk-img'] = '';
 		}

@@ -27,6 +27,7 @@ class Fremediti_Guitars_Gallery_Post_Type {
 	public function init() {
 		add_action( 'init', array( $this, 'register_post_type' ) );
 		add_action( 'cmb2_admin_init', array( $this, 'add_metaboxes' ) );
+		add_action( 'add_meta_boxes', array( $this, 'add_shortcode_metabox' ) );
 		add_action( 'init', array( $this, 'register_shortcodes' ) );
 	}
 
@@ -107,9 +108,24 @@ class Fremediti_Guitars_Gallery_Post_Type {
 
 		$metabox->add_field( array(
 			'id'   => 'fg_gallery_images',
-			'name' => __( 'Images', 'fg-guitars' ),
+			'name' => __( 'Images', 'fremediti-guitars' ),
 			'type' => 'file_list'
 		) );
+	}
+
+	public function add_shortcode_metabox() {
+		add_meta_box( 'fg_gallery_options', __( 'Shortcode', 'fremediti-guitars' ), array( $this, 'shortcode_metabox_html' ), self::POST_TYPE_NAME, 'side' );
+	}
+
+	public function shortcode_metabox_html( $post ) {
+		?>
+
+        <div>
+            <a href="#" onclick="copyToClipboard(this);"><code>[<?php echo self::GALLERY_SHORTCODE_NAME; ?> id=<?php echo $post->ID; ?>]</code></a>
+            <span class="copied-shortcode" style="display: none;"><?php echo __( 'Copied', 'fremediti-guitars' ); ?></span>
+        </div>
+
+		<?php
 	}
 
 	public function register_shortcodes() {
@@ -130,7 +146,6 @@ class Fremediti_Guitars_Gallery_Post_Type {
 
 		$images = get_post_meta( $args['id'], 'fg_gallery_images', true );
 
-//		var_dump( $images );
 		if ( empty( $images ) ) {
 			return '';
 		}
