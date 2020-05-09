@@ -7,6 +7,7 @@ class Fremediti_Guitars_FG_Guitars {
 	private $short_description = object;
 	private $specifications = object;
 	private $sounds = object;
+	private $features = object;
 	private $pricing = object;
 
 	private static $instance = null;
@@ -23,11 +24,17 @@ class Fremediti_Guitars_FG_Guitars {
 		if ( class_exists( 'FG_Guitars_Short_Description_Fields' ) ) {
 			$this->short_description = FG_Guitars_Short_Description_Fields::getInstance();
 		}
+
 		if ( class_exists( 'FG_Guitars_Specifications_Fields' ) ) {
 			$this->specifications = FG_Guitars_Specifications_Fields::getInstance();
 		}
+
 		if ( class_exists( 'FG_Guitars_Sounds_Fields' ) ) {
 			$this->sounds = FG_Guitars_Sounds_Fields::getInstance();
+		}
+
+		if ( class_exists( 'FG_Guitars_Features_Fields' ) ) {
+			$this->features = FG_Guitars_Features_Fields::getInstance();
 		}
 
 		if ( class_exists( 'FG_Guitars_Pricing_Fields' ) ) {
@@ -111,6 +118,20 @@ class Fremediti_Guitars_FG_Guitars {
 		return ob_get_clean();
 	}
 
+	public function get_features_html( $post_id ) {
+		$features = $this->features->getPostMeta( $post_id );
+
+		$features_post_in = ! empty( $features['features']['feature'] ) ? implode( ',', $features['features']['feature'] ) : '';
+
+		ob_start();
+
+		if ( ! empty( $features_post_in ) ):
+			echo do_shortcode( '[fg-features post__in="' . $features_post_in . '"]' );
+		endif;
+
+		return ob_get_clean();
+	}
+
 	public function get_pricing_html( $post_id ) {
 		$pricing_items = $this->pricing->getPriceItems( $post_id );
 		$pricing_text  = $this->pricing->getPriceText( $post_id );
@@ -161,9 +182,9 @@ class Fremediti_Guitars_FG_Guitars {
 			?>
             <div class="fg-guitar-pricing">
                 <h3 class="fg-base-price uk-text-right@m">
-	                <?php if ( ! empty( $base_price ) ): ?>
-		                <?php echo $this->pricing->getPriceLabel(); ?> : <span class="fg-original-price">&dollar;<?php esc_attr_e( number_format_i18n( $base_price ) ); ?>*</span>
-	                <?php endif; ?>
+					<?php if ( ! empty( $base_price ) ): ?>
+						<?php echo $this->pricing->getPriceLabel(); ?> : <span class="fg-original-price">&dollar;<?php esc_attr_e( number_format_i18n( $base_price ) ); ?>*</span>
+					<?php endif; ?>
 					<?php
 					if ( ! empty( $base_price_converted ) ):
 						?>

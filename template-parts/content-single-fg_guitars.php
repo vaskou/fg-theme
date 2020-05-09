@@ -79,7 +79,7 @@ $single_guitar = Fremediti_Guitars_FG_Guitars::getInstance();
 				?>
                 <!-- Features -->
                 <li>
-
+	                <?php echo $single_guitar->get_features_html( $post_id ); ?>
                 </li>
                 <!-- Features End -->
 			<?php
