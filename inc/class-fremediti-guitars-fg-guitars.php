@@ -122,11 +122,16 @@ class Fremediti_Guitars_FG_Guitars {
 		$features = $this->features->getPostMeta( $post_id );
 
 		$features_post_in = ! empty( $features['features']['feature'] ) ? implode( ',', $features['features']['feature'] ) : '';
+		$pickups_post_in = ! empty( $features['features']['pickup'] ) ? implode( ',', $features['features']['pickup'] ) : '';
 
 		ob_start();
 
 		if ( ! empty( $features_post_in ) ):
 			echo do_shortcode( '[fg-features post__in="' . $features_post_in . '"]' );
+		endif;
+
+		if ( ! empty( $pickups_post_in ) ):
+			echo do_shortcode( '[fg-pickups post__in="' . $pickups_post_in . '"]' );
 		endif;
 
 		return ob_get_clean();
