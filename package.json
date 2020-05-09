@@ -15,7 +15,7 @@
     "gulp-replace": "^1.0.0",
     "gulp-sass": "^4.1.0",
     "gulp-sourcemaps": "^2.6.5",
-    "uikit": "^3.4.2"
+    "uikit": "^3.4.4"
   },
   "browserslist": [
     "last 10 versions"

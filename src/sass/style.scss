@@ -281,3 +281,10 @@ article.fg_features {
     padding-bottom: 40px;
   }
 }
+
+/* Gallery */
+.fg-gallery {
+  img {
+    border: 2px solid $global-border;
+  }
+}

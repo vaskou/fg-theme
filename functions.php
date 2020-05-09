@@ -27,5 +27,7 @@ require get_template_directory() . '/inc/class-fremediti-guitars-metaboxes.php';
 
 require get_template_directory() . '/inc/class-fremediti-guitars-fg-guitars.php';
 
+require get_template_directory() . '/inc/class-fremediti-guitars-gallery-post-type.php';
+
 
 Fremediti_Guitars_Theme::getInstance()->init();

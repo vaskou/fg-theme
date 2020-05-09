@@ -24,6 +24,21 @@
         <div class="entry-content uk-text-justify">
 			<?php
 			the_content();
+
+			if ( class_exists( 'FG_Pickups_Post_Type' ) && FG_Pickups_Post_Type::POST_TYPE_NAME == get_post_type() ):
+				$fg_pickups_image_id = FG_Pickups_Post_Type::getInstance()->get_pickup_image_id( get_the_ID() );
+				$url = wp_get_attachment_url( $fg_pickups_image_id );
+				if ( ! empty( $url ) ):
+					?>
+                    <div uk-lightbox>
+                        <a href="<?php echo esc_url( $url ); ?>" class="uk-button uk-button-primary">
+							<?php _e( 'Specs', 'fremediti-guitars' ); ?>
+                        </a>
+                    </div>
+				<?php
+				endif;
+			endif
+
 			?>
         </div><!-- .entry-content -->
 

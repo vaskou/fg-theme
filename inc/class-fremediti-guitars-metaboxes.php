@@ -91,13 +91,13 @@ class Fremediti_Guitars_Metaboxes {
 		foreach ( $meta_keys as $meta_key ) {
 			$key = self::METABOX_PREFIX . $meta_key;
 
-			if ( empty( $_POST[ $key ] ) ) {
-				continue;
+			if ( ! empty( $_POST[ $key ] ) ) {
+				$mydata = sanitize_text_field( $_POST[ $key ] );
+
+				update_post_meta( $post_id, $key, $mydata );
+			} else {
+				delete_post_meta( $post_id, $key );
 			}
-
-			$mydata = sanitize_text_field( $_POST[ $key ] );
-
-			update_post_meta( $post_id, $key, $mydata );
 		}
 
 		return $post_id;
