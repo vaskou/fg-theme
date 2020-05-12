@@ -31,7 +31,7 @@ class Fremediti_Guitars_Nav_Walker extends Walker_Nav_Menu {
 		if ( isset( $args->fg_menu_type ) ) {
 			if ( 'main' == $args->fg_menu_type ) {
 				$classes[] = 'uk-dropdown-nav';
-				$pre       = "<div class='uk-navbar-dropdown'>";
+				$pre       = "<div class='uk-navbar-dropdown' uk-dropdown='delay-hide: 100; animation: uk-animation-slide-top-small; offset: 1'>";
 			}
 			if ( 'offcanvas' == $args->fg_menu_type ) {
 				$classes[] = 'uk-nav-sub';

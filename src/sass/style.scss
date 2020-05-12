@@ -34,7 +34,7 @@ $global-primary-background: #8b0000;
 @import "./node_modules/uikit/src/scss/variables-theme.scss";
 @import "./node_modules/uikit/src/scss/mixins-theme.scss";
 
-@mixin hook-dropdown-nav-item(){
+@mixin hook-dropdown-nav-item() {
   padding-left: 25px;
   padding-right: 25px;
 }
@@ -82,12 +82,27 @@ html {
 
   img {
     max-width: 175px;
+    @media (max-width: $breakpoint-small-max) {
+      max-height: 80px;
+      max-width: 100%;
+      width: auto;
+    }
   }
 }
 
 /* Menu */
 .main-navigation {
   position: unset;
+
+  .uk-navbar-dropdown {
+    margin-top: 0 !important;
+  }
+
+  @media (max-width: $breakpoint-small-max) {
+    .uk-navbar-left {
+      justify-content: center;
+    }
+  }
 }
 
 .menu-main-menu-container {
@@ -109,7 +124,7 @@ html {
 }
 
 .menu-item {
-  &:not(.megamenu){
+  &:not(.megamenu) {
     .uk-navbar-dropdown {
       padding-left: 0;
       padding-right: 0;
@@ -180,10 +195,30 @@ html {
 }
 
 /* Guitar Category */
-
 .fg-box {
   border: 1px solid $global-border;
   padding: 20px;
+
+  a:hover {
+    text-decoration: none;
+
+    h3 {
+      color: $base-link-hover-color;
+    }
+  }
+}
+
+/* Guitar Single */
+.fg-guitar-thumbs {
+  @media (min-width: $breakpoint-medium) {
+    a {
+      float: right;
+    }
+
+    img {
+      max-width: 100px;
+    }
+  }
 }
 
 /* Description List */
@@ -271,14 +306,15 @@ html {
   }
 }
 
-/* Features */
-article.fg_features {
-  border-bottom: 1px solid $global-border;
-  padding-bottom: 70px;
+article {
+  &:not(.fg_guitars) {
+    border-bottom: 1px solid $global-border;
+    padding-bottom: 70px;
 
-  &:last-child {
-    border: none;
-    padding-bottom: 40px;
+    &:last-child {
+      border: none;
+      padding-bottom: 40px;
+    }
   }
 }
 

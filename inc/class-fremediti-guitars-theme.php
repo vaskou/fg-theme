@@ -31,6 +31,9 @@ class Fremediti_Guitars_Theme {
 		//TODO: uk-img
 		add_filter( 'wp_get_attachment_image_attributes', array( $this, 'add_image_class' ) );
 
+		// Read more posts button
+		add_filter( 'the_content_more_link', array( $this, 'the_content_more_link' ) );
+
 		Fremediti_Guitars_Customizer::getInstance();
 		Fremediti_Guitars_Metaboxes::getInstance();
 		Fremediti_Guitars_Gallery_Post_Type::getInstance()->init();
@@ -290,7 +293,8 @@ class Fremediti_Guitars_Theme {
 
 		ob_start();
 		?>
-        <div class="uk-navbar-dropdown megamenu-wrapper fg-guitar-menu-guitars" uk-dropdown="boundary: .fg-navbar-sticky; boundary-align: true;">
+        <div class="uk-navbar-dropdown megamenu-wrapper fg-guitar-menu-guitars"
+             uk-dropdown="boundary: .fg-navbar-sticky; boundary-align: true; delay-hide: 100; animation: uk-animation-slide-top-small;">
             <div class="uk-container">
                 <div uk-grid>
                     <div class="uk-width-1-5@m">
@@ -365,6 +369,10 @@ class Fremediti_Guitars_Theme {
 			return $attr;
 		}
 
+		if ( isset( $attr['class'] ) && 'custom-logo' == $attr['class'] ) {
+			return $attr;
+		}
+
 		if ( empty( $attr['uk-img'] ) ) {
 			$attr['uk-img'] = '';
 		}
@@ -378,6 +386,14 @@ class Fremediti_Guitars_Theme {
 		}
 
 		return $attr;
+	}
+
+	public function the_content_more_link( $link ) {
+		ob_start();
+		?>
+        <a href="<?php the_permalink(); ?>" class="uk-button uk-button-primary"><?php _e( 'More', 'fremediti-guitars' ); ?></a>
+		<?php
+		return ob_get_clean();
 	}
 
 	private function _get_file_version( $filename ) {

@@ -29,7 +29,7 @@
         <div class="fg-navbar-sticky" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
             <div class="uk-container">
                 <nav id="site-navigation" class="main-navigation uk-navbar-container" uk-navbar="offset:1;">
-                    <div class="uk-navbar-left">
+                    <div class="uk-navbar-left uk-width-expand">
                         <div class="site-branding uk-logo">
 							<?php the_custom_logo(); ?>
                         </div><!-- .site-branding -->
@@ -45,7 +45,7 @@
 							) );
 						endif;
 						?>
-                        <a class="uk-navbar-toggle uk-hidden@m" uk-navbar-toggle-icon uk-toggle href="#offcanvas"></a>
+                        <a class="uk-navbar-toggle uk-hidden@m uk-margin-auto-left" uk-navbar-toggle-icon uk-toggle href="#offcanvas"></a>
                     </div>
                 </nav><!-- #site-navigation -->
 

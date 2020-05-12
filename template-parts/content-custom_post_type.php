@@ -42,27 +42,7 @@
 			?>
         </div><!-- .entry-content -->
 
-		<?php
-
-		if ( is_singular( get_post_type() ) ) :
-			if ( has_post_thumbnail() ):
-				?>
-                <div uk-lightbox>
-                    <a href="<?php the_post_thumbnail_url(); ?>">
-						<?php the_post_thumbnail(); ?>
-                    </a>
-                </div>
-			<?php
-			endif;
-		else:
-			?>
-            <a href="<?php echo esc_url( get_permalink() ); ?>" rel="bookmark">
-				<?php fremediti_guitars_post_thumbnail(); ?>
-            </a>
-		<?php
-		endif;
-
-		?>
+	    <?php fremediti_guitars_post_thumbnail(); ?>
     </div>
 
     <footer class="entry-footer">

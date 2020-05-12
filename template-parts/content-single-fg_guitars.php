@@ -23,12 +23,12 @@ $single_guitar = Fremediti_Guitars_FG_Guitars::getInstance();
                 </a>
             </div>
             <div class="uk-width-1-6@m">
-                <div class="uk-child-width-1-4 uk-child-width-1-1@m uk-grid-small" uk-grid>
+                <div class="uk-child-width-auto uk-flex-center uk-child-width-1-1@m uk-grid-small" uk-grid>
 					<?php
 					foreach ( $image_gallery as $image_id => $image_url ):
 						?>
-                        <div class="">
-                            <a href="<?php echo wp_get_attachment_image_url( $image_id, 'full' ); ?>">
+                        <div class="fg-guitar-thumbs">
+                            <a href="<?php echo wp_get_attachment_image_url( $image_id, 'full' ); ?>" >
 								<?php echo wp_get_attachment_image( $image_id, 'thumbnail' ); ?>
                             </a>
                         </div>
@@ -41,7 +41,7 @@ $single_guitar = Fremediti_Guitars_FG_Guitars::getInstance();
         </div>
     </div>
 
-    <div>
+    <div class="uk-margin-medium-top">
         <ul class="" uk-tab>
             <li><a><?php echo __( 'Overview', 'fremediti-guitars' ); ?></a></li>
             <li><a><?php echo $specifications->getMetaboxId(); ?></a></li>

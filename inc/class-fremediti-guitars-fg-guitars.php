@@ -44,28 +44,45 @@ class Fremediti_Guitars_FG_Guitars {
 
 	public function get_short_description_html( $post_id ) {
 		ob_start();
+		$title                   = $this->short_description->getTitle( $post_id );
+		$short_description_name  = $this->short_description->getName( $post_id );
+		$short_description_type  = $this->short_description->getType( $post_id );
+		$short_description_style = $this->short_description->getStyle( $post_id );
+		$short_description_photo = $this->short_description->getPhoto( $post_id );
 		?>
         <div class="uk-child-width-1-2@m" uk-grid>
             <div>
-                <h3><?php esc_attr_e( $this->short_description->getTitle( $post_id ) ); ?></h3>
-                <hr>
+				<?php if ( ! empty( $title ) ): ?>
+                    <h3><?php esc_attr_e( $title ); ?></h3>
+                    <hr>
+				<?php endif; ?>
                 <div class="uk-text-justify">
 					<?php the_content(); ?>
                 </div>
             </div>
             <div>
-                <h3><?php _e( 'Description', 'fremediti-guitars' ); ?></h3>
-                <hr>
-                <dl class="uk-description-list horizontal">
-                    <dt class="uk-text-right@m"><?php esc_attr_e( $this->short_description->getNameLabel() ); ?></dt>
-                    <dd><?php esc_attr_e( $this->short_description->getName( $post_id ) ); ?></dd>
-                    <dt class="uk-text-right@m"><?php esc_attr_e( $this->short_description->getTypeLabel() ); ?></dt>
-                    <dd><?php esc_attr_e( $this->short_description->getType( $post_id ) ); ?></dd>
-                    <dt class="uk-text-right@m"><?php esc_attr_e( $this->short_description->getStyleLabel() ); ?></dt>
-                    <dd><?php esc_attr_e( $this->short_description->getStyle( $post_id ) ); ?></dd>
-                    <dt class="uk-text-right@m"><?php esc_attr_e( $this->short_description->getPhotoLabel() ); ?></dt>
-                    <dd><?php esc_attr_e( $this->short_description->getPhoto( $post_id ) ); ?></dd>
-                </dl>
+				<?php if ( ! empty( $short_description_name ) && ! empty( $short_description_type ) && ! empty( $short_description_style ) && ! empty( $short_description_photo ) ): ?>
+                    <h3><?php _e( 'Description', 'fremediti-guitars' ); ?></h3>
+                    <hr>
+                    <dl class="uk-description-list horizontal">
+						<?php if ( ! empty( $short_description_name ) ): ?>
+                            <dt class="uk-text-right@m"><?php esc_attr_e( $this->short_description->getNameLabel() ); ?></dt>
+                            <dd><?php esc_attr_e( $this->short_description->getName( $post_id ) ); ?></dd>
+						<?php endif; ?>
+						<?php if ( ! empty( $short_description_type ) ): ?>
+                            <dt class="uk-text-right@m"><?php esc_attr_e( $this->short_description->getTypeLabel() ); ?></dt>
+                            <dd><?php esc_attr_e( $this->short_description->getType( $post_id ) ); ?></dd>
+						<?php endif; ?>
+						<?php if ( ! empty( $short_description_style ) ): ?>
+                            <dt class="uk-text-right@m"><?php esc_attr_e( $this->short_description->getStyleLabel() ); ?></dt>
+                            <dd><?php esc_attr_e( $this->short_description->getStyle( $post_id ) ); ?></dd>
+						<?php endif; ?>
+						<?php if ( ! empty( $short_description_photo ) ): ?>
+                            <dt class="uk-text-right@m"><?php esc_attr_e( $this->short_description->getPhotoLabel() ); ?></dt>
+                            <dd><?php esc_attr_e( $this->short_description->getPhoto( $post_id ) ); ?></dd>
+						<?php endif; ?>
+                    </dl>
+				<?php endif; ?>
             </div>
         </div>
 		<?php
@@ -122,7 +139,7 @@ class Fremediti_Guitars_FG_Guitars {
 		$features = $this->features->getPostMeta( $post_id );
 
 		$features_post_in = ! empty( $features['features']['feature'] ) ? implode( ',', $features['features']['feature'] ) : '';
-		$pickups_post_in = ! empty( $features['features']['pickup'] ) ? implode( ',', $features['features']['pickup'] ) : '';
+		$pickups_post_in  = ! empty( $features['features']['pickup'] ) ? implode( ',', $features['features']['pickup'] ) : '';
 
 		ob_start();
 
