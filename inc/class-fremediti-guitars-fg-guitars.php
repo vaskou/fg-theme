@@ -60,26 +60,26 @@ class Fremediti_Guitars_FG_Guitars {
 					<?php the_content(); ?>
                 </div>
             </div>
-            <div>
+            <div class="fg-short-description">
 				<?php if ( ! empty( $short_description_name ) && ! empty( $short_description_type ) && ! empty( $short_description_style ) && ! empty( $short_description_photo ) ): ?>
                     <h3><?php _e( 'Description', 'fremediti-guitars' ); ?></h3>
                     <hr>
                     <dl class="uk-description-list horizontal">
 						<?php if ( ! empty( $short_description_name ) ): ?>
                             <dt class="uk-text-right@m"><?php esc_attr_e( $this->short_description->getNameLabel() ); ?></dt>
-                            <dd><?php esc_attr_e( $this->short_description->getName( $post_id ) ); ?></dd>
+                            <dd><?php esc_attr_e( $short_description_name ); ?></dd>
 						<?php endif; ?>
 						<?php if ( ! empty( $short_description_type ) ): ?>
                             <dt class="uk-text-right@m"><?php esc_attr_e( $this->short_description->getTypeLabel() ); ?></dt>
-                            <dd><?php esc_attr_e( $this->short_description->getType( $post_id ) ); ?></dd>
+                            <dd><?php echo $short_description_type; ?></dd>
 						<?php endif; ?>
 						<?php if ( ! empty( $short_description_style ) ): ?>
                             <dt class="uk-text-right@m"><?php esc_attr_e( $this->short_description->getStyleLabel() ); ?></dt>
-                            <dd><?php esc_attr_e( $this->short_description->getStyle( $post_id ) ); ?></dd>
+                            <dd><?php esc_attr_e( $short_description_style ); ?></dd>
 						<?php endif; ?>
 						<?php if ( ! empty( $short_description_photo ) ): ?>
                             <dt class="uk-text-right@m"><?php esc_attr_e( $this->short_description->getPhotoLabel() ); ?></dt>
-                            <dd><?php esc_attr_e( $this->short_description->getPhoto( $post_id ) ); ?></dd>
+                            <dd><?php esc_attr_e( $short_description_photo ); ?></dd>
 						<?php endif; ?>
                     </dl>
 				<?php endif; ?>
@@ -173,12 +173,12 @@ class Fremediti_Guitars_FG_Guitars {
 							$item_price = number_format_i18n( $item['extra_option_price'] );
 							?>
                             <tr>
-                                <td class="uk-width-5-6"><?php esc_attr_e( $item['extra_option'] ); ?></td>
+                                <td class="uk-width-5-6"><?php echo wpautop( $item['extra_option'] ); ?></td>
                                 <td class="uk-width-1-6 uk-text-right">
                                     <span class="fg-original-price">&dollar;<?php esc_attr_e( $item_price ); ?></span>
 									<?php
 									if ( function_exists( 'currency_exchange_rates_convert' ) ) {
-										$item_price_converted = currency_exchange_rates_convert( $item_price, 'EUR' );
+										$item_price_converted = currency_exchange_rates_convert( $item['extra_option_price'], 'EUR' );
 									}
 									if ( ! empty( $item_price_converted ) ):
 										?>
@@ -213,7 +213,7 @@ class Fremediti_Guitars_FG_Guitars {
 					?>
                 </h3>
                 <div>
-					<?php esc_attr_e( $pricing_text ); ?>
+					<?php echo wpautop( $pricing_text ); ?>
                 </div>
             </div>
         </div>
@@ -305,10 +305,11 @@ class Fremediti_Guitars_FG_Guitars {
             <tbody>
 			<?php
 			foreach ( $specs as $key => $value ):
+				$value = 'wysiwyg' == $this->specifications->getFieldType( $key ) ? wpautop( $value ) : esc_attr( $value )
 				?>
                 <tr>
                     <td class="uk-width-1-5@m uk-width-1-3 uk-text-bold uk-text-right@m uk-text-uppercase"><?php esc_attr_e( $this->specifications->getFieldLabel( $key ) ); ?></td>
-                    <td class="uk-width-4-5@m uk-width-2-3"><?php esc_attr_e( $value ); ?></td>
+                    <td class="uk-width-4-5@m uk-width-2-3"><?php echo $value; ?></td>
                 </tr>
 			<?php
 			endforeach;

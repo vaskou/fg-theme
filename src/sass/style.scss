@@ -221,6 +221,14 @@ html {
   }
 }
 
+.fg-short-description {
+  dd {
+    p:last-child{
+      margin-bottom: 0;
+    }
+  }
+}
+
 /* Description List */
 @media (min-width: 768px) {
   .uk-description-list.horizontal > dt {

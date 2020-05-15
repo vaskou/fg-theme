@@ -42,7 +42,7 @@ $single_guitar = Fremediti_Guitars_FG_Guitars::getInstance();
     </div>
 
     <div class="uk-margin-medium-top">
-        <ul class="" uk-tab>
+        <ul class="" uk-tab="animation: uk-animation-fade">
             <li><a><?php echo __( 'Overview', 'fremediti-guitars' ); ?></a></li>
             <li><a><?php echo $specifications->getMetaboxId(); ?></a></li>
             <li><a><?php echo $sounds->getMetaboxId(); ?></a></li>
