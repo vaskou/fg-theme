@@ -61,7 +61,7 @@ class Fremediti_Guitars_FG_Guitars {
                 </div>
             </div>
             <div class="fg-short-description">
-				<?php if ( ! empty( $short_description_name ) && ! empty( $short_description_type ) && ! empty( $short_description_style ) && ! empty( $short_description_photo ) ): ?>
+				<?php if ( ! empty( $short_description_name ) || ! empty( $short_description_type ) || ! empty( $short_description_style ) || ! empty( $short_description_photo ) ): ?>
                     <h3><?php _e( 'Description', 'fremediti-guitars' ); ?></h3>
                     <hr>
                     <dl class="uk-description-list horizontal">
@@ -237,14 +237,14 @@ class Fremediti_Guitars_FG_Guitars {
 	private function _get_specs_tabs( $specs = array() ) {
 		ob_start();
 		?>
-        <ul class="fg-specs-variations-tabs" uk-tab>
+        <ul class="fg-specs-variations-tabs" uk-tab="animation: uk-animation-fade">
 			<?php
 			foreach ( $specs as $key => $spec ):
 				?>
                 <li>
                     <a href="">
 						<?php echo ! empty( $spec['configuration_image_id'] ) ?
-							wp_get_attachment_image( $spec['configuration_image_id'], 'thumbnail' ) :
+							wp_get_attachment_image( $spec['configuration_image_id'], 'full' ) :
 							sprintf( __( 'Configuration %s', 'fremediti-guitars' ), $key + 1 ); ?>
                     </a>
                 </li>
@@ -259,7 +259,7 @@ class Fremediti_Guitars_FG_Guitars {
 	private function _get_specs_content( $specs = array() ) {
 		$has_spec_variations = $this->specifications->hasVariations();
 
-		echo $has_spec_variations ? '<ul class="uk-switcher uk-margin-top">' : '';
+		echo $has_spec_variations ? '<ul class="uk-switcher uk-margin-top fg-specs-variations-switcher">' : '';
 
 		ob_start();
 

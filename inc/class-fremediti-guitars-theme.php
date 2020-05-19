@@ -298,7 +298,7 @@ class Fremediti_Guitars_Theme {
             <div class="uk-container">
                 <div uk-grid>
                     <div class="uk-width-1-5@m">
-                        <ul class="uk-tab-left fg-guitar-menu-tabs" uk-tab="connect: #menu-categories;animation: uk-animation-fade;">
+                        <ul class="uk-tab-left fg-guitar-menu-tabs" uk-tab="connect: #menu-categories;">
 							<?php
 							$i = 0;
 							foreach ( $categories_items_array as $categories ):
@@ -315,7 +315,7 @@ class Fremediti_Guitars_Theme {
 							<?php
 							foreach ( $categories_items_array as $categories ):
 								?>
-                                <li class="">
+                                <li class="uk-animation-fade">
                                     <div uk-slider>
                                         <ul class="uk-slider-items uk-child-width-1-4@m uk-grid">
 											<?php

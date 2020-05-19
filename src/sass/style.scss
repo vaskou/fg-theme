@@ -121,6 +121,10 @@ html {
     margin-top: 0 !important;
     width: 100%;
   }
+
+  #menu-categories [class*='uk-animation-'] {
+    animation-duration: 500ms;
+  }
 }
 
 .menu-item {
