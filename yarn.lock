@@ -4162,10 +4162,10 @@ ua-parser-js@0.7.17:
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.17.tgz#e9ec5f9498b9ec910e7ae3ac626a805c4d09ecac"
   integrity sha512-uRdSdu1oA1rncCQL7sCj8vSyZkgtL7faaw9Tc9rZ3mGgraQ7+Pdx7w5mnOSF3gw9ZNG6oc+KXfkon3bKuROm0g==
 
-uikit@^3.4.4:
-  version "3.4.4"
-  resolved "https://registry.yarnpkg.com/uikit/-/uikit-3.4.4.tgz#0b2e1b17264ec62219df2485693a04704df2dbb6"
-  integrity sha512-VTDqtTUTH2XiGw0MudWki4oPl+Bxt3JEm5S/CE1B9zUmt9/FqKRYxv/7s5GSeNMnRMSQa2evQTkLSGsdBmKXdA==
+uikit@^3.4.6:
+  version "3.4.6"
+  resolved "https://registry.yarnpkg.com/uikit/-/uikit-3.4.6.tgz#39d59620aeb42d53ba905a67e99e2015d4aaaf9c"
+  integrity sha512-Se8DXGJ69NCxm8AQTok6I9aXxvklaBsdkr3REfbUorxeIQA6g96sPvzHCXrubqknoqEhH6npD14xtzxJGCvS8A==
 
 ultron@~1.1.0:
   version "1.1.1"

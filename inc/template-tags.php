@@ -118,14 +118,14 @@ if ( ! function_exists( 'fremediti_guitars_post_thumbnail' ) ) :
 	 * Wraps the post thumbnail in an anchor element on index views, or a div
 	 * element when on single views.
 	 */
-	function fremediti_guitars_post_thumbnail( $before = '', $after = '' ) {
+	function fremediti_guitars_post_thumbnail( $before = '', $after = '', $is_singular = false ) {
 		if ( post_password_required() || is_attachment() || ! has_post_thumbnail() ) {
 			return;
 		}
 
 		echo $before;
 
-		if ( is_singular( get_post_type() ) ) :
+		if ( is_singular( get_post_type() ) || $is_singular ) :
 			?>
 
             <div uk-lightbox>

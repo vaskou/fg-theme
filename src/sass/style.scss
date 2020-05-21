@@ -21,7 +21,7 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 */
 
 $container-max-width: 1100px;
-$base-body-font-family: 'Ubuntu', sans-serif;
+$global-font-family: 'Ubuntu', sans-serif;
 $base-body-font-size: 16px;
 $navbar-background: #ffffff;
 $navbar-dropdown-width: 250px;
@@ -30,6 +30,7 @@ $global-link-color: #8b0000;
 $global-link-hover-color: #d00000;
 $base-selection-background: #8b0000;
 $global-primary-background: #8b0000;
+$base-heading-color: $global-color;
 
 @import "./node_modules/uikit/src/scss/variables-theme.scss";
 @import "./node_modules/uikit/src/scss/mixins-theme.scss";
@@ -108,11 +109,17 @@ html {
 .menu-main-menu-container {
   margin-left: 200px;
 
-  .uk-navbar-nav > li > a {
-    align-items: unset;
-    line-height: 100px;
-    max-height: 70px;
-    min-height: 70px;
+  .uk-navbar-nav {
+    & > li > a {
+      align-items: unset;
+      line-height: 100px;
+      max-height: 70px;
+      min-height: 70px;
+    }
+
+    a {
+      text-transform: uppercase;
+    }
   }
 }
 
@@ -227,7 +234,7 @@ html {
 
 .fg-short-description {
   dd {
-    p:last-child{
+    p:last-child {
       margin-bottom: 0;
     }
   }
