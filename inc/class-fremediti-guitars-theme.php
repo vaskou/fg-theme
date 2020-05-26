@@ -36,6 +36,7 @@ class Fremediti_Guitars_Theme {
 
 		Fremediti_Guitars_Customizer::getInstance();
 		Fremediti_Guitars_Metaboxes::getInstance();
+		Fremediti_Guitars_Available_Guitars_Post_Type::getInstance()->init();
 		Fremediti_Guitars_Gallery_Post_Type::getInstance()->init();
 		Fremediti_Guitars_Videos_Post_Type::getInstance()->init();
 	}

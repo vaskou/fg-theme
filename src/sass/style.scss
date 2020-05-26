@@ -343,3 +343,14 @@ article {
     border: 2px solid $global-border;
   }
 }
+
+/* Prices */
+.fg-currency-button {
+  background: transparent;
+  border: 1px solid $global-border;
+  padding: 0 15px;
+
+  &.fg-selected {
+    border-color: darken($global-border, 15%);
+  }
+}

@@ -27,6 +27,8 @@ require get_template_directory() . '/inc/class-fremediti-guitars-metaboxes.php';
 
 require get_template_directory() . '/inc/class-fremediti-guitars-fg-guitars.php';
 
+require get_template_directory() . '/inc/class-fremediti-guitars-available-guitars-post-type.php';
+
 require get_template_directory() . '/inc/class-fremediti-guitars-gallery-post-type.php';
 
 require get_template_directory() . '/inc/class-fremediti-guitars-videos-post-type.php';
