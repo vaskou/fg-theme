@@ -237,7 +237,7 @@ class Fremediti_Guitars_FG_Guitars {
 	private function _get_specs_tabs( $specs = array() ) {
 		ob_start();
 		?>
-        <ul class="fg-specs-variations-tabs" uk-tab="animation: uk-animation-fade">
+        <ul class="fg-specs-variations-tabs uk-child-width-1-5" uk-tab="animation: uk-animation-fade" uk-grid>
 			<?php
 			foreach ( $specs as $key => $spec ):
 				?>

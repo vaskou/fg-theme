@@ -31,6 +31,7 @@ $global-link-hover-color: #d00000;
 $base-selection-background: #8b0000;
 $global-primary-background: #8b0000;
 $base-heading-color: $global-color;
+$tab-item-border-width: 2px;
 
 @import "./node_modules/uikit/src/scss/variables-theme.scss";
 @import "./node_modules/uikit/src/scss/mixins-theme.scss";
