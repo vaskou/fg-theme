@@ -30,7 +30,7 @@ for ( $i = 1; $i <= 5; $i ++ ) {
     </div>
 	<footer id="colophon" class="site-footer">
 		<div class="footer-widgets uk-container">
-			<div class="uk-child-width-1-<?php echo $footer_count; ?>@m uk-child-width-1-<?php echo ( $footer_count / 2 >= 1 ) ? '2' : '1'; ?>@s uk-child-width-1-1@xs" uk-grid>
+			<div class="uk-child-width-1-<?php echo $footer_count; ?>@m uk-child-width-1-<?php echo ( $footer_count / 2 >= 1 ) ? '2' : '1'; ?>@s uk-child-width-1-1 uk-text-center uk-text-left@s" uk-grid>
 				<?php
 				for ( $i = 1; $i <= 5; $i ++ ) :
 					if ( $has_footers[ $i ] ) :
@@ -47,8 +47,8 @@ for ( $i = 1; $i <= 5; $i ++ ) {
 		<div class="site-info">
 			<div class="uk-container">
 				<div class="uk-grid-small uk-flex-right@m uk-flex-center" uk-grid>
-					<span class="">© 2016 Fremediti Guitars - All rights reserved. </span>
-					<span class="">::website by <a title="" href="http://www.yesinternet.gr" target="_blank" rel="noreferrer">YES Internet</a></span>
+					<span class="">© 2020 Fremediti Guitars - All rights reserved. </span>
+					<span class="">::website by <a title="" href="http://www.yesinternet.gr" target="_blank" rel="noreferrer noopener">YES Internet</a></span>
 				</div>
 			</div>
 		</div><!-- .site-info -->

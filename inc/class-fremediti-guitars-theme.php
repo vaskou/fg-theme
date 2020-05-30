@@ -29,6 +29,9 @@ class Fremediti_Guitars_Theme {
 		add_action( 'walker_nav_menu_start_el', array( $this, 'guitar_menu' ), 10, 4 );
 		add_filter( 'get_the_archive_title', array( $this, 'get_the_archive_title' ) );
 
+		// Widget Menu
+		add_filter( 'widget_nav_menu_args', array( $this, 'widget_nav_menu_args' ) );
+
 		add_action( 'wp_head', array( $this, 'pingback_header' ) );
 		add_filter( 'body_class', array( $this, 'body_classes' ) );
 
@@ -367,6 +370,14 @@ class Fremediti_Guitars_Theme {
 		}
 
 		return $title;
+	}
+
+	public function widget_nav_menu_args( $args ) {
+
+		$args['menu_class'] = 'uk-nav';
+		$args['walker']     = new Fremediti_Guitars_Nav_Walker();
+
+		return $args;
 	}
 
 	/**

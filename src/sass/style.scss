@@ -32,6 +32,8 @@ $base-selection-background: #8b0000;
 $global-primary-background: #8b0000;
 $base-heading-color: $global-color;
 $tab-item-border-width: 2px;
+$icon-button-color: $global-color;
+$icon-button-hover-color: $global-link-hover-color;
 
 @import "./node_modules/uikit/src/scss/variables-theme.scss";
 @import "./node_modules/uikit/src/scss/mixins-theme.scss";
@@ -148,6 +150,12 @@ html {
 .site-footer {
   background: $footer-background-color;
   color: $footer-text-color;
+
+  a {
+    &:not(.uk-icon-button) {
+      color: $footer-text-color;
+    }
+  }
 }
 
 .site-info {
@@ -161,18 +169,42 @@ html {
   }
 }
 
-.footer-widget {
+.footer-widgets {
   padding-bottom: 50px;
   padding-top: 50px;
+}
+
+.footer-widget {
+
+  .widget {
+    &:not(:last-child) {
+      margin-bottom: 20px;
+    }
+
+    .uk-icon-button {
+      margin-right: 10px;
+    }
+  }
 
   .widget-title {
     color: $footer-text-color;
+    font-size: 1.3rem;
     text-decoration: underline;
   }
 
   .textwidget {
     p:last-child {
       margin-bottom: 0;
+    }
+  }
+
+  .uk-nav {
+    a {
+      color: $footer-text-color;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 }
@@ -211,7 +243,7 @@ html {
   border: 1px solid $global-border;
   padding: 20px;
 
-  a h3{
+  a h3 {
     margin-top: 20px;
   }
 
@@ -357,5 +389,33 @@ article {
 
   &.fg-selected {
     border-color: darken($global-border, 15%);
+  }
+}
+
+/* Menu Icons */
+.menu-item {
+  position: relative;
+
+  &.fg-vf-icon,
+  &.fg-fr-icon {
+    a:before {
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      content: '';
+      display: inline-block;
+      height: 25px;
+      margin-right: 5px;
+      vertical-align: calc(-25px / 4);
+      width: 25px;
+    }
+  }
+
+  &.fg-vf-icon a:before{
+    background-image: url("/wp-content/themes/fremediti-guitars/assets/images/vf.jpg");
+  }
+
+  &.fg-fr-icon a:before{
+    background-image: url("/wp-content/themes/fremediti-guitars/assets/images/fr.jpg");
   }
 }
