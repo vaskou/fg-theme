@@ -237,6 +237,7 @@ class Fremediti_Guitars_FG_Guitars {
 	private function _get_specs_tabs( $specs = array() ) {
 		ob_start();
 		?>
+        <h3 class="uk-margin-medium-top"><?php _e('Select Configuration', 'fremediti-guitars'); ?></h3>
         <ul class="fg-specs-variations-tabs uk-child-width-1-5" uk-tab="animation: uk-animation-fade" uk-grid>
 			<?php
 			foreach ( $specs as $key => $spec ):
@@ -259,7 +260,7 @@ class Fremediti_Guitars_FG_Guitars {
 	private function _get_specs_content( $specs = array() ) {
 		$has_spec_variations = $this->specifications->hasVariations();
 
-		echo $has_spec_variations ? '<ul class="uk-switcher uk-margin-top fg-specs-variations-switcher">' : '';
+		echo $has_spec_variations ? '<ul class="uk-switcher uk-margin-medium-top fg-specs-variations-switcher">' : '';
 
 		ob_start();
 
@@ -276,7 +277,7 @@ class Fremediti_Guitars_FG_Guitars {
 				<?php
 				foreach ( $divided_specs as $spec ):
 					?>
-                    <div class="uk-margin-remove-top">
+                    <div class="">
 						<?php echo $this->_specs_table( $spec ); ?>
                     </div>
 				<?php

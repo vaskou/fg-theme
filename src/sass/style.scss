@@ -270,7 +270,7 @@ html {
 }
 
 .fg-specs {
-  &:last-child {
+  > div:last-child {
     .uk-table tr:first-child {
       @media (max-width: $breakpoint-small-max) {
         border-top: $table-divider-border-width solid $table-divider-border;

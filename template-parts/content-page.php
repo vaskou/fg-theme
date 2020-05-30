@@ -16,7 +16,7 @@
 	</header><!-- .entry-header -->
     <?php endif; ?>
 
-	<?php fremediti_guitars_post_thumbnail(); ?>
+	<?php Fremediti_Guitars_Template_Functions::post_thumbnail(); ?>
 
 	<div class="entry-content">
 		<?php

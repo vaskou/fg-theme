@@ -1,17 +1,29 @@
 <?php
-/**
- * Custom template tags for this theme
- *
- * Eventually, some of the functionality here could be replaced by core features.
- *
- * @package Fremediti_Guitars
- */
 
-if ( ! function_exists( 'fremediti_guitars_posted_on' ) ) :
+defined( 'ABSPATH' ) or die();
+
+class Fremediti_Guitars_Template_Functions {
+
+	private static $instance = null;
+
+	/**
+	 * FG_Guitars_Post_Type constructor.
+	 */
+	private function __construct() {
+	}
+
+	public static function getInstance() {
+		if ( self::$instance == null ) {
+			self::$instance = new self();
+		}
+
+		return self::$instance;
+	}
+
 	/**
 	 * Prints HTML with meta information for the current post-date/time.
 	 */
-	function fremediti_guitars_posted_on() {
+	public static function posted_on() {
 		$time_string = '<time class="entry-date published updated" datetime="%1$s">%2$s</time>';
 		if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
 //			$time_string = '<time class="entry-date published" datetime="%1$s">%2$s</time><time class="updated" datetime="%3$s">%4$s</time>';
@@ -33,13 +45,11 @@ if ( ! function_exists( 'fremediti_guitars_posted_on' ) ) :
 		echo '<span class="posted-on">' . $posted_on . '</span>'; // WPCS: XSS OK.
 
 	}
-endif;
 
-if ( ! function_exists( 'fremediti_guitars_posted_by' ) ) :
 	/**
 	 * Prints HTML with meta information for the current author.
 	 */
-	function fremediti_guitars_posted_by() {
+	public static function posted_by() {
 		$byline = sprintf(
 		/* translators: %s: post author. */
 			esc_html_x( 'by %s', 'post author', 'fremediti-guitars' ),
@@ -49,13 +59,11 @@ if ( ! function_exists( 'fremediti_guitars_posted_by' ) ) :
 		echo '<span class="byline"> ' . $byline . '</span>'; // WPCS: XSS OK.
 
 	}
-endif;
 
-if ( ! function_exists( 'fremediti_guitars_entry_footer' ) ) :
 	/**
 	 * Prints HTML with meta information for the categories, tags and comments.
 	 */
-	function fremediti_guitars_entry_footer() {
+	public static function entry_footer() {
 		// Hide category and tag text for pages.
 		if ( 'post' === get_post_type() ) {
 			/* translators: used between list items, there is a space after the comma */
@@ -109,16 +117,14 @@ if ( ! function_exists( 'fremediti_guitars_entry_footer' ) ) :
 			'</span>'
 		);
 	}
-endif;
 
-if ( ! function_exists( 'fremediti_guitars_post_thumbnail' ) ) :
 	/**
 	 * Displays an optional post thumbnail.
 	 *
 	 * Wraps the post thumbnail in an anchor element on index views, or a div
 	 * element when on single views.
 	 */
-	function fremediti_guitars_post_thumbnail( $before = '', $after = '', $is_singular = false ) {
+	public static function post_thumbnail( $before = '', $after = '', $is_singular = false ) {
 		if ( post_password_required() || is_attachment() || ! has_post_thumbnail() ) {
 			return;
 		}
@@ -128,15 +134,15 @@ if ( ! function_exists( 'fremediti_guitars_post_thumbnail' ) ) :
 		if ( is_singular( get_post_type() ) || $is_singular ) :
 			?>
 
-            <div uk-lightbox>
-                <a href="<?php the_post_thumbnail_url(); ?>">
+			<div uk-lightbox>
+				<a href="<?php the_post_thumbnail_url(); ?>">
 					<?php the_post_thumbnail(); ?>
-                </a>
-            </div><!-- .post-thumbnail -->
+				</a>
+			</div><!-- .post-thumbnail -->
 
 		<?php else : ?>
 
-            <a class="post-thumbnail" href="<?php the_permalink(); ?>" aria-hidden="true" tabindex="-1" rel="bookmark">
+			<a class="post-thumbnail" href="<?php the_permalink(); ?>" aria-hidden="true" tabindex="-1" rel="bookmark">
 				<?php
 				the_post_thumbnail( 'post-thumbnail', array(
 					'alt' => the_title_attribute( array(
@@ -144,22 +150,11 @@ if ( ! function_exists( 'fremediti_guitars_post_thumbnail' ) ) :
 					) ),
 				) );
 				?>
-            </a>
+			</a>
 
 		<?php
 		endif; // End is_singular().
 
 		echo $after;
 	}
-endif;
-
-if ( ! function_exists( 'wp_body_open' ) ) :
-	/**
-	 * Shim for sites older than 5.2.
-	 *
-	 * @link https://core.trac.wordpress.org/ticket/12563
-	 */
-	function wp_body_open() {
-		do_action( 'wp_body_open' );
-	}
-endif;
+}

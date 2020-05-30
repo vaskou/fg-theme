@@ -22,8 +22,8 @@
 			?>
             <div class="entry-meta">
 				<?php
-				fremediti_guitars_posted_on();
-				//				fremediti_guitars_posted_by();
+				Fremediti_Guitars_Template_Functions::posted_on();
+				//				Fremediti_Guitars_Template_Functions::posted_by();
 				?>
             </div><!-- .entry-meta -->
 		<?php endif; ?>
@@ -35,7 +35,7 @@
 		if ( is_singular() ) :
 			?>
             <div class="uk-align-right@m">
-				<?php fremediti_guitars_post_thumbnail(); ?>
+				<?php Fremediti_Guitars_Template_Functions::post_thumbnail(); ?>
             </div>
 		<?php
 		endif;
@@ -65,12 +65,12 @@
 
 		<?php
 		if ( ! is_singular() ) :
-			fremediti_guitars_post_thumbnail();
+			Fremediti_Guitars_Template_Functions::post_thumbnail();
 		endif;
 		?>
 
     </div>
     <footer class="entry-footer">
-		<?php //fremediti_guitars_entry_footer(); ?>
+		<?php //Fremediti_Guitars_Template_Functions::entry_footer(); ?>
     </footer><!-- .entry-footer -->
 </article><!-- #post-<?php the_ID(); ?> -->

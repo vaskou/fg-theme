@@ -23,7 +23,7 @@
 
     <div class="uk-child-width-1-2@m" uk-grid>
         <div class="uk-flex-last@m">
-			<?php fremediti_guitars_post_thumbnail( '', '', true ); ?>
+			<?php Fremediti_Guitars_Template_Functions::post_thumbnail( '', '', true ); ?>
         </div>
 
         <div class="entry-content uk-text-justify">
@@ -49,6 +49,6 @@
     </div>
 
     <footer class="entry-footer">
-		<?php //fremediti_guitars_entry_footer(); ?>
+		<?php //Fremediti_Guitars_Template_Functions::entry_footer(); ?>
     </footer><!-- .entry-footer -->
 </article><!-- #post-<?php the_ID(); ?> -->

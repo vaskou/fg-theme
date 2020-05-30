@@ -55,7 +55,7 @@ $single_guitar = Fremediti_Guitars_FG_Guitars::getInstance();
 			?>
             <li><a><?php echo $pricing->getMetaboxId(); ?></a></li>
         </ul>
-        <ul class="uk-switcher">
+        <ul class="uk-switcher uk-margin-medium-top">
             <!-- Overview -->
             <li>
 				<?php echo $single_guitar->get_short_description_html( $post_id ); ?>
