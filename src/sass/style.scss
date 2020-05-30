@@ -394,10 +394,10 @@ article {
 
 /* Menu Icons */
 .menu-item {
-  position: relative;
-
   &.fg-vf-icon,
   &.fg-fr-icon {
+    position: relative;
+    
     a:before {
       background-position: center;
       background-repeat: no-repeat;
@@ -411,11 +411,11 @@ article {
     }
   }
 
-  &.fg-vf-icon a:before{
+  &.fg-vf-icon a:before {
     background-image: url("/wp-content/themes/fremediti-guitars/assets/images/vf.jpg");
   }
 
-  &.fg-fr-icon a:before{
+  &.fg-fr-icon a:before {
     background-image: url("/wp-content/themes/fremediti-guitars/assets/images/fr.jpg");
   }
 }
