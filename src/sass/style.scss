@@ -230,15 +230,6 @@ html {
   padding-top: 30px;
 }
 
-/* Secondary Slider */
-.fg-secondary-slider {
-  ul.uk-slider-items {
-    li {
-      text-align: center;
-    }
-  }
-}
-
 /* Guitar Category */
 .fg-box {
   border: 1px solid $global-border;
@@ -325,6 +316,16 @@ html {
 }
 
 /* Slider */
+.fg-slider-title {
+  color: $global-color !important;
+  margin-bottom: 5px;
+  text-align: left;
+}
+
+.fg-slider-image {
+  text-align: center;
+}
+
 .uk-slidenav {
   padding: 10px;
 

@@ -150,39 +150,40 @@ class Fremediti_Guitars_FG_Guitars {
 	}
 
 	public function get_pricing_html( $post_id ) {
-		$pricing_items = $this->pricing->getPriceItems( $post_id );
-		$pricing_text  = $this->pricing->getPriceText( $post_id );
-		$base_price    = $this->pricing->getPrice( $post_id );
+		$pricing_items        = $this->pricing->getPriceItems( $post_id );
+		$pricing_text         = $this->pricing->getPriceText( $post_id );
+		$base_price           = $this->pricing->getPrice( $post_id );
+		$base_price_converted = '';
 
 		if ( function_exists( 'currency_exchange_rates_convert' ) ) {
-			$base_price_converted = currency_exchange_rates_convert( $base_price, 'EUR' );
+			$base_price_converted = currency_exchange_rates_convert( $base_price, 'USD', 'EUR' );
 		}
 
 		ob_start();
 		?>
         <div class="uk-child-width-1-2@m uk-grid" uk-grid>
-			<?php
-			if ( ! empty( $pricing_items ) ):
-				?>
-                <div class="fg-guitar-pricing-extra-options">
+            <div class="fg-guitar-pricing-extra-options">
+				<?php
+				if ( ! empty( $pricing_items ) ):
+					?>
                     <h3><?php echo $this->pricing->getPriceItemsLabel(); ?></h3>
                     <table class="uk-table uk-table-small uk-table-divider uk-table-responsive">
                         <tbody>
 						<?php
 						foreach ( $pricing_items as $item ):
-							$item_price = number_format_i18n( $item['extra_option_price'] );
+							$item_price = number_format( $item['extra_option_price'], 0, '.', '' );
 							?>
                             <tr>
                                 <td class="uk-width-5-6"><?php echo wpautop( $item['extra_option'] ); ?></td>
                                 <td class="uk-width-1-6 uk-text-right">
-                                    <span class="fg-original-price">&dollar;<?php esc_attr_e( $item_price ); ?></span>
+                                    <span class="fg-original-price">&euro;<?php esc_attr_e( $item_price ); ?></span>
 									<?php
 									if ( function_exists( 'currency_exchange_rates_convert' ) ) {
-										$item_price_converted = currency_exchange_rates_convert( $item['extra_option_price'], 'EUR' );
+										$item_price_converted = currency_exchange_rates_convert( $item['extra_option_price'], 'USD', 'EUR' );
 									}
 									if ( ! empty( $item_price_converted ) ):
 										?>
-                                        <span class="fg-converted-price uk-hidden">&euro;<?php esc_attr_e( number_format_i18n( $item_price_converted ) ); ?></span>
+                                        <span class="fg-converted-price uk-hidden">&dollar;<?php esc_attr_e( number_format( $item_price_converted, 0, '.', '' ) ); ?></span>
 									<?php
 									endif;
 									?>
@@ -193,24 +194,13 @@ class Fremediti_Guitars_FG_Guitars {
 						?>
                         </tbody>
                     </table>
-                </div>
-			<?php
-			endif;
-			?>
+				<?php
+				endif;
+				?>
+            </div>
             <div class="fg-guitar-pricing">
                 <h3 class="fg-base-price uk-text-right@m">
-					<?php if ( ! empty( $base_price ) ): ?>
-						<?php echo $this->pricing->getPriceLabel(); ?> : <span class="fg-original-price">&dollar;<?php esc_attr_e( number_format_i18n( $base_price ) ); ?>*</span>
-					<?php endif; ?>
-					<?php
-					if ( ! empty( $base_price_converted ) ):
-						?>
-                        <span class="fg-converted-price uk-hidden">&euro;<?php esc_attr_e( number_format_i18n( $base_price_converted ) ); ?>* </span>
-                        <button class="uk-button fg-usd fg-currency-button fg-selected">&dollar;</button>
-                        <button class="uk-button fg-eur fg-currency-button">&euro;</button>
-					<?php
-					endif;
-					?>
+					<?php Fremediti_Guitars_Template_Functions::price_with_buttons( $base_price, $base_price_converted, $this->pricing->getPriceLabel() ); ?>
                 </h3>
                 <div>
 					<?php echo wpautop( $pricing_text ); ?>
@@ -237,7 +227,7 @@ class Fremediti_Guitars_FG_Guitars {
 	private function _get_specs_tabs( $specs = array() ) {
 		ob_start();
 		?>
-        <h3 class="uk-margin-medium-top"><?php _e('Select Configuration', 'fremediti-guitars'); ?></h3>
+        <h3 class="uk-margin-medium-top"><?php _e( 'Select Configuration', 'fremediti-guitars' ); ?></h3>
         <ul class="fg-specs-variations-tabs uk-child-width-1-5 uk-grid uk-tab" uk-tab="animation: uk-animation-fade" uk-grid>
 			<?php
 			foreach ( $specs as $key => $spec ):

@@ -171,9 +171,11 @@ class Fremediti_Guitars_Available_Guitars_Post_Type {
 				$specs_image_id  = get_post_meta( $post_id, 'fg_available_guitars_specs_id', true );
 				$specs_image_url = wp_get_attachment_image_url( $specs_image_id, 'full' );
 
-				$price = get_post_meta( $post_id, 'fg_available_guitars_price', true );
+				$price                  = get_post_meta( $post_id, 'fg_available_guitars_price', true );
+				$guitar_price_converted = '';
+
 				if ( function_exists( 'currency_exchange_rates_convert' ) ) {
-					$guitar_price_converted = currency_exchange_rates_convert( $price, 'EUR' );
+					$guitar_price_converted = currency_exchange_rates_convert( $price, 'USD', 'EUR' );
 				}
 				?>
                 <div class="uk-grid" uk-grid>
@@ -205,16 +207,7 @@ class Fremediti_Guitars_Available_Guitars_Post_Type {
 						if ( ! empty( $price ) ):
 							?>
                             <p>
-								<?php _e( 'Price:', 'fremediti-guitars' ); ?> <span class="fg-original-price">&dollar; <?php esc_attr_e( number_format_i18n( $price ) ); ?></span>
-								<?php
-								if ( ! empty( $guitar_price_converted ) ) :
-									?>
-                                    <span class="fg-converted-price uk-hidden">&euro; <?php esc_attr_e( number_format_i18n( $guitar_price_converted ) ); ?></span>
-                                    <button class="uk-button fg-usd fg-currency-button fg-selected">&dollar;</button>
-                                    <button class="uk-button fg-eur fg-currency-button">&euro;</button>
-								<?php
-								endif;
-								?>
+								<?php Fremediti_Guitars_Template_Functions::price_with_buttons( $price, $guitar_price_converted, __( 'Price:', 'fremediti-guitars' ) ); ?>
                             </p>
 						<?php
 						endif;

@@ -12409,13 +12409,13 @@
     }
 
     $('.fg-currency-button').click(function () {
-        if ($(this).hasClass('fg-usd')) {
-            currency_toggle($('.fg-usd'));
-            Cookies.set('fg-selected-currency', 'fg-usd');
+        if ($(this).hasClass('fg-original-currency-symbol')) {
+            currency_toggle($('.fg-original-currency-symbol'));
+            Cookies.set('fg-selected-currency', 'fg-original-currency-symbol');
         }
-        if ($(this).hasClass('fg-eur')) {
-            currency_toggle($('.fg-eur'));
-            Cookies.set('fg-selected-currency', 'fg-eur');
+        if ($(this).hasClass('fg-converted-currency-symbol')) {
+            currency_toggle($('.fg-converted-currency-symbol'));
+            Cookies.set('fg-selected-currency', 'fg-converted-currency-symbol');
         }
     });
 
@@ -12423,11 +12423,11 @@
         $('.fg-currency-button').removeClass('fg-selected');
         el.addClass('fg-selected');
 
-        if (el.hasClass('fg-usd')) {
+        if (el.hasClass('fg-original-currency-symbol')) {
             $('.fg-original-price').removeClass('uk-hidden');
             $('.fg-converted-price').addClass('uk-hidden');
         }
-        if (el.hasClass('fg-eur')) {
+        if (el.hasClass('fg-converted-currency-symbol')) {
             $('.fg-original-price').addClass('uk-hidden');
             $('.fg-converted-price').removeClass('uk-hidden');
         }
