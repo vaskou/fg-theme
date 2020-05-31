@@ -30,6 +30,7 @@
             <div class="uk-container">
                 <nav id="site-navigation" class="main-navigation uk-navbar-container" uk-navbar="offset:1;">
                     <div class="uk-navbar-left uk-width-expand">
+                        <a class="uk-navbar-toggle uk-hidden@m uk-margin-auto-right" uk-navbar-toggle-icon uk-toggle href="#offcanvas"></a>
                         <div class="site-branding uk-logo">
 							<?php the_custom_logo(); ?>
                         </div><!-- .site-branding -->
@@ -45,7 +46,6 @@
 							) );
 						endif;
 						?>
-                        <a class="uk-navbar-toggle uk-hidden@m uk-margin-auto-left" uk-navbar-toggle-icon uk-toggle href="#offcanvas"></a>
                     </div>
                 </nav><!-- #site-navigation -->
 

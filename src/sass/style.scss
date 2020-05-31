@@ -34,6 +34,7 @@ $base-heading-color: $global-color;
 $tab-item-border-width: 2px;
 $icon-button-color: $global-color;
 $icon-button-hover-color: $global-link-hover-color;
+$offcanvas-bar-width: 320px;
 
 @import "./node_modules/uikit/src/scss/variables-theme.scss";
 @import "./node_modules/uikit/src/scss/mixins-theme.scss";
@@ -241,10 +242,22 @@ html {
 /* Guitar Category */
 .fg-box {
   border: 1px solid $global-border;
-  padding: 20px;
 
-  a h3 {
-    margin-top: 20px;
+  &:hover {
+    border-color: darken($global-border, 10%);
+  }
+
+  a {
+    padding: 0 20px;
+
+    &:first-child {
+      padding-top: 20px;
+    }
+
+    &:last-child {
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
   }
 
   a:hover {
@@ -397,7 +410,7 @@ article {
   &.fg-vf-icon,
   &.fg-fr-icon {
     position: relative;
-    
+
     a:before {
       background-position: center;
       background-repeat: no-repeat;

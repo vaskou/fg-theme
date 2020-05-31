@@ -153,7 +153,7 @@ class Fremediti_Guitars_Gallery_Post_Type {
 		ob_start();
 
 		?>
-        <div class="fg-gallery uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-5@m" uk-grid="masonry: true" uk-lightbox>
+        <div class="fg-gallery uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-5@m uk-grid" uk-grid="masonry: true" uk-lightbox>
 			<?php
 			foreach ( $images as $image_id => $image_url ):
 				?>

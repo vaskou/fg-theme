@@ -21,7 +21,7 @@
 		?>
     </header><!-- .entry-header -->
 
-    <div class="uk-child-width-1-2@m" uk-grid>
+    <div class="uk-child-width-1-2@m uk-grid" uk-grid>
         <div class="uk-flex-last@m">
 			<?php Fremediti_Guitars_Template_Functions::post_thumbnail( '', '', true ); ?>
         </div>

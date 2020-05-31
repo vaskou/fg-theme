@@ -50,7 +50,7 @@ class Fremediti_Guitars_FG_Guitars {
 		$short_description_style = $this->short_description->getStyle( $post_id );
 		$short_description_photo = $this->short_description->getPhoto( $post_id );
 		?>
-        <div class="uk-child-width-1-2@m" uk-grid>
+        <div class="uk-child-width-1-2@m uk-grid" uk-grid>
             <div>
 				<?php if ( ! empty( $title ) ): ?>
                     <h3><?php esc_attr_e( $title ); ?></h3>
@@ -111,7 +111,7 @@ class Fremediti_Guitars_FG_Guitars {
 		if ( ! empty( $sounds ) ):
 			?>
             <div uk-lightbox>
-                <div class="uk-child-width-1-2 uk-child-width-1-4@m" uk-grid>
+                <div class="uk-child-width-1-2 uk-child-width-1-4@m uk-grid" uk-grid>
 					<?php
 					foreach ( $sounds as $sound ):
 						?>
@@ -160,7 +160,7 @@ class Fremediti_Guitars_FG_Guitars {
 
 		ob_start();
 		?>
-        <div class="uk-child-width-1-2@m" uk-grid>
+        <div class="uk-child-width-1-2@m uk-grid" uk-grid>
 			<?php
 			if ( ! empty( $pricing_items ) ):
 				?>
@@ -238,7 +238,7 @@ class Fremediti_Guitars_FG_Guitars {
 		ob_start();
 		?>
         <h3 class="uk-margin-medium-top"><?php _e('Select Configuration', 'fremediti-guitars'); ?></h3>
-        <ul class="fg-specs-variations-tabs uk-child-width-1-5" uk-tab="animation: uk-animation-fade" uk-grid>
+        <ul class="fg-specs-variations-tabs uk-child-width-1-5 uk-grid uk-tab" uk-tab="animation: uk-animation-fade" uk-grid>
 			<?php
 			foreach ( $specs as $key => $spec ):
 				?>
@@ -273,7 +273,7 @@ class Fremediti_Guitars_FG_Guitars {
 			echo $has_spec_variations ? '<li>' : '';
 
 			?>
-            <div class="uk-child-width-1-2@m fg-specs" uk-grid>
+            <div class="uk-child-width-1-2@m fg-specs uk-grid" uk-grid>
 				<?php
 				foreach ( $divided_specs as $spec ):
 					?>

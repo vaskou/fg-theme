@@ -21,7 +21,7 @@ get_header();
 					?>
                 </header><!-- .page-header -->
 
-                <div class="uk-child-width uk-child-width-1-2@s uk-child-width-1-4@m" uk-grid>
+                <div class="uk-child-width uk-child-width-1-2@s uk-child-width-1-4@m uk-grid" uk-grid>
 					<?php
 					/* Start the Loop */
 					while ( have_posts() ) :

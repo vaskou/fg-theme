@@ -176,7 +176,7 @@ class Fremediti_Guitars_Available_Guitars_Post_Type {
 					$guitar_price_converted = currency_exchange_rates_convert( $price, 'EUR' );
 				}
 				?>
-                <div uk-grid>
+                <div class="uk-grid" uk-grid>
                     <div class="uk-width-3-5@m uk-width-3-4@l">
 						<?php
 						if ( ! empty( $image ) && ! empty( $image_url ) ):
