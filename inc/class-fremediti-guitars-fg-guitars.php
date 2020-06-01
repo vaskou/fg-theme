@@ -152,6 +152,7 @@ class Fremediti_Guitars_FG_Guitars {
 	public function get_pricing_html( $post_id ) {
 		$pricing_items        = $this->pricing->getPriceItems( $post_id );
 		$pricing_text         = $this->pricing->getPriceText( $post_id );
+		$base_price_label     = ! empty( $pricing_items ) ? $this->pricing->getPriceLabel() : __( 'Price', 'fremediti-guitars' );
 		$base_price           = $this->pricing->getPrice( $post_id );
 		$base_price_converted = '';
 
@@ -200,7 +201,7 @@ class Fremediti_Guitars_FG_Guitars {
             </div>
             <div class="fg-guitar-pricing">
                 <h3 class="fg-base-price uk-text-right@m">
-					<?php Fremediti_Guitars_Template_Functions::price_with_buttons( $base_price, $base_price_converted, $this->pricing->getPriceLabel() ); ?>
+					<?php Fremediti_Guitars_Template_Functions::price_with_buttons( $base_price, $base_price_converted, $base_price_label ); ?>
                 </h3>
                 <div>
 					<?php echo wpautop( $pricing_text ); ?>

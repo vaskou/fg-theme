@@ -37,6 +37,9 @@ $icon-button-hover-color: $global-link-hover-color;
 $offcanvas-bar-width: 320px;
 
 @import "./node_modules/uikit/src/scss/variables-theme.scss";
+
+$navbar-nav-item-color: $navbar-nav-item-active-color;
+
 @import "./node_modules/uikit/src/scss/mixins-theme.scss";
 
 @mixin hook-dropdown-nav-item() {
@@ -47,6 +50,20 @@ $offcanvas-bar-width: 320px;
 @mixin hook-dropdown-nav-item-hover() {
   color: #ffffff;
   background: $global-primary-background;
+}
+
+@mixin hook-navbar-nav-item() {
+  border-bottom: 2px solid transparent;
+}
+
+@mixin hook-navbar-nav-item-hover() {
+  border-color: $global-link-color;
+  transition: border-color 200ms ease 200ms;
+}
+
+@mixin hook-navbar-nav-item-active() {
+  border-color: $global-link-color;
+  transition: border-color 200ms ease 200ms;
 }
 
 @import "./node_modules/uikit/src/scss/uikit-theme.scss";
@@ -133,9 +150,23 @@ html {
     width: 100%;
   }
 
-  #menu-categories [class*='uk-animation-'] {
-    animation-duration: 500ms;
+  .uk-tab > * > a{
+    padding: 10px 10px;
   }
+
+  #menu-categories {
+    [class*='uk-animation-'] {
+      animation-duration: 500ms;
+    }
+
+    a{
+      color: $global-color;
+      &:hover{
+        color: $global-link-hover-color;
+      }
+    }
+  }
+
 }
 
 .menu-item {
@@ -398,7 +429,7 @@ article {
 /* Prices */
 .fg-currency-button {
   background: transparent;
-  border: 1px solid $global-border;
+  border: 1px solid transparent;
   padding: 0 15px;
 
   &.fg-selected {
