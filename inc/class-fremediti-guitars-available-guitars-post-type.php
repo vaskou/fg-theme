@@ -106,6 +106,12 @@ class Fremediti_Guitars_Available_Guitars_Post_Type {
 		) );
 
 		$metabox->add_field( array(
+			'id'   => 'fg_available_guitars_title_url',
+			'name' => __( 'Title URL', 'fremediti-guitars' ),
+			'type' => 'text_url',
+		) );
+
+		$metabox->add_field( array(
 			'id'      => 'fg_available_guitars_image',
 			'name'    => __( 'Image', 'fremediti-guitars' ),
 			'type'    => 'file',
@@ -168,6 +174,8 @@ class Fremediti_Guitars_Available_Guitars_Post_Type {
 				$image_url = wp_get_attachment_image_url( $image_id, 'full' );
 				$image     = wp_get_attachment_image( $image_id, 'full' );
 
+				$title_url = get_post_meta( $post_id, 'fg_available_guitars_title_url', true );
+
 				$specs_image_id  = get_post_meta( $post_id, 'fg_available_guitars_specs_id', true );
 				$specs_image_url = wp_get_attachment_image_url( $specs_image_id, 'full' );
 
@@ -194,7 +202,15 @@ class Fremediti_Guitars_Available_Guitars_Post_Type {
                     </div>
 
                     <div class="uk-width-2-5@m uk-width-1-4@l uk-text-center uk-margin-large">
-                        <h3><?php the_title(); ?></h3>
+                        <h3>
+							<?php if ( ! empty( $title_url ) ) : ?>
+                            <a href="<?php echo $title_url; ?>">
+								<?php endif; ?>
+								<?php the_title(); ?>
+								<?php if ( ! empty( $title_url ) ) : ?>
+                            </a>
+						<?php endif; ?>
+                        </h3>
 						<?php
 						if ( ! empty( $image ) && ! empty( $image_url ) ):
 							?>

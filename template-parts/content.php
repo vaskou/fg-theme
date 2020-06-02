@@ -29,13 +29,13 @@
 		<?php endif; ?>
     </header><!-- .entry-header -->
 
-    <div <?php if ( ! is_singular() ): ?> class="uk-child-width-1-2@m uk-grid" uk-grid <?php endif; ?> >
+    <div <?php if ( ! is_singular() ): ?> class="uk-child-width-1-1@m uk-grid" uk-grid <?php endif; ?> >
 
 		<?php
 		if ( is_singular() ) :
 			?>
             <div class="uk-align-right@m">
-				<?php Fremediti_Guitars_Template_Functions::post_thumbnail(); ?>
+				<?php /*Fremediti_Guitars_Template_Functions::post_thumbnail();*/ ?>
             </div>
 		<?php
 		endif;
@@ -65,7 +65,7 @@
 
 		<?php
 		if ( ! is_singular() ) :
-			Fremediti_Guitars_Template_Functions::post_thumbnail();
+//			Fremediti_Guitars_Template_Functions::post_thumbnail();
 		endif;
 		?>
 

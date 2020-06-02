@@ -30,7 +30,7 @@ $global-link-color: #8b0000;
 $global-link-hover-color: #d00000;
 $base-selection-background: #8b0000;
 $global-primary-background: #8b0000;
-$base-heading-color: $global-color;
+$base-heading-color: #4e4e4e;
 $tab-item-border-width: 2px;
 $icon-button-color: $global-color;
 $icon-button-hover-color: $global-link-hover-color;
@@ -150,7 +150,7 @@ html {
     width: 100%;
   }
 
-  .uk-tab > * > a{
+  .uk-tab > * > a {
     padding: 10px 10px;
   }
 
@@ -159,9 +159,10 @@ html {
       animation-duration: 500ms;
     }
 
-    a{
+    a {
       color: $global-color;
-      &:hover{
+
+      &:hover {
         color: $global-link-hover-color;
       }
     }
@@ -371,6 +372,9 @@ html {
 }
 
 .fg-secondary-slider {
+  margin-bottom: 50px;
+  margin-top: 50px;
+
   .uk-slidenav {
     background: rgba(255, 255, 255, 0.4);
     border-radius: 50%;
