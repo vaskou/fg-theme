@@ -42,7 +42,11 @@ get_header();
 
 			endwhile;
 
-			the_posts_navigation();
+			the_posts_pagination( array(
+				'type'      => 'list',
+				'prev_text' => '<span uk-pagination-previous></span>',
+				'next_text' => '<span uk-pagination-next></span>',
+			) );
 
 		else :
 

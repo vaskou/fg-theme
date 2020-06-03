@@ -42,4 +42,7 @@
         }
     }
 
+    $('.navigation.pagination ul.page-numbers').addClass('uk-pagination uk-flex-center');
+    $('.navigation.pagination .page-numbers.current').parent().addClass('uk-active');
+
 })(jQuery)

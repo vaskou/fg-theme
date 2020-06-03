@@ -26,12 +26,12 @@ get_header();
 
 				if ( ! in_array( get_post_type(), $custom_post_types ) ):
 
-					the_post_navigation();
+//					the_post_navigation();
 
 					// If comments are open or we have at least one comment, load up the comment template.
-					if ( comments_open() || get_comments_number() ) :
-						comments_template();
-					endif;
+//					if ( comments_open() || get_comments_number() ) :
+//						comments_template();
+//					endif;
 
 				endif;
 

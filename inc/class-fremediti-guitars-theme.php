@@ -41,6 +41,9 @@ class Fremediti_Guitars_Theme {
 		// Read more posts button
 		add_filter( 'the_content_more_link', array( $this, 'the_content_more_link' ) );
 
+		// Pagination
+		add_filter( 'navigation_markup_template', array( $this, 'pagination_template' ), 10, 2 );
+
 		Fremediti_Guitars_Customizer::getInstance();
 		Fremediti_Guitars_Metaboxes::getInstance();
 		Fremediti_Guitars_Available_Guitars_Post_Type::getInstance()->init();
@@ -445,6 +448,22 @@ class Fremediti_Guitars_Theme {
         <a href="<?php the_permalink(); ?>" class="uk-button uk-button-primary"><?php _e( 'More', 'fremediti-guitars' ); ?></a>
 		<?php
 		return ob_get_clean();
+	}
+
+	public function pagination_template( $template, $class ) {
+
+		if ( 'pagination' == $class ) {
+			ob_start();
+			?>
+            <nav class="navigation %1$s uk-container uk-margin-top" role="navigation" aria-label="%4$s">
+                <h2 class="screen-reader-text uk-hidden">%2$s</h2>
+                <div class="nav-links">%3$s</div>
+            </nav>
+			<?php
+			$template = ob_get_clean();
+		}
+
+		return $template;
 	}
 
 	private function _get_file_version( $filename ) {
