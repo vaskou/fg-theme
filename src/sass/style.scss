@@ -85,6 +85,10 @@ html {
   }
 }
 
+iframe {
+  max-width: 100%;
+}
+
 /* Navbar */
 .fg-navbar-sticky {
   background: #fff;
@@ -414,11 +418,35 @@ html {
 article {
   &:not(.fg_guitars) {
     border-bottom: 1px solid $global-border;
-    padding-bottom: 70px;
+    padding-bottom: 40px;
 
     &:last-child {
-      border: none;
+      //border: none;
       padding-bottom: 40px;
+    }
+  }
+}
+.uk-grid {
+  article {
+    &.uk-article.type-post {
+      .alignright {
+        margin-left: 0;
+        @media (max-width: $breakpoint-small-max) {
+          float: none;
+        }
+      }
+    }
+  }
+}
+.single-post {
+  article {
+    &.uk-article.type-post {
+      .alignright {
+        @media (max-width: $breakpoint-small-max) {
+          margin-left: 0;
+          float: none;
+        }
+      }
     }
   }
 }

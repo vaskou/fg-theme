@@ -7,9 +7,11 @@
  * @package Fremediti_Guitars
  */
 
+$class = 'uk-article';
+$class = !is_singular() ? $class . ' uk-margin-large-top' : $class;
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class( 'uk-article' ); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class( $class ); ?>>
     <header class="entry-header">
 		<?php
 		if ( is_singular() ) :
@@ -20,7 +22,7 @@
 
 		if ( 'post' === get_post_type() ) :
 			?>
-            <div class="entry-meta">
+            <div class="entry-meta uk-margin-bottom">
 				<?php
 				Fremediti_Guitars_Template_Functions::posted_on();
 				//				Fremediti_Guitars_Template_Functions::posted_by();
