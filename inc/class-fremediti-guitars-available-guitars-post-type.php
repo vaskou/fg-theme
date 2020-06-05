@@ -165,82 +165,88 @@ class Fremediti_Guitars_Available_Guitars_Post_Type {
 		ob_start();
 
 		if ( $query->have_posts() ) :
-			while ( $query->have_posts() ) :
-				$query->the_post();
+			?>
+            <div class="fg-available-guitars-wrapper">
+				<?php
+				while ( $query->have_posts() ) :
+					$query->the_post();
 
-				$post_id = get_the_ID();
+					$post_id = get_the_ID();
 
-				$image_id  = get_post_meta( $post_id, 'fg_available_guitars_image_id', true );
-				$image_url = wp_get_attachment_image_url( $image_id, 'full' );
-				$image     = wp_get_attachment_image( $image_id, 'full' );
+					$image_id  = get_post_meta( $post_id, 'fg_available_guitars_image_id', true );
+					$image_url = wp_get_attachment_image_url( $image_id, 'full' );
+					$image     = wp_get_attachment_image( $image_id, 'full' );
 
-				$title_url = get_post_meta( $post_id, 'fg_available_guitars_title_url', true );
+					$title_url = get_post_meta( $post_id, 'fg_available_guitars_title_url', true );
 
-				$specs_image_id  = get_post_meta( $post_id, 'fg_available_guitars_specs_id', true );
-				$specs_image_url = wp_get_attachment_image_url( $specs_image_id, 'full' );
+					$specs_image_id  = get_post_meta( $post_id, 'fg_available_guitars_specs_id', true );
+					$specs_image_url = wp_get_attachment_image_url( $specs_image_id, 'full' );
 
-				$price                  = get_post_meta( $post_id, 'fg_available_guitars_price', true );
-				$guitar_price_converted = '';
+					$price                  = get_post_meta( $post_id, 'fg_available_guitars_price', true );
+					$guitar_price_converted = '';
 
-				if ( function_exists( 'currency_exchange_rates_convert' ) ) {
-					$guitar_price_converted = currency_exchange_rates_convert( $price, 'USD', 'EUR' );
-				}
-				?>
-                <div class="uk-grid" uk-grid>
-                    <div class="uk-width-3-5@m uk-width-3-4@l">
-						<?php
-						if ( ! empty( $image ) && ! empty( $image_url ) ):
+					if ( function_exists( 'currency_exchange_rates_convert' ) ) {
+						$guitar_price_converted = currency_exchange_rates_convert( $price, 'USD', 'EUR' );
+					}
+					?>
+                    <div class="uk-grid" uk-grid>
+                        <div class="uk-width-3-5@m uk-width-3-4@l">
+							<?php
+							if ( ! empty( $image ) && ! empty( $image_url ) ):
+								?>
+                                <div uk-lightbox>
+                                    <a href="<?php echo esc_url( $image_url ); ?>">
+										<?php echo $image; ?>
+                                    </a>
+                                </div>
+							<?php
+							endif;
 							?>
-                            <div uk-lightbox>
-                                <a href="<?php echo esc_url( $image_url ); ?>">
-									<?php echo $image; ?>
-                                </a>
-                            </div>
-						<?php
-						endif;
-						?>
-                    </div>
+                        </div>
 
-                    <div class="uk-width-2-5@m uk-width-1-4@l uk-text-center uk-margin-large">
-                        <h3>
-							<?php if ( ! empty( $title_url ) ) : ?>
-                            <a href="<?php echo $title_url; ?>">
-								<?php endif; ?>
-								<?php the_title(); ?>
+                        <div class="uk-width-2-5@m uk-width-1-4@l uk-text-center uk-margin-large">
+                            <h3>
 								<?php if ( ! empty( $title_url ) ) : ?>
-                            </a>
-						<?php endif; ?>
-                        </h3>
-						<?php
-						if ( ! empty( $image ) && ! empty( $image_url ) ):
-							?>
-                            <div uk-lightbox>
-                                <a href="<?php echo esc_url( $specs_image_url ); ?>" class="uk-button uk-button-primary"><?php _e( 'Specs', 'fremediti-guitars' ); ?></a>
-                            </div>
-						<?php
-						endif;
+                                <a href="<?php echo $title_url; ?>">
+									<?php endif; ?>
+									<?php the_title(); ?>
+									<?php if ( ! empty( $title_url ) ) : ?>
+                                </a>
+							<?php endif; ?>
+                            </h3>
+							<?php
+							if ( ! empty( $image ) && ! empty( $image_url ) ):
+								?>
+                                <div uk-lightbox>
+                                    <a href="<?php echo esc_url( $specs_image_url ); ?>" class="uk-button uk-button-primary"><?php _e( 'Specs', 'fremediti-guitars' ); ?></a>
+                                </div>
+							<?php
+							endif;
 
-						if ( ! empty( $price ) ):
-							?>
-                            <p>
-								<?php Fremediti_Guitars_Template_Functions::price_with_buttons( $price, $guitar_price_converted, __( 'Price:', 'fremediti-guitars' ) ); ?>
-                            </p>
-						<?php
-						endif;
+							if ( ! empty( $price ) ):
+								?>
+                                <p>
+									<?php Fremediti_Guitars_Template_Functions::price_with_buttons( $price, $guitar_price_converted, __( 'Price:', 'fremediti-guitars' ) ); ?>
+                                </p>
+							<?php
+							endif;
 
-						if ( ! empty( $contact_us_page_link ) ):
+							if ( ! empty( $contact_us_page_link ) ):
+								?>
+                                <a href="<?php echo $contact_us_page_link; ?>" class="uk-button uk-button-primary">
+									<?php _e( 'Contact Us', 'fremediti-guitars' ); ?>
+                                </a>
+							<?php
+							endif;
 							?>
-                            <a href="<?php echo $contact_us_page_link; ?>" class="uk-button uk-button-primary">
-								<?php _e( 'Contact Us', 'fremediti-guitars' ); ?>
-                            </a>
-						<?php
-						endif;
-						?>
+                        </div>
                     </div>
-                </div>
-			<?php
+				<?php
 
-			endwhile;
+				endwhile;
+				?>
+            </div>
+		<?php
 		endif;
 		wp_reset_postdata();
 
