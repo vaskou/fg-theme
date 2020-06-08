@@ -23,7 +23,7 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 $container-max-width: 1200px;
 $global-font-family: 'Ubuntu', sans-serif;
 $base-body-font-size: 16px;
-$global-xxlarge-font-size: 2.2rem;
+$global-2xlarge-font-size: 2.2rem;
 $global-xlarge-font-size: 1.8rem;
 $global-large-margin: 60px;
 $navbar-background: #ffffff;
@@ -527,4 +527,15 @@ h1,h2,h3,h4,h5,h6{
   &.fg-fr-icon a:before {
     background-image: url("/wp-content/themes/fremediti-guitars/assets/images/fr.jpg");
   }
+}
+
+/* Totop */
+.uk-totop {
+  background: #ffffff;
+  border: 1px solid $global-border;
+  border-radius: 50%;
+  bottom: 20px;
+  padding: 13px 10px 15px;
+  position: fixed;
+  right: 20px;
 }
