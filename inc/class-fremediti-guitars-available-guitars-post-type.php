@@ -207,7 +207,7 @@ class Fremediti_Guitars_Available_Guitars_Post_Type {
                         <div class="uk-width-2-5@m uk-width-1-4@l uk-text-center uk-margin-large">
                             <h3>
 								<?php if ( ! empty( $title_url ) ) : ?>
-                                <a href="<?php echo $title_url; ?>">
+                                <a href="<?php echo $title_url; ?>" target="_blank">
 									<?php endif; ?>
 									<?php the_title(); ?>
 									<?php if ( ! empty( $title_url ) ) : ?>
@@ -233,7 +233,7 @@ class Fremediti_Guitars_Available_Guitars_Post_Type {
 
 							if ( ! empty( $contact_us_page_link ) ):
 								?>
-                                <a href="<?php echo $contact_us_page_link; ?>" class="uk-button uk-button-primary">
+                                <a href="<?php echo $contact_us_page_link; ?>" class="uk-button uk-button-primary" target="_blank" >
 									<?php _e( 'Contact Us', 'fremediti-guitars' ); ?>
                                 </a>
 							<?php
