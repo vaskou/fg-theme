@@ -12423,4 +12423,16 @@
     $('.navigation.pagination ul.page-numbers').addClass('uk-pagination uk-flex-center');
     $('.navigation.pagination .page-numbers.current').parent().addClass('uk-active');
 
+    let $fg_auto_gallery = $('.fg-auto-gallery > div');
+
+    $fg_auto_gallery.children('figure').each(function () {
+        let caption = $(this).children('figcaption').text();
+        $(this).children('a').attr('data-caption', caption);
+    });
+
+    $fg_auto_gallery.addClass('uk-grid uk-child-width-1-3@m');
+
+    UIkit.grid($fg_auto_gallery, {masonry: true});
+    UIkit.lightbox($fg_auto_gallery, {toggle: '.fg-auto-gallery > div > figure > a'});
+
 })(jQuery)
