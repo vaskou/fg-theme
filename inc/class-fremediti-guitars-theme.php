@@ -44,11 +44,16 @@ class Fremediti_Guitars_Theme {
 		// Pagination
 		add_filter( 'navigation_markup_template', array( $this, 'pagination_template' ), 10, 2 );
 
+		// Google Tag Manager
+		add_action( 'wp_head', array( $this, 'gtm_head_script' ), 1 );
+		add_action( 'wp_body_open', array( $this, 'gtm_body_script' ), 1 );
+
 		Fremediti_Guitars_Customizer::getInstance();
 		Fremediti_Guitars_Metaboxes::getInstance();
 		Fremediti_Guitars_Available_Guitars_Post_Type::getInstance()->init();
 		Fremediti_Guitars_Gallery_Post_Type::getInstance()->init();
 		Fremediti_Guitars_Videos_Post_Type::getInstance()->init();
+		Fremediti_Guitars_Settings::getInstance()->init();
 	}
 
 	public function add_editor_style() {
@@ -464,6 +469,32 @@ class Fremediti_Guitars_Theme {
 		}
 
 		return $template;
+	}
+
+	public function gtm_head_script() {
+		$gtm_code = Fremediti_Guitars_Settings::get_setting( 'fremediti_guitars_gtm' );
+
+		if ( ! empty( $gtm_code ) ) {
+			echo "<!-- Google Tag Manager -->
+            <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                })(window,document,'script','dataLayer','" . $gtm_code . "');</script>
+            <!-- End Google Tag Manager -->";
+
+		}
+	}
+
+	public function gtm_body_script() {
+		$gtm_code = Fremediti_Guitars_Settings::get_setting( 'fremediti_guitars_gtm' );
+
+		if ( ! empty( $gtm_code ) ) {
+			echo '<!-- Google Tag Manager (noscript) -->
+            <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=' . $gtm_code . '"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+            <!-- End Google Tag Manager (noscript) -->';
+		}
 	}
 
 	private function _get_file_version( $filename ) {
