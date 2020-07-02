@@ -23,12 +23,12 @@ $single_guitar = Fremediti_Guitars_FG_Guitars::getInstance();
                 </a>
             </div>
             <div class="uk-width-1-6@m">
-                <div class="uk-child-width-auto uk-flex-center uk-child-width-1-1@m uk-grid-small" uk-grid>
+                <div class="uk-flex-center uk-child-width-1-5 uk-child-width-1-1@m uk-grid-small" uk-grid>
 					<?php
 					foreach ( $image_gallery as $image_id => $image_url ):
 						?>
                         <div class="fg-guitar-thumbs">
-                            <a href="<?php echo wp_get_attachment_image_url( $image_id, 'full' ); ?>" >
+                            <a href="<?php echo wp_get_attachment_image_url( $image_id, 'full' ); ?>">
 								<?php echo wp_get_attachment_image( $image_id, 'thumbnail' ); ?>
                             </a>
                         </div>
@@ -79,7 +79,7 @@ $single_guitar = Fremediti_Guitars_FG_Guitars::getInstance();
 				?>
                 <!-- Features -->
                 <li>
-	                <?php echo $single_guitar->get_features_html( $post_id ); ?>
+					<?php echo $single_guitar->get_features_html( $post_id ); ?>
                 </li>
                 <!-- Features End -->
 			<?php
@@ -88,7 +88,7 @@ $single_guitar = Fremediti_Guitars_FG_Guitars::getInstance();
 
             <!-- Pricing -->
             <li>
-	            <?php echo $single_guitar->get_pricing_html( $post_id ); ?>
+				<?php echo $single_guitar->get_pricing_html( $post_id ); ?>
             </li>
             <!-- Pricing End -->
         </ul>
