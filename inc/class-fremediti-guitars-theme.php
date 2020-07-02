@@ -48,6 +48,9 @@ class Fremediti_Guitars_Theme {
 		add_action( 'wp_head', array( $this, 'gtm_head_script' ), 1 );
 		add_action( 'wp_body_open', array( $this, 'gtm_body_script' ), 1 );
 
+		// Favicon
+		add_action( 'wp_head', array( $this, 'add_favicon' ) );
+
 		Fremediti_Guitars_Customizer::getInstance();
 		Fremediti_Guitars_Metaboxes::getInstance();
 		Fremediti_Guitars_Available_Guitars_Post_Type::getInstance()->init();
@@ -495,6 +498,28 @@ class Fremediti_Guitars_Theme {
             height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <!-- End Google Tag Manager (noscript) -->';
 		}
+	}
+
+	public function add_favicon() {
+		?>
+		<link rel="apple-touch-icon" sizes="57x57" href="<? echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/apple-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="<? echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/apple-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="<? echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/apple-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="<? echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/apple-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="<? echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/apple-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="<? echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/apple-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="<? echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/apple-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="<? echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/apple-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="<? echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/apple-icon-180x180.png">
+		<link rel="icon" type="image/png" sizes="192x192"  href="<? echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/android-icon-192x192.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="<? echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="96x96" href="<? echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/favicon-96x96.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="<? echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/favicon-16x16.png">
+		<link rel="manifest" href="<? echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/manifest.json">
+		<meta name="msapplication-TileColor" content="#ffffff">
+		<meta name="msapplication-TileImage" content="<? echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/ms-icon-144x144.png">
+		<meta name="theme-color" content="#ffffff">
+		<?php
 	}
 
 	private function _get_file_version( $filename ) {
