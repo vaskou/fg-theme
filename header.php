@@ -13,9 +13,9 @@
 <!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
-	<meta charset="<?php bloginfo( 'charset' ); ?>">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="profile" href="https://gmpg.org/xfn/11">
+    <meta charset="<?php bloginfo( 'charset' ); ?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="https://gmpg.org/xfn/11">
 
 	<?php wp_head(); ?>
 </head>
@@ -23,37 +23,55 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 <div id="page" class="site">
-	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'fremediti-guitars' ); ?></a>
+    <!--    <a class="skip-link screen-reader-text" href="#content">--><?php //esc_html_e( 'Skip to content', 'fremediti-guitars' ); ?><!--</a>-->
 
-	<header id="masthead" class="site-header">
-		<div class="site-branding">
-			<?php
-			the_custom_logo();
-			if ( is_front_page() && is_home() ) :
-				?>
-				<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
+    <header id="masthead" class="site-header">
+        <div class="fg-navbar-sticky" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+            <div class="uk-container">
+                <nav id="site-navigation" class="main-navigation uk-navbar-container" uk-navbar="offset:1;">
+                    <div class="uk-navbar-left uk-width-expand">
+                        <a class="uk-navbar-toggle uk-hidden@m uk-margin-auto-right" uk-navbar-toggle-icon uk-toggle href="#offcanvas"></a>
+                        <div class="site-branding uk-logo">
+							<?php the_custom_logo(); ?>
+                        </div><!-- .site-branding -->
+
+						<?php
+						if ( has_nav_menu( 'primary' ) ):
+							wp_nav_menu( array(
+								'theme_location' => 'primary',
+								'menu_id'        => 'primary-menu',
+								'menu_class'     => 'uk-navbar-nav uk-visible@m',
+								'walker'         => new Fremediti_Guitars_Nav_Walker(),
+								'fg_menu_type'   => 'main'
+							) );
+						endif;
+						?>
+                    </div>
+                </nav><!-- #site-navigation -->
+
+            </div>
+        </div>
+        <div id="offcanvas" uk-offcanvas="overlay: true;">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
 				<?php
-			else :
+				if ( has_nav_menu( 'offcanvas' ) ):
+					wp_nav_menu( array(
+						'theme_location' => 'offcanvas',
+						'menu_id'        => 'primary-menu',
+						'menu_class'     => 'uk-nav',
+						'walker'         => new Fremediti_Guitars_Nav_Walker(),
+						'fg_menu_type'   => 'offcanvas'
+					) );
+				endif;
 				?>
-				<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p>
-				<?php
-			endif;
-			$fremediti_guitars_description = get_bloginfo( 'description', 'display' );
-			if ( $fremediti_guitars_description || is_customize_preview() ) :
-				?>
-				<p class="site-description"><?php echo $fremediti_guitars_description; /* WPCS: xss ok. */ ?></p>
-			<?php endif; ?>
-		</div><!-- .site-branding -->
-
-		<nav id="site-navigation" class="main-navigation">
-			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'fremediti-guitars' ); ?></button>
-			<?php
-			wp_nav_menu( array(
-				'theme_location' => 'menu-1',
-				'menu_id'        => 'primary-menu',
-			) );
-			?>
-		</nav><!-- #site-navigation -->
-	</header><!-- #masthead -->
-
-	<div id="content" class="site-content">
+            </div>
+        </div>
+    </header><!-- #masthead -->
+	<?php
+	$container_class = '';
+	if ( ! Fremediti_Guitars_Metaboxes::is_full_width( get_the_ID() ) ) {
+		$container_class = 'uk-container';
+	}
+	?>
+    <div id="content" class="site-content <?php echo $container_class; ?>">

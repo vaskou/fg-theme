@@ -1,0 +1,15 @@
+.wp-block {
+    max-width: 1200px;
+}
+
+.wp-block-group {
+    border: 1px dashed rgb(36, 156, 36);
+}
+
+.wp-block-fremediti-guitars-grid {
+    border: 1px dashed rgb(189, 28, 28);
+}
+
+.wp-block-fremediti-guitars-grid-column {
+    border: 1px dashed rgb(42, 42, 189);
+}

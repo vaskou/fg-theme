@@ -18,10 +18,10 @@ get_header();
                 <header class="page-header">
 					<?php
 					the_archive_title( '<h1 class="page-title">', '</h1>' );
-					the_archive_description( '<div class="archive-description">', '</div>' );
 					?>
                 </header><!-- .page-header -->
-                <div class="uk-grid uk-child-width-1-2@m" uk-grid>
+
+                <div class="uk-child-width uk-child-width-1-2@s uk-child-width-1-4@m uk-grid" uk-grid>
 					<?php
 					/* Start the Loop */
 					while ( have_posts() ) :
@@ -38,11 +38,8 @@ get_header();
 					?>
                 </div>
 				<?php
-				the_posts_pagination( array(
-					'type'      => 'list',
-					'prev_text' => '<span uk-pagination-previous></span>',
-					'next_text' => '<span uk-pagination-next></span>',
-				) );
+
+				the_posts_navigation();
 
 			else :
 

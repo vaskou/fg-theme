@@ -16,20 +16,20 @@
 		<?php if ( 'post' === get_post_type() ) : ?>
 		<div class="entry-meta">
 			<?php
-			fremediti_guitars_posted_on();
-			fremediti_guitars_posted_by();
+			Fremediti_Guitars_Template_Functions::posted_on();
+			Fremediti_Guitars_Template_Functions::posted_by();
 			?>
 		</div><!-- .entry-meta -->
 		<?php endif; ?>
 	</header><!-- .entry-header -->
 
-	<?php fremediti_guitars_post_thumbnail(); ?>
+	<?php Fremediti_Guitars_Template_Functions::post_thumbnail(); ?>
 
 	<div class="entry-summary">
 		<?php the_excerpt(); ?>
 	</div><!-- .entry-summary -->
 
 	<footer class="entry-footer">
-		<?php fremediti_guitars_entry_footer(); ?>
+		<?php //Fremediti_Guitars_Template_Functions::entry_footer(); ?>
 	</footer><!-- .entry-footer -->
 </article><!-- #post-<?php the_ID(); ?> -->
