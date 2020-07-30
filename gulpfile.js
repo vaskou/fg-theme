@@ -9,6 +9,7 @@ const autoprefixer = require('gulp-autoprefixer');
 const sourcemaps = require('gulp-sourcemaps');
 const rename = require('gulp-rename');
 const replace = require('gulp-replace');
+const config = require( './gulp.config.js' );
 
 
 gulp.task('clean:output', function () {
@@ -44,7 +45,9 @@ gulp.task('build:styles', function () {
     return gulp.src(['./src/sass/style.scss'], {allowEmpty: true})
         .pipe(replace('@charset "UTF-8";', ''))
         .pipe(sourcemaps.init({loadMaps: true}))
-        .pipe(sass().on('error', sass.logError))
+        .pipe(sass({
+            outputStyle: config.outputStyle,
+        }).on('error', sass.logError))
         .pipe(sourcemaps.write({includeContent: false, sourceRoot: './src/sass/'}))
         .pipe(gulp.dest('./'))
         .pipe(browserSync.stream())
@@ -63,7 +66,7 @@ gulp.task('build', gulp.series('clean:output', 'build:styles', 'build:scripts'))
 gulp.task('watch:changes', function (cb) {
 
     browserSync.init({
-        proxy: "new.fremeditiguitars.com",
+        proxy: config.projectURL,
         reloadDelay: 2000
     });
 

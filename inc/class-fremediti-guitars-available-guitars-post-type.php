@@ -143,6 +143,12 @@ class Fremediti_Guitars_Available_Guitars_Post_Type {
 				'type' => 'number'
 			)
 		) );
+
+		$metabox->add_field( array(
+			'id'   => 'fg_available_guitars_notes',
+			'name' => __( 'Notes', 'fremediti-guitars' ),
+			'type' => 'textarea_small',
+		) );
 	}
 
 	public function register_shortcodes() {
@@ -188,6 +194,9 @@ class Fremediti_Guitars_Available_Guitars_Post_Type {
 					if ( function_exists( 'currency_exchange_rates_convert' ) ) {
 						$guitar_price_converted = currency_exchange_rates_convert( $price, 'USD', 'EUR' );
 					}
+
+					$notes = get_post_meta( $post_id, 'fg_available_guitars_notes', true );
+
 					?>
                     <div class="uk-grid" uk-grid>
                         <div class="uk-width-3-5@m uk-width-3-4@l">
@@ -231,9 +240,17 @@ class Fremediti_Guitars_Available_Guitars_Post_Type {
 							<?php
 							endif;
 
+							if ( ! empty( $notes ) ):
+								?>
+                                <p>
+									<?php echo $notes; ?>
+                                </p>
+							<?php
+							endif;
+
 							if ( ! empty( $contact_us_page_link ) ):
 								?>
-                                <a href="<?php echo $contact_us_page_link; ?>" class="uk-button uk-button-primary" target="_blank" >
+                                <a href="<?php echo $contact_us_page_link; ?>" class="uk-button uk-button-primary" target="_blank">
 									<?php _e( 'Contact Us', 'fremediti-guitars' ); ?>
                                 </a>
 							<?php
