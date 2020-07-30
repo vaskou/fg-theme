@@ -2,7 +2,7 @@
 Theme Name: Fremediti Guitars
 Author: Vasilis Koutsopoulos
 Description: Description
-Version: 1.0.1
+Version: 1.0.2
 License: GNU General Public License v2 or later
 License URI: LICENSE
 Text Domain: fremediti-guitars
@@ -184,6 +184,11 @@ h1,h2,h3,h4,h5,h6{
     .uk-navbar-dropdown {
       padding-left: 0;
       padding-right: 0;
+
+      li > a {
+        padding-left: 25px;
+        padding-right: 25px;
+      }
     }
   }
 }
