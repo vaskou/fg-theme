@@ -1,0 +1,29 @@
+/* Guitar Category */
+.fg-box {
+  border: 1px solid $global-border;
+
+  &:hover {
+    border-color: darken($global-border, 10%);
+  }
+
+  a {
+    padding: 0 20px;
+
+    &:first-child {
+      padding-top: 20px;
+    }
+
+    &:last-child {
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+  }
+
+  a:hover {
+    text-decoration: none;
+
+    h3 {
+      color: $base-link-hover-color;
+    }
+  }
+}

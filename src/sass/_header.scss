@@ -1,0 +1,26 @@
+/* Navbar */
+.fg-navbar-sticky {
+  background: #fff;
+  border-bottom: 1px solid $global-border;
+  box-sizing: border-box;
+}
+
+/* Logo */
+.site-branding {
+  position: absolute;
+  top: 0;
+  z-index: 1100;
+
+  a {
+    display: block;
+  }
+
+  img {
+    max-width: 175px;
+    @media (max-width: $breakpoint-small-max) {
+      max-height: 80px;
+      max-width: 100%;
+      width: auto;
+    }
+  }
+}

@@ -1,0 +1,54 @@
+/* Guitar Single */
+.fg-guitar-thumbs {
+  @media (min-width: $breakpoint-medium) {
+    a {
+      float: right;
+    }
+
+    img {
+      max-width: 100px;
+    }
+  }
+}
+
+.fg-short-description {
+  dd {
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+/* Description List */
+@media (min-width: 768px) {
+  .uk-description-list.horizontal > dt {
+    clear: both;
+    float: left;
+    font-size: 1rem;
+    margin-top: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 160px;
+  }
+  .uk-description-list.horizontal > dd {
+    margin-left: 180px;
+  }
+}
+
+/* Specs */
+.fg-specs-variations-tabs {
+  li {
+    align-self: flex-end;
+  }
+}
+
+.fg-specs {
+  > div:last-child {
+    .uk-table tr:first-child {
+      @media (max-width: $breakpoint-small-max) {
+        border-top: $table-divider-border-width solid $table-divider-border;
+      }
+    }
+  }
+}
