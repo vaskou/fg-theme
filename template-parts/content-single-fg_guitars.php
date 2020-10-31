@@ -1,17 +1,17 @@
 <?php
 $post_id       = get_the_ID();
-$image_gallery = FG_Guitars_Images_Fields::getInstance()->getImageGallery( $post_id );
+$image_gallery = FG_Guitars_Images_Fields::instance()->getImageGallery( $post_id );
 
 $featured_image    = array_slice( $image_gallery, 0, 1, true );
 $featured_image_id = key( $featured_image );
 $image_gallery     = array_slice( $image_gallery, 1, null, true );
 
-$specifications = FG_Guitars_Specifications_Fields::getInstance();
-$sounds         = FG_Guitars_Sounds_Fields::getInstance();
-$features       = FG_Guitars_Features_Fields::getInstance();
-$pricing        = FG_Guitars_Pricing_Fields::getInstance();
+$specifications = FG_Guitars_Specifications_Fields::instance();
+$sounds         = FG_Guitars_Sounds_Fields::instance();
+$features       = FG_Guitars_Features_Fields::instance();
+$pricing        = FG_Guitars_Pricing_Fields::instance();
 
-$single_guitar = Fremediti_Guitars_FG_Guitars::getInstance();
+$single_guitar = Fremediti_Guitars_FG_Guitars::instance();
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>

@@ -1,0 +1,19 @@
+/* Homepage */
+.fg-our-philosophy {
+  background: #f1f1f1;
+}
+
+.fg-our-philosophy-img {
+  @media (min-width: 1200px) {
+    padding-left: 40px;
+  }
+  @media (min-width: 960px) {
+    padding-right: 0;
+    padding-top: 0;
+  }
+  display: block !important;
+  margin: 0 auto;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 30px;
+}

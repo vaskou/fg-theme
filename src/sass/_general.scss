@@ -1,0 +1,82 @@
+/* General */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.site-content {
+  margin-bottom: 40px;
+
+  &.uk-container {
+    margin-top: 40px;
+  }
+}
+
+iframe {
+  max-width: 100%;
+}
+h1,h2,h3,h4,h5,h6{
+  a{
+    color: $base-heading-color;
+    &:hover{
+      color: $global-link-hover-color;
+    }
+  }
+}
+
+/* Gallery */
+.fg-gallery {
+  img {
+    border: 2px solid $global-border;
+  }
+}
+
+/* Prices */
+.fg-currency-button {
+  background: transparent;
+  border: 1px solid transparent;
+  padding: 0 15px;
+
+  &.fg-selected {
+    border-color: darken($global-border, 15%);
+  }
+}
+
+/* Menu Icons */
+.menu-item {
+  &.fg-vf-icon,
+  &.fg-fr-icon {
+    position: relative;
+
+    a:before {
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      content: '';
+      display: inline-block;
+      height: 25px;
+      margin-right: 5px;
+      vertical-align: calc(-25px / 4);
+      width: 25px;
+    }
+  }
+
+  &.fg-vf-icon a:before {
+    background-image: url("/wp-content/themes/fremediti-guitars/assets/images/vf.jpg");
+  }
+
+  &.fg-fr-icon a:before {
+    background-image: url("/wp-content/themes/fremediti-guitars/assets/images/fr.jpg");
+  }
+}
+
+/* Totop */
+.uk-totop {
+  background: #ffffff;
+  border: 1px solid $global-border;
+  border-radius: 50%;
+  bottom: 20px;
+  padding: 13px 10px 15px;
+  position: fixed;
+  right: 20px;
+}

@@ -14,20 +14,17 @@ class Fremediti_Guitars_Available_Guitars_Post_Type {
 	 * FG_Guitars_Post_Type constructor.
 	 */
 	private function __construct() {
+		add_action( 'init', array( $this, 'register_post_type' ) );
+		add_action( 'cmb2_admin_init', array( $this, 'add_metaboxes' ) );
+		add_action( 'init', array( $this, 'register_shortcodes' ) );
 	}
 
-	public static function getInstance() {
+	public static function instance() {
 		if ( self::$instance == null ) {
 			self::$instance = new self();
 		}
 
 		return self::$instance;
-	}
-
-	public function init() {
-		add_action( 'init', array( $this, 'register_post_type' ) );
-		add_action( 'cmb2_admin_init', array( $this, 'add_metaboxes' ) );
-		add_action( 'init', array( $this, 'register_shortcodes' ) );
 	}
 
 	/**

@@ -26,7 +26,7 @@ gulp.task('build:scripts', function () {
         './src/js/scripts.js'
     ])
         .pipe(concat('scripts.js'))
-        .pipe(gulp.dest('./assets/js'))
+        .pipe(gulp.dest(config.jsDestination))
         .pipe(browserSync.stream())
         .pipe(minify({
             ext: {
@@ -34,7 +34,7 @@ gulp.task('build:scripts', function () {
             },
             noSource: true
         }))
-        .pipe(gulp.dest('./assets/js'))
+        .pipe(gulp.dest(config.jsDestination))
         .pipe(browserSync.stream());
 
 });
@@ -49,14 +49,14 @@ gulp.task('build:styles', function () {
             outputStyle: config.outputStyle,
         }).on('error', sass.logError))
         .pipe(sourcemaps.write({includeContent: false, sourceRoot: './src/sass/'}))
-        .pipe(gulp.dest('./'))
+        .pipe(gulp.dest(config.cssDestination))
         .pipe(browserSync.stream())
         .pipe(autoprefixer({
             cascade: false
         }))
         .pipe(rename({suffix: '.min'}))
         .pipe(cleanCSS())
-        .pipe(gulp.dest('./'))
+        .pipe(gulp.dest(config.cssDestination))
         .pipe(browserSync.stream());
 
 });

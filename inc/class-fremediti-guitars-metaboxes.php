@@ -8,7 +8,7 @@ class Fremediti_Guitars_Metaboxes {
 
 	private static $instance = null;
 
-	public static function getInstance() {
+	public static function instance() {
 		if ( self::$instance == null ) {
 			self::$instance = new self();
 		}
@@ -17,10 +17,6 @@ class Fremediti_Guitars_Metaboxes {
 	}
 
 	private function __construct() {
-		$this->init();
-	}
-
-	public function init() {
 		add_action( 'add_meta_boxes', array( $this, 'add' ), 10, 2 );
 		add_action( 'save_post', array( $this, 'save' ), 10, 2 );
 	}

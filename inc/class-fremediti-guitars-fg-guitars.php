@@ -12,7 +12,7 @@ class Fremediti_Guitars_FG_Guitars {
 
 	private static $instance = null;
 
-	public static function getInstance() {
+	public static function instance() {
 		if ( self::$instance == null ) {
 			self::$instance = new self();
 		}
@@ -22,23 +22,23 @@ class Fremediti_Guitars_FG_Guitars {
 
 	private function __construct() {
 		if ( class_exists( 'FG_Guitars_Short_Description_Fields' ) ) {
-			$this->short_description = FG_Guitars_Short_Description_Fields::getInstance();
+			$this->short_description = FG_Guitars_Short_Description_Fields::instance();
 		}
 
 		if ( class_exists( 'FG_Guitars_Specifications_Fields' ) ) {
-			$this->specifications = FG_Guitars_Specifications_Fields::getInstance();
+			$this->specifications = FG_Guitars_Specifications_Fields::instance();
 		}
 
 		if ( class_exists( 'FG_Guitars_Sounds_Fields' ) ) {
-			$this->sounds = FG_Guitars_Sounds_Fields::getInstance();
+			$this->sounds = FG_Guitars_Sounds_Fields::instance();
 		}
 
 		if ( class_exists( 'FG_Guitars_Features_Fields' ) ) {
-			$this->features = FG_Guitars_Features_Fields::getInstance();
+			$this->features = FG_Guitars_Features_Fields::instance();
 		}
 
 		if ( class_exists( 'FG_Guitars_Pricing_Fields' ) ) {
-			$this->pricing = FG_Guitars_Pricing_Fields::getInstance();
+			$this->pricing = FG_Guitars_Pricing_Fields::instance();
 		}
 	}
 

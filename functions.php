@@ -1,6 +1,6 @@
 <?php
 
-define( 'FREMEDITI_GUITARS_THEME_VERSION', '1.0.2' );
+define( 'FREMEDITI_GUITARS_THEME_VERSION', '1.0.3' );
 define( 'FREMEDITI_GUITARS_THEME_PATH', get_stylesheet_directory() );
 define( 'FREMEDITI_GUITARS_THEME_URL', get_stylesheet_directory_uri() );
 
@@ -31,4 +31,4 @@ require get_template_directory() . '/inc/class-fremediti-guitars-videos-post-typ
 require get_template_directory() . '/inc/class-fremediti-guitars-settings.php';
 
 
-Fremediti_Guitars_Theme::getInstance()->init();
+Fremediti_Guitars_Theme::instance();
