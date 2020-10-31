@@ -298,7 +298,7 @@ class Fremediti_Guitars_Theme {
 			return $item_output;
 		}
 
-		$guitars = FG_Guitars_Post_Type::getInstance();
+		$guitars = FG_Guitars_Post_Type::instance();
 
 		$categories_items_array = $guitars->get_categories_items_array();
 
