@@ -12,7 +12,7 @@ class Fremediti_Guitars_FG_Guitars {
 
 	private static $instance = null;
 
-	public static function getInstance() {
+	public static function instance() {
 		if ( self::$instance == null ) {
 			self::$instance = new self();
 		}

@@ -31,4 +31,4 @@ require get_template_directory() . '/inc/class-fremediti-guitars-videos-post-typ
 require get_template_directory() . '/inc/class-fremediti-guitars-settings.php';
 
 
-Fremediti_Guitars_Theme::getInstance()->init();
+Fremediti_Guitars_Theme::instance();

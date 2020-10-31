@@ -6,7 +6,7 @@ class Fremediti_Guitars_Theme {
 
 	private static $instance = null;
 
-	public static function getInstance() {
+	public static function instance() {
 		if ( self::$instance == null ) {
 			self::$instance = new self();
 		}
@@ -15,9 +15,6 @@ class Fremediti_Guitars_Theme {
 	}
 
 	private function __construct() {
-	}
-
-	public function init() {
 		add_action( 'init', array( $this, 'add_editor_style' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'fremediti_guitars_scripts' ) );
@@ -51,12 +48,12 @@ class Fremediti_Guitars_Theme {
 		// Favicon
 		add_action( 'wp_head', array( $this, 'add_favicon' ) );
 
-		Fremediti_Guitars_Customizer::getInstance();
-		Fremediti_Guitars_Metaboxes::getInstance();
-		Fremediti_Guitars_Available_Guitars_Post_Type::getInstance()->init();
-		Fremediti_Guitars_Gallery_Post_Type::getInstance()->init();
-		Fremediti_Guitars_Videos_Post_Type::getInstance()->init();
-		Fremediti_Guitars_Settings::getInstance()->init();
+		Fremediti_Guitars_Customizer::instance();
+		Fremediti_Guitars_Metaboxes::instance();
+		Fremediti_Guitars_Available_Guitars_Post_Type::instance();
+		Fremediti_Guitars_Gallery_Post_Type::instance();
+		Fremediti_Guitars_Videos_Post_Type::instance();
+		Fremediti_Guitars_Settings::instance();
 	}
 
 	public function add_editor_style() {

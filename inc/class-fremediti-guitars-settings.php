@@ -22,7 +22,7 @@ class Fremediti_Guitars_Settings {
 	private $_submenu_parent_slug = 'themes.php';
 	private static $instance = null;
 
-	public static function getInstance() {
+	public static function instance() {
 		if ( self::$instance == null ) {
 			self::$instance = new self();
 		}
@@ -31,11 +31,8 @@ class Fremediti_Guitars_Settings {
 	}
 
 	private function __construct() {
-	}
-
-	public function init() {
 		add_action( 'admin_menu', array( $this, 'settings_page' ) );
-		add_filter( 'whitelist_options', array( $this, 'whitelist_options' ) );
+		add_filter( 'allowed_options', array( $this, 'allowed_options' ) );
 		add_action( 'admin_init', array( $this, 'add_setting_section' ) );
 		add_action( 'admin_init', array( $this, 'register_setting' ) );
 		add_action( 'admin_init', array( $this, 'register_setting_field' ) );
@@ -75,16 +72,16 @@ class Fremediti_Guitars_Settings {
 		<?php
 	}
 
-	public function whitelist_options( $whitelist_options ) {
+	public function allowed_options( $allowed_options ) {
 		$options = array();
 
 		foreach ( self::SETTING_FIELDS as $field_name => $field_args ) {
 			array_push( $options, $field_name );
 		}
 
-		$whitelist_options[ self::MENU_SLUG ] = $options;
+		$allowed_options[ self::MENU_SLUG ] = $options;
 
-		return $whitelist_options;
+		return $allowed_options;
 	}
 
 	public function add_setting_section() {

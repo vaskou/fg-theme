@@ -12,7 +12,7 @@ class Fremediti_Guitars_Template_Functions {
 	private function __construct() {
 	}
 
-	public static function getInstance() {
+	public static function instance() {
 		if ( self::$instance == null ) {
 			self::$instance = new self();
 		}

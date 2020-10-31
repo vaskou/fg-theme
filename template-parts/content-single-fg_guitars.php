@@ -11,7 +11,7 @@ $sounds         = FG_Guitars_Sounds_Fields::getInstance();
 $features       = FG_Guitars_Features_Fields::getInstance();
 $pricing        = FG_Guitars_Pricing_Fields::getInstance();
 
-$single_guitar = Fremediti_Guitars_FG_Guitars::getInstance();
+$single_guitar = Fremediti_Guitars_FG_Guitars::instance();
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
