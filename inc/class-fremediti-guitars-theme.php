@@ -24,6 +24,7 @@ class Fremediti_Guitars_Theme {
 		add_action( 'wp_nav_menu_item_custom_fields', array( $this, 'guitar_menu_enable' ), 10, 5 );
 		add_action( 'wp_update_nav_menu_item', array( $this, 'update_custom_menu_options' ), 10, 3 );
 		add_action( 'walker_nav_menu_start_el', array( $this, 'guitar_menu' ), 10, 4 );
+		add_filter( 'nav_menu_css_class', array( $this, 'guitar_menu_class' ), 10, 2 );
 		add_filter( 'get_the_archive_title', array( $this, 'get_the_archive_title' ) );
 
 		// Widget Menu
@@ -333,23 +334,26 @@ class Fremediti_Guitars_Theme {
                                 <li class="uk-animation-fade">
 									<?php
 									if ( ! empty( $categories['items'] ) ):
+										$items_count = count( $categories['items'] );
+										$items = $items_count > 4 ? $items_count : 4;
+										$width_class = 'uk-child-width-1-' . $items . '@m';
 										?>
-                                        <div uk-slider>
-                                            <ul class="uk-slider-items uk-child-width-1-4@m uk-grid" uk-grid>
-												<?php
-												foreach ( $categories['items'] as $guitar ):
-													?>
-                                                    <li class="uk-text-center">
-                                                        <a href="<?php echo get_permalink( $guitar['id'] ); ?>">
-															<?php echo $guitar['image']; ?>
-                                                            <div><?php echo esc_html( $guitar['title'] ); ?></div>
-                                                        </a>
-                                                    </li>
-												<?php
-												endforeach;
+                                        <!--                                        <div uk-slider>-->
+                                        <ul class="uk-slider-items uk-grid <?php echo $width_class; ?>" uk-grid>
+											<?php
+											foreach ( $categories['items'] as $guitar ):
 												?>
-                                            </ul>
-                                        </div>
+                                                <li class="uk-text-center">
+                                                    <a href="<?php echo get_permalink( $guitar['id'] ); ?>">
+														<?php echo $guitar['image']; ?>
+                                                        <div><?php echo esc_html( $guitar['title'] ); ?></div>
+                                                    </a>
+                                                </li>
+											<?php
+											endforeach;
+											?>
+                                        </ul>
+                                        <!--                                        </div>-->
 									<?php
 									endif;
 									?>
@@ -368,6 +372,24 @@ class Fremediti_Guitars_Theme {
 		$item_output .= $html;
 
 		return $item_output;
+	}
+
+	/**
+	 * @param $classes array
+	 * @param $item WP_Post
+	 *
+	 * @return mixed
+	 */
+	public function guitar_menu_class( $classes, $item ) {
+
+		$is_guitar_mega_menu = get_post_meta( $item->ID, '_menu_item_guitar_menu_enable', true );
+
+		if ( $is_guitar_mega_menu ) {
+			$classes[] = 'megamenu';
+			$classes   = array_unique ( $classes );
+		}
+
+		return $classes;
 	}
 
 	public function get_the_archive_title( $title ) {
@@ -499,23 +521,23 @@ class Fremediti_Guitars_Theme {
 
 	public function add_favicon() {
 		?>
-		<link rel="apple-touch-icon" sizes="57x57" href="<?php echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/apple-icon-57x57.png">
-		<link rel="apple-touch-icon" sizes="60x60" href="<?php echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/apple-icon-60x60.png">
-		<link rel="apple-touch-icon" sizes="72x72" href="<?php echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/apple-icon-72x72.png">
-		<link rel="apple-touch-icon" sizes="76x76" href="<?php echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/apple-icon-76x76.png">
-		<link rel="apple-touch-icon" sizes="114x114" href="<?php echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/apple-icon-114x114.png">
-		<link rel="apple-touch-icon" sizes="120x120" href="<?php echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/apple-icon-120x120.png">
-		<link rel="apple-touch-icon" sizes="144x144" href="<?php echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/apple-icon-144x144.png">
-		<link rel="apple-touch-icon" sizes="152x152" href="<?php echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/apple-icon-152x152.png">
-		<link rel="apple-touch-icon" sizes="180x180" href="<?php echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/apple-icon-180x180.png">
-		<link rel="icon" type="image/png" sizes="192x192"  href="<?php echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/android-icon-192x192.png">
-		<link rel="icon" type="image/png" sizes="32x32" href="<?php echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/favicon-32x32.png">
-		<link rel="icon" type="image/png" sizes="96x96" href="<?php echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/favicon-96x96.png">
-		<link rel="icon" type="image/png" sizes="16x16" href="<?php echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/favicon-16x16.png">
-		<link rel="manifest" href="<?php echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/manifest.json">
-		<meta name="msapplication-TileColor" content="#ffffff">
-		<meta name="msapplication-TileImage" content="<?php echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/ms-icon-144x144.png">
-		<meta name="theme-color" content="#ffffff">
+        <link rel="apple-touch-icon" sizes="57x57" href="<?php echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="<?php echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="<?php echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="<?php echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="<?php echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="<?php echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="<?php echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="<?php echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="<?php echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192" href="<?php echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="<?php echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="<?php echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="<?php echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/favicon-16x16.png">
+        <link rel="manifest" href="<?php echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="<?php echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
 		<?php
 	}
 
