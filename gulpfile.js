@@ -67,7 +67,8 @@ gulp.task('watch:changes', function (cb) {
 
     browserSync.init({
         proxy: config.projectURL,
-        reloadDelay: 2000
+        reloadDelay: 2000,
+        browser: config.browser,
     });
 
     gulp.watch('./src/sass/*.scss', gulp.series('build:styles'));
