@@ -211,8 +211,8 @@ class Fremediti_Guitars_Theme {
 		$shared_args = array(
 			'before_widget' => '<section id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</section>',
-			'before_title'  => '<h3 class="widget-title">',
-			'after_title'   => '</h3>',
+			'before_title'  => '<div class="widget-title uk-h3">',
+			'after_title'   => '</div>',
 		);
 
 		$sidebars = array(
@@ -472,7 +472,7 @@ class Fremediti_Guitars_Theme {
 	public function the_content_more_link( $link ) {
 		ob_start();
 		?>
-        <a href="<?php the_permalink(); ?>" class="uk-button uk-button-primary"><?php _e( 'More', 'fremediti-guitars' ); ?></a>
+        <a href="<?php the_permalink(); ?>" class="uk-button uk-button-primary"><?php _e( 'Read More', 'fremediti-guitars' ); ?></a>
 		<?php
 		return ob_get_clean();
 	}
