@@ -15,10 +15,12 @@ html {
 iframe {
   max-width: 100%;
 }
-h1,h2,h3,h4,h5,h6{
-  a{
+
+h1, h2, h3, h4, h5, h6 {
+  a {
     color: $base-heading-color;
-    &:hover{
+
+    &:hover {
       color: $global-link-hover-color;
     }
   }
@@ -79,4 +81,9 @@ h1,h2,h3,h4,h5,h6{
   padding: 13px 10px 15px;
   position: fixed;
   right: 20px;
+}
+
+/* Hide empty img */
+img[src=""] {
+  visibility: hidden;
 }
