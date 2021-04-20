@@ -48,13 +48,14 @@ class Fremediti_Guitars_Theme {
 
 		// Favicon
 		add_action( 'wp_head', array( $this, 'add_favicon' ) );
-
+		
 		Fremediti_Guitars_Customizer::instance();
 		Fremediti_Guitars_Metaboxes::instance();
 		Fremediti_Guitars_Available_Guitars_Post_Type::instance();
 		Fremediti_Guitars_Gallery_Post_Type::instance();
 		Fremediti_Guitars_Videos_Post_Type::instance();
 		Fremediti_Guitars_Settings::instance();
+		Fremediti_Guitars_Multilanguage::instance();
 	}
 
 	public function add_editor_style() {
@@ -386,7 +387,7 @@ class Fremediti_Guitars_Theme {
 
 		if ( $is_guitar_mega_menu ) {
 			$classes[] = 'megamenu';
-			$classes   = array_unique ( $classes );
+			$classes   = array_unique( $classes );
 		}
 
 		return $classes;
