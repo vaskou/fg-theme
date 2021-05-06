@@ -17,7 +17,7 @@ get_header();
 $has_sidebar = Fremediti_Guitars_Metaboxes::has_sidebar( get_the_ID() );
 if ( $has_sidebar ):
 	?>
-    <div class="uk-grid" uk-grid>
+    <div class="uk-grid uk-grid-divider" uk-grid>
 <?php
 endif;
 ?>
