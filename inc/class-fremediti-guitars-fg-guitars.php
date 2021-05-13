@@ -109,21 +109,11 @@ class Fremediti_Guitars_FG_Guitars {
 
 		ob_start();
 		if ( ! empty( $sounds ) ):
-			?>
-            <div uk-lightbox>
-                <div class="uk-child-width-1-2 uk-child-width-1-4@m uk-grid" uk-grid>
-					<?php
-					foreach ( $sounds as $sound ):
-						?>
-                        <a href="//youtube.com/watch?v=<?php echo $sound; ?>" data-attrs="width: 1280; height: 720;">
-                            <img src="//img.youtube.com/vi/<?php echo $sound; ?>/sddefault.jpg" alt="<?php _e( 'Guitar Video', 'fremediti-guitars' ); ?>"/>
-                        </a>
-					<?php
-					endforeach;
-					?>
-                </div>
-            </div>
-		<?php
+			$args = array(
+				'videos'  => $sounds,
+				'columns' => 4
+			);
+			get_template_part( 'template-parts/video-template', null, $args );
 		else:
 			?>
             <div class="uk-text-center uk-margin-top">
