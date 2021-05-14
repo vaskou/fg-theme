@@ -2,6 +2,8 @@
 $post_id       = get_the_ID();
 $image_gallery = FG_Guitars_Images_Fields::instance()->getImageGallery( $post_id );
 
+$image_gallery = ! is_array( $image_gallery ) ? array( $image_gallery ) : $image_gallery;
+
 $featured_image    = array_slice( $image_gallery, 0, 1, true );
 $featured_image_id = key( $featured_image );
 $image_gallery     = array_slice( $image_gallery, 1, null, true );

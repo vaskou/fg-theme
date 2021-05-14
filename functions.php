@@ -1,6 +1,6 @@
 <?php
 
-define( 'FREMEDITI_GUITARS_THEME_VERSION', '1.0.5' );
+define( 'FREMEDITI_GUITARS_THEME_VERSION', '1.0.6' );
 define( 'FREMEDITI_GUITARS_THEME_PATH', get_stylesheet_directory() );
 define( 'FREMEDITI_GUITARS_THEME_URL', get_stylesheet_directory_uri() );
 
@@ -22,6 +22,8 @@ require get_template_directory() . '/inc/class-fremediti-guitars-metaboxes.php';
 
 require get_template_directory() . '/inc/class-fremediti-guitars-fg-guitars.php';
 
+require get_template_directory() . '/inc/class-fremediti-guitars-fg-pickups.php';
+
 require get_template_directory() . '/inc/class-fremediti-guitars-available-guitars-post-type.php';
 
 require get_template_directory() . '/inc/class-fremediti-guitars-gallery-post-type.php';
@@ -29,6 +31,8 @@ require get_template_directory() . '/inc/class-fremediti-guitars-gallery-post-ty
 require get_template_directory() . '/inc/class-fremediti-guitars-videos-post-type.php';
 
 require get_template_directory() . '/inc/class-fremediti-guitars-settings.php';
+
+require get_template_directory() . '/inc/class-fremediti-guitars-multilanguage.php';
 
 
 Fremediti_Guitars_Theme::instance();

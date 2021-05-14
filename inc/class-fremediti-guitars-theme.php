@@ -48,13 +48,14 @@ class Fremediti_Guitars_Theme {
 
 		// Favicon
 		add_action( 'wp_head', array( $this, 'add_favicon' ) );
-
+		
 		Fremediti_Guitars_Customizer::instance();
 		Fremediti_Guitars_Metaboxes::instance();
 		Fremediti_Guitars_Available_Guitars_Post_Type::instance();
 		Fremediti_Guitars_Gallery_Post_Type::instance();
 		Fremediti_Guitars_Videos_Post_Type::instance();
 		Fremediti_Guitars_Settings::instance();
+		Fremediti_Guitars_Multilanguage::instance();
 	}
 
 	public function add_editor_style() {
@@ -211,8 +212,8 @@ class Fremediti_Guitars_Theme {
 		$shared_args = array(
 			'before_widget' => '<section id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</section>',
-			'before_title'  => '<h3 class="widget-title">',
-			'after_title'   => '</h3>',
+			'before_title'  => '<div class="widget-title uk-h3">',
+			'after_title'   => '</div>',
 		);
 
 		$sidebars = array(
@@ -386,7 +387,7 @@ class Fremediti_Guitars_Theme {
 
 		if ( $is_guitar_mega_menu ) {
 			$classes[] = 'megamenu';
-			$classes   = array_unique ( $classes );
+			$classes   = array_unique( $classes );
 		}
 
 		return $classes;
@@ -472,7 +473,7 @@ class Fremediti_Guitars_Theme {
 	public function the_content_more_link( $link ) {
 		ob_start();
 		?>
-        <a href="<?php the_permalink(); ?>" class="uk-button uk-button-primary"><?php _e( 'More', 'fremediti-guitars' ); ?></a>
+        <a href="<?php the_permalink(); ?>" class="uk-button uk-button-primary"><?php _e( 'Read More', 'fremediti-guitars' ); ?></a>
 		<?php
 		return ob_get_clean();
 	}

@@ -30,7 +30,7 @@
             <div class="uk-container">
                 <nav id="site-navigation" class="main-navigation uk-navbar-container" uk-navbar="offset:1;">
                     <div class="uk-navbar-left uk-width-expand">
-                        <a class="uk-navbar-toggle uk-hidden@m uk-margin-auto-right" uk-navbar-toggle-icon uk-toggle href="#offcanvas"></a>
+                        <a class="uk-navbar-toggle uk-hidden@m uk-margin-auto-right" uk-navbar-toggle-icon uk-toggle href="#offcanvas" title="offcanvas"></a>
                         <div class="site-branding uk-logo">
 							<?php the_custom_logo(); ?>
                         </div><!-- .site-branding -->
@@ -58,7 +58,7 @@
 				if ( has_nav_menu( 'offcanvas' ) ):
 					wp_nav_menu( array(
 						'theme_location' => 'offcanvas',
-						'menu_id'        => 'primary-menu',
+						'menu_id'        => 'offcanvas-menu',
 						'menu_class'     => 'uk-nav',
 						'walker'         => new Fremediti_Guitars_Nav_Walker(),
 						'fg_menu_type'   => 'offcanvas'

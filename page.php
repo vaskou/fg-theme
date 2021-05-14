@@ -13,9 +13,15 @@
  */
 
 get_header();
-?>
 
-    <div id="primary" class="content-area">
+$has_sidebar = Fremediti_Guitars_Metaboxes::has_sidebar( get_the_ID() );
+if ( $has_sidebar ):
+	?>
+    <div class="uk-grid uk-grid-divider" uk-grid>
+<?php
+endif;
+?>
+    <div id="primary" class="content-area <?php echo $has_sidebar ? 'uk-width-2-3@s uk-width-1-1' : ''; ?>">
         <main id="main" class="site-main">
 
 			<?php
@@ -36,7 +42,10 @@ get_header();
     </div><!-- #primary -->
 
 <?php
-if ( Fremediti_Guitars_Metaboxes::has_sidebar( get_the_ID() ) ) {
+if ( $has_sidebar ) :
 	get_sidebar();
-}
+	?>
+    </div>
+<?php
+endif;
 get_footer();

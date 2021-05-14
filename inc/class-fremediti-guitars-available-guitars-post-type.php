@@ -211,7 +211,7 @@ class Fremediti_Guitars_Available_Guitars_Post_Type {
                         </div>
 
                         <div class="uk-width-2-5@m uk-width-1-4@l uk-text-center uk-margin-large">
-                            <h3>
+                            <h2 class="uk-h3">
 								<?php if ( ! empty( $title_url ) ) : ?>
                                 <a href="<?php echo $title_url; ?>" target="_blank">
 									<?php endif; ?>
@@ -219,7 +219,7 @@ class Fremediti_Guitars_Available_Guitars_Post_Type {
 									<?php if ( ! empty( $title_url ) ) : ?>
                                 </a>
 							<?php endif; ?>
-                            </h3>
+                            </h2>
 							<?php
 							if ( ! empty( $image ) && ! empty( $image_url ) ):
 								?>

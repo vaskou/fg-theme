@@ -22,6 +22,11 @@
       line-height: 100px;
       max-height: 70px;
       min-height: 70px;
+
+      .wpml-ls-flag {
+        align-self: flex-end;
+        margin-bottom: 12px;
+      }
     }
 
     a {

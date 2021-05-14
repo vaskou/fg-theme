@@ -32,23 +32,13 @@ $class = 'uk-article uk-flex';
 				<?php
 				echo wpautop( get_the_content() );
 
-				if ( class_exists( 'FG_Pickups_Post_Type' ) && FG_Pickups_Post_Type::POST_TYPE_NAME == get_post_type() ):
-					$fg_pickups_image_id = FG_Pickups_Post_Type::instance()->get_pickup_image_id( get_the_ID() );
-					$url = wp_get_attachment_url( $fg_pickups_image_id );
-					if ( ! empty( $url ) ):
-						?>
-                        <div uk-lightbox>
-                            <a href="<?php echo esc_url( $url ); ?>" class="uk-button uk-button-primary">
-								<?php _e( 'Specs', 'fremediti-guitars' ); ?>
-                            </a>
-                        </div>
-					<?php
-					endif;
-				endif
+				do_action( 'fremediti_guitars_custom_post_type_after_content' );
 
 				?>
             </div><!-- .entry-content -->
         </div>
+
+		<?php do_action( 'fremediti_guitars_custom_post_type_after_content_row' ); ?>
 
         <footer class="entry-footer">
 			<?php //Fremediti_Guitars_Template_Functions::entry_footer(); ?>

@@ -15,10 +15,12 @@ html {
 iframe {
   max-width: 100%;
 }
-h1,h2,h3,h4,h5,h6{
-  a{
+
+h1, h2, h3, h4, h5, h6 {
+  a {
     color: $base-heading-color;
-    &:hover{
+
+    &:hover {
       color: $global-link-hover-color;
     }
   }
@@ -79,4 +81,40 @@ h1,h2,h3,h4,h5,h6{
   padding: 13px 10px 15px;
   position: fixed;
   right: 20px;
+}
+
+/* Hide empty img */
+img[src=""] {
+  visibility: hidden;
+}
+
+/* Video link */
+.video-link {
+  display: inline-block;
+  position: relative;
+
+
+  &:hover {
+    svg {
+      .ytp-large-play-button-bg {
+        fill: #f00;
+        fill-opacity: 1;
+        transition: fill .1s cubic-bezier(0, 0, 0.2, 1), fill-opacity .1s cubic-bezier(0, 0, 0.2, 1);
+      }
+    }
+  }
+
+  svg {
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 50px;
+
+    .ytp-large-play-button-bg {
+      fill: #212121;
+      fill-opacity: .8;
+      transition: fill .1s cubic-bezier(0.4, 0, 1, 1), fill-opacity .1s cubic-bezier(0.4, 0, 1, 1);
+    }
+  }
 }
