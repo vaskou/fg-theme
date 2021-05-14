@@ -37,33 +37,51 @@ class Fremediti_Guitars_FG_Pickups {
 
 	public function add_fg_pickup_extra_row() {
 		$post_id = get_the_ID();
-		?>
-        <div class="uk-child-width-1-2@m uk-grid" uk-grid>
-            <div class="uk-text-center">
-                <p>
-                    €249.00
-                </p>
-                <p>
-                    Availability: in stock (ships in 2-3 business days)
-                </p>
-                <a href="<?php echo home_url( '/contact-us' ); ?>" class="uk-button uk-button-primary">
-					<?php _e( 'Contact Us', 'fremediti-guitars' ); ?>
-                </a>
-            </div>
-            <div>
+
+		if ( class_exists( 'FG_Pickups_Post_Type' ) && FG_Pickups_Post_Type::POST_TYPE_NAME == get_post_type() ):
+			$pickups_instance = FG_Pickups_Post_Type::instance();
+
+			$price        = $pickups_instance->get_price( $post_id );
+			$availability = $pickups_instance->get_availability( $post_id );
+			?>
+
+            <div class="uk-child-width-1-2@m uk-grid uk-flex-middle" uk-grid>
+                <div class="uk-text-center">
+					<?php if ( ! empty( $price ) ): ?>
+                        <p>
+                            <span class="uk-text-large">&euro;<?php esc_attr_e( $price, 'fremediti-guitars' ); ?></span>
+                        </p>
+					<?php endif; ?>
+
+					<?php if ( ! empty( $availability ) ): ?>
+                        <p>
+                            <span class="uk-text-bolder">
+                                <?php _e( 'Availability', 'fremediti-guitars' ); ?>: <?php esc_attr_e( $availability, 'fremediti-guitars' ); ?>
+                            </span>
+                        </p>
+					<?php endif; ?>
+                    <a href="<?php echo home_url( '/contact-us' ); ?>" class="uk-button uk-button-primary">
+						<?php _e( 'Contact Us', 'fremediti-guitars' ); ?>
+                    </a>
+                </div>
+
 				<?php
-				if ( class_exists( 'FG_Pickups_Post_Type' ) && FG_Pickups_Post_Type::POST_TYPE_NAME == get_post_type() ):
-					$video = FG_Pickups_Post_Type::instance()->get_video( $post_id );
-					$args  = array(
-						'videos' => array( $video )
-					);
+				$video = $pickups_instance->get_video( $post_id );
+				$args  = array(
+					'videos' => array( $video )
+				);
 
-					get_template_part( 'template-parts/video-template', null, $args );
-
+				if ( ! empty( $video ) ):
+					?>
+                    <div>
+						<?php get_template_part( 'template-parts/video-template', null, $args ); ?>
+                    </div>
+				<?php
 				endif;
 				?>
             </div>
-        </div>
 		<?php
+		endif;
+
 	}
 }
