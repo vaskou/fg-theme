@@ -102,50 +102,54 @@ class Fremediti_Guitars_Available_Guitars_Post_Type {
 			'show_names'   => true, // Show field names on the left
 		) );
 
-		$metabox->add_field( array(
-			'id'   => 'fg_available_guitars_title_url',
-			'name' => __( 'Title URL', 'fremediti-guitars' ),
-			'type' => 'text_url',
+		$fields = apply_filters( 'fg_available_guitars_fields', array(
+			'title_url' => array(
+				'name' => __( 'Title URL', 'fremediti-guitars' ),
+				'type' => 'text_url',
+			),
+			'image'     => array(
+				'id'      => 'fg_available_guitars_image',
+				'name'    => __( 'Image', 'fremediti-guitars' ),
+				'type'    => 'file',
+				'options' => array(
+					'url' => false,
+				),
+				'text'    => array(
+					'add_upload_file_text' => __( 'Add Image', 'fremediti-guitars' )
+				),
+			),
+			'specs'     => array(
+				'name'    => __( 'Specs', 'fremediti-guitars' ),
+				'type'    => 'file',
+				'options' => array(
+					'url' => false,
+				),
+				'text'    => array(
+					'add_upload_file_text' => __( 'Add Specs Image', 'fremediti-guitars' )
+				),
+			),
+			'price'     => array(
+				'name'       => __( 'Price', 'fremediti-guitars' ),
+				'type'       => apply_filters( 'fg_available_guitars_price_field_type', 'text_small' ),
+				'attributes' => array(
+					'type' => apply_filters( 'fg_available_guitars_price_field_type', 'number' )
+				)
+			),
+			'notes'     => array(
+				'name' => __( 'Notes', 'fremediti-guitars' ),
+				'type' => 'textarea_small',
+			),
 		) );
 
-		$metabox->add_field( array(
-			'id'      => 'fg_available_guitars_image',
-			'name'    => __( 'Image', 'fremediti-guitars' ),
-			'type'    => 'file',
-			'options' => array(
-				'url' => false,
-			),
-			'text'    => array(
-				'add_upload_file_text' => __( 'Add Image', 'fremediti-guitars' )
-			),
-		) );
+		foreach ( $fields as $field_id => $field_args ) {
+			$defaults = array(
+				'id' => 'fg_available_guitars_' . $field_id,
+			);
 
-		$metabox->add_field( array(
-			'id'      => 'fg_available_guitars_specs',
-			'name'    => __( 'Specs', 'fremediti-guitars' ),
-			'type'    => 'file',
-			'options' => array(
-				'url' => false,
-			),
-			'text'    => array(
-				'add_upload_file_text' => __( 'Add Specs Image', 'fremediti-guitars' )
-			),
-		) );
+			$args = wp_parse_args( $field_args, $defaults );
 
-		$metabox->add_field( array(
-			'id'         => 'fg_available_guitars_price',
-			'name'       => __( 'Price', 'fremediti-guitars' ),
-			'type'       => 'text_small',
-			'attributes' => array(
-				'type' => 'number'
-			)
-		) );
-
-		$metabox->add_field( array(
-			'id'   => 'fg_available_guitars_notes',
-			'name' => __( 'Notes', 'fremediti-guitars' ),
-			'type' => 'textarea_small',
-		) );
+			$metabox->add_field( $args );
+		}
 	}
 
 	public function register_shortcodes() {
@@ -185,7 +189,7 @@ class Fremediti_Guitars_Available_Guitars_Post_Type {
 					$specs_image_id  = get_post_meta( $post_id, 'fg_available_guitars_specs_id', true );
 					$specs_image_url = wp_get_attachment_image_url( $specs_image_id, 'full' );
 
-					$price                  = get_post_meta( $post_id, 'fg_available_guitars_price', true );
+					$price                  = $this->get_price( $post_id );
 					$guitar_price_converted = '';
 
 					if ( function_exists( 'currency_exchange_rates_convert' ) ) {
@@ -266,6 +270,13 @@ class Fremediti_Guitars_Available_Guitars_Post_Type {
 
 		return ob_get_clean();
 
+	}
+
+	public function get_price( $post_id ) {
+
+		$price = get_post_meta( $post_id, 'fg_available_guitars_price', true );
+
+		return apply_filters( 'fg_available_guitars_post_type_get_price', $price, $post_id );
 	}
 
 	/**
