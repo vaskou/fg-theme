@@ -187,6 +187,7 @@ class Fremediti_Guitars_FG_Guitars {
 		$base_price_label     = ! empty( $pricing_items ) ? $this->pricing->getPriceLabel() : __( 'Price', 'fremediti-guitars' );
 		$base_price           = $guitar->get_price( $post_id );
 		$base_price_converted = '';
+		$currency_symbol      = Fremediti_Guitars_Template_Functions::currency_symbol();
 
 		if ( function_exists( 'currency_exchange_rates_convert' ) ) {
 			$base_price_converted = currency_exchange_rates_convert( $base_price, 'USD', 'EUR' );
@@ -209,18 +210,15 @@ class Fremediti_Guitars_FG_Guitars {
                                 <td class="uk-width-5-6"><?php echo wpautop( $item['extra_option'] ); ?></td>
                                 <td class="uk-width-1-6 uk-text-right">
 									<?php if ( isset( $item['extra_option_price'] ) && '' != $item['extra_option_price'] ):
-										$item_price = number_format( $item['extra_option_price'], 0, '.', '' );
-										?>
-                                        <span class="fg-original-price">&euro;<?php esc_attr_e( $item_price ); ?></span>
-										<?php
+										$item_price = $item['extra_option_price'];
+										$item_price_converted = '';
 										if ( function_exists( 'currency_exchange_rates_convert' ) ) {
-											$item_price_converted = currency_exchange_rates_convert( $item['extra_option_price'], 'USD', 'EUR' );
+											$item_price_converted = currency_exchange_rates_convert( $item_price, 'USD', 'EUR' );
 										}
-										if ( ! empty( $item_price_converted ) ):
-											?>
-                                            <span class="fg-converted-price uk-hidden">&dollar;<?php esc_attr_e( number_format( $item_price_converted, 0, '.', '' ) ); ?></span>
-										<?php
-										endif;
+//										Fremediti_Guitars_Template_Functions::price_without_buttons( $item_price, $item_price_converted );
+										?>
+                                        <span><?php echo Fremediti_Guitars_Template_Functions::price_format( $item_price, $currency_symbol ); ?></span>
+									<?php
 									endif;
 									?>
 
@@ -237,7 +235,8 @@ class Fremediti_Guitars_FG_Guitars {
             </div>
             <div class="fg-guitar-pricing">
                 <h3 class="fg-base-price uk-text-right@m">
-					<?php Fremediti_Guitars_Template_Functions::price_with_buttons( $base_price, $base_price_converted, $base_price_label ); ?>
+					<?php echo $base_price_label; ?> <span><?php echo Fremediti_Guitars_Template_Functions::price_format( $base_price, $currency_symbol ); ?></span>
+					<?php //Fremediti_Guitars_Template_Functions::price_with_buttons( $base_price, $base_price_converted, $base_price_label ); ?>
                 </h3>
                 <div>
 					<?php echo wpautop( $pricing_text ); ?>

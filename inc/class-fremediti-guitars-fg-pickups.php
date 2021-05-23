@@ -44,15 +44,16 @@ class Fremediti_Guitars_FG_Pickups {
 		if ( $this->_is_singular_fg_pickups() ):
 			$pickups_instance = FG_Pickups_Post_Type::instance();
 
-			$price        = $pickups_instance->get_price( $post_id );
-			$availability = $pickups_instance->get_availability( $post_id );
+			$price           = $pickups_instance->get_price( $post_id );
+			$availability    = $pickups_instance->get_availability( $post_id );
+			$currency_symbol = Fremediti_Guitars_Template_Functions::currency_symbol();
 			?>
 
             <div class="uk-child-width-1-2@m uk-grid uk-flex-middle" uk-grid>
                 <div class="uk-text-center">
 					<?php if ( ! empty( $price ) ): ?>
                         <p>
-                            <span class="uk-text-large">&euro;<?php esc_attr_e( $price, 'fremediti-guitars' ); ?></span>
+                            <span class="uk-text-large"><?php echo Fremediti_Guitars_Template_Functions::price_format( $price, $currency_symbol ); ?></span>
                         </p>
 					<?php endif; ?>
 

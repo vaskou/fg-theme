@@ -234,9 +234,13 @@ class Fremediti_Guitars_Available_Guitars_Post_Type {
 							endif;
 
 							if ( ! empty( $price ) ):
+								$currency_symbol = Fremediti_Guitars_Template_Functions::currency_symbol();
 								?>
                                 <p>
-									<?php Fremediti_Guitars_Template_Functions::price_with_buttons( $price, $guitar_price_converted, __( 'Price:', 'fremediti-guitars' ) ); ?>
+									<?php echo __( 'Price:', 'fremediti-guitars' ); ?> <span><?php echo Fremediti_Guitars_Template_Functions::price_format( $price, $currency_symbol ) ?></span>
+									<?php
+									// Fremediti_Guitars_Template_Functions::price_with_buttons( $price, $guitar_price_converted, __( 'Price:', 'fremediti-guitars' ) );
+									?>
                                 </p>
 							<?php
 							endif;
