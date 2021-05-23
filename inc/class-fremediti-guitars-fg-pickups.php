@@ -20,9 +20,11 @@ class Fremediti_Guitars_FG_Pickups {
 	}
 
 	public function add_fg_pickup_specs() {
-		if ( class_exists( 'FG_Pickups_Post_Type' ) && FG_Pickups_Post_Type::POST_TYPE_NAME == get_post_type() ):
+		if ( $this->_is_fg_pickups() ):
+
 			$fg_pickups_image_id = FG_Pickups_Post_Type::instance()->get_pickup_image_id( get_the_ID() );
 			$url = wp_get_attachment_url( $fg_pickups_image_id );
+
 			if ( ! empty( $url ) ):
 				?>
                 <div uk-lightbox>
@@ -32,13 +34,14 @@ class Fremediti_Guitars_FG_Pickups {
                 </div>
 			<?php
 			endif;
+
 		endif;
 	}
 
 	public function add_fg_pickup_extra_row() {
 		$post_id = get_the_ID();
 
-		if ( class_exists( 'FG_Pickups_Post_Type' ) && FG_Pickups_Post_Type::POST_TYPE_NAME == get_post_type() ):
+		if ( $this->_is_singular_fg_pickups() ):
 			$pickups_instance = FG_Pickups_Post_Type::instance();
 
 			$price        = $pickups_instance->get_price( $post_id );
@@ -83,5 +86,27 @@ class Fremediti_Guitars_FG_Pickups {
 		<?php
 		endif;
 
+	}
+
+	private function _is_fg_pickups() {
+		if ( class_exists( 'FG_Pickups_Post_Type' ) ) {
+			$post_type = FG_Pickups_Post_Type::POST_TYPE_NAME;
+			if ( $post_type == get_post_type() ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	private function _is_singular_fg_pickups() {
+		if ( class_exists( 'FG_Pickups_Post_Type' ) ) {
+			$post_type = FG_Pickups_Post_Type::POST_TYPE_NAME;
+			if ( $post_type == get_post_type() && is_singular( $post_type ) ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 }

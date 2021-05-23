@@ -4,11 +4,30 @@ defined( 'ABSPATH' ) or die();
 
 class Fremediti_Guitars_FG_Guitars {
 
-	private $short_description = object;
-	private $specifications = object;
-	private $sounds = object;
-	private $features = object;
-	private $pricing = object;
+	/**
+	 * @var object
+	 */
+	private $short_description;
+
+	/**
+	 * @var object
+	 */
+	private $specifications;
+
+	/**
+	 * @var object
+	 */
+	private $sounds;
+
+	/**
+	 * @var object
+	 */
+	private $features;
+
+	/**
+	 * @var object
+	 */
+	private $pricing;
 
 	private static $instance = null;
 
@@ -21,6 +40,7 @@ class Fremediti_Guitars_FG_Guitars {
 	}
 
 	private function __construct() {
+
 		if ( class_exists( 'FG_Guitars_Short_Description_Fields' ) ) {
 			$this->short_description = FG_Guitars_Short_Description_Fields::instance();
 		}
@@ -43,6 +63,10 @@ class Fremediti_Guitars_FG_Guitars {
 	}
 
 	public function get_short_description_html( $post_id ) {
+		if ( ! is_a( $this->short_description, 'FG_Guitars_Short_Description_Fields' ) ) {
+			return '';
+		}
+
 		ob_start();
 		$title                   = $this->short_description->getTitle( $post_id );
 		$short_description_name  = $this->short_description->getName( $post_id );
@@ -90,6 +114,10 @@ class Fremediti_Guitars_FG_Guitars {
 	}
 
 	public function get_specs_html( $post_id ) {
+		if ( ! is_a( $this->specifications, 'FG_Guitars_Specifications_Fields' ) ) {
+			return '';
+		}
+
 		$specs = $this->_get_specs( $post_id );
 
 		$has_spec_variations = $this->specifications->hasVariations();
@@ -105,6 +133,10 @@ class Fremediti_Guitars_FG_Guitars {
 	}
 
 	public function get_sounds_html( $post_id ) {
+		if ( ! is_a( $this->sounds, 'FG_Guitars_Sounds_Fields' ) ) {
+			return '';
+		}
+
 		$sounds = $this->sounds->getPostMeta( $post_id );
 
 		ob_start();
@@ -126,6 +158,10 @@ class Fremediti_Guitars_FG_Guitars {
 	}
 
 	public function get_features_html( $post_id ) {
+		if ( ! is_a( $this->features, 'FG_Guitars_Features_Fields' ) ) {
+			return '';
+		}
+
 		$features = $this->features->getPostMeta( $post_id );
 
 		$features_post_in = ! empty( $features['features']['feature'] ) ? implode( ',', $features['features']['feature'] ) : '';
@@ -140,10 +176,16 @@ class Fremediti_Guitars_FG_Guitars {
 	}
 
 	public function get_pricing_html( $post_id ) {
-		$pricing_items        = $this->pricing->getPriceItems( $post_id );
+		if ( ! is_a( $this->pricing, 'FG_Guitars_Pricing_Fields' ) ) {
+			return '';
+		}
+
+		$guitar = FG_Guitars_Post_Type::instance();
+
+		$pricing_items        = $guitar->get_pricing_items( $post_id );
 		$pricing_text         = $this->pricing->getPriceText( $post_id );
 		$base_price_label     = ! empty( $pricing_items ) ? $this->pricing->getPriceLabel() : __( 'Price', 'fremediti-guitars' );
-		$base_price           = $this->pricing->getPrice( $post_id );
+		$base_price           = $guitar->get_price( $post_id );
 		$base_price_converted = '';
 
 		if ( function_exists( 'currency_exchange_rates_convert' ) ) {
@@ -157,32 +199,36 @@ class Fremediti_Guitars_FG_Guitars {
 				<?php
 				if ( ! empty( $pricing_items ) ):
 					?>
-                    <h3><?php echo $this->pricing->getPriceItemsLabel(); ?></h3>
+                    <h3><?php echo $this->pricing->getPricingItemsLabel(); ?></h3>
                     <table class="uk-table uk-table-small uk-table-divider uk-table-responsive">
                         <tbody>
-						<?php
-						foreach ( $pricing_items as $item ):
-							$item_price = number_format( $item['extra_option_price'], 0, '.', '' );
-							?>
+
+						<?php foreach ( $pricing_items as $item ): ?>
+
                             <tr>
                                 <td class="uk-width-5-6"><?php echo wpautop( $item['extra_option'] ); ?></td>
                                 <td class="uk-width-1-6 uk-text-right">
-                                    <span class="fg-original-price">&euro;<?php esc_attr_e( $item_price ); ?></span>
-									<?php
-									if ( function_exists( 'currency_exchange_rates_convert' ) ) {
-										$item_price_converted = currency_exchange_rates_convert( $item['extra_option_price'], 'USD', 'EUR' );
-									}
-									if ( ! empty( $item_price_converted ) ):
+									<?php if ( isset( $item['extra_option_price'] ) && '' != $item['extra_option_price'] ):
+										$item_price = number_format( $item['extra_option_price'], 0, '.', '' );
 										?>
-                                        <span class="fg-converted-price uk-hidden">&dollar;<?php esc_attr_e( number_format( $item_price_converted, 0, '.', '' ) ); ?></span>
-									<?php
+                                        <span class="fg-original-price">&euro;<?php esc_attr_e( $item_price ); ?></span>
+										<?php
+										if ( function_exists( 'currency_exchange_rates_convert' ) ) {
+											$item_price_converted = currency_exchange_rates_convert( $item['extra_option_price'], 'USD', 'EUR' );
+										}
+										if ( ! empty( $item_price_converted ) ):
+											?>
+                                            <span class="fg-converted-price uk-hidden">&dollar;<?php esc_attr_e( number_format( $item_price_converted, 0, '.', '' ) ); ?></span>
+										<?php
+										endif;
 									endif;
 									?>
+
                                 </td>
                             </tr>
-						<?php
-						endforeach;
-						?>
+
+						<?php endforeach; ?>
+
                         </tbody>
                     </table>
 				<?php

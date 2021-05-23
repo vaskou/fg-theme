@@ -20,7 +20,7 @@ class Fremediti_Guitars_FG_Prices {
 
 		$current_currency = '';
 
-		if ( ! empty( $multicurrency_prices[ $current_currency ] ) ) {
+		if ( isset( $multicurrency_prices[ $current_currency ] ) ) {
 			$price = $multicurrency_prices[ $current_currency ];
 		}
 
