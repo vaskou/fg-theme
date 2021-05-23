@@ -57,7 +57,6 @@ class Fremediti_Guitars_Theme {
 		Fremediti_Guitars_Settings::instance();
 		Fremediti_Guitars_Multilanguage::instance();
 		Fremediti_Guitars_FG_Pickups::instance();
-		Fremediti_Guitars_FG_Prices::instance();
 	}
 
 	public function add_editor_style() {
