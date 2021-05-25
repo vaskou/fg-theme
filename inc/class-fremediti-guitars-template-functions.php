@@ -163,6 +163,10 @@ class Fremediti_Guitars_Template_Functions {
 	}
 
 	public static function price_format( $price, $currency_symbol = '&euro;' ) {
+		if ( '' == $price ) {
+			return null;
+		}
+
 		return $currency_symbol . esc_attr( number_format( $price, 0, '.', '' ) );
 	}
 
