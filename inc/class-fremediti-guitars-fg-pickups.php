@@ -64,9 +64,12 @@ class Fremediti_Guitars_FG_Pickups {
                             </span>
                         </p>
 					<?php endif; ?>
-                    <a href="<?php echo home_url( '/contact-us' ); ?>" class="uk-button uk-button-primary">
-						<?php _e( 'Contact Us', 'fremediti-guitars' ); ?>
-                    </a>
+
+					<?php if ( ! empty( $price ) && ! empty( $availability ) ): ?>
+                        <a href="<?php echo home_url( '/contact-us' ); ?>" class="uk-button uk-button-primary">
+							<?php _e( 'Contact Us', 'fremediti-guitars' ); ?>
+                        </a>
+					<?php endif; ?>
                 </div>
 
 				<?php
