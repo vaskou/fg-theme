@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: _s 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/tags/_s\n"
-"POT-Creation-Date: 2021-02-09 17:22+0000\n"
+"POT-Creation-Date: 2021-06-01 16:12+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -25,7 +25,7 @@ msgstr ""
 msgid "Add Another Video"
 msgstr ""
 
-#: inc/class-fremediti-guitars-available-guitars-post-type.php:119
+#: inc/class-fremediti-guitars-available-guitars-post-type.php:118
 msgid "Add Image"
 msgstr ""
 
@@ -47,11 +47,11 @@ msgstr ""
 msgid "Add New FG Video"
 msgstr ""
 
-#: inc/class-fremediti-guitars-available-guitars-post-type.php:131
+#: inc/class-fremediti-guitars-available-guitars-post-type.php:128
 msgid "Add Specs Image"
 msgstr ""
 
-#: inc/class-fremediti-guitars-theme.php:222
+#: inc/class-fremediti-guitars-theme.php:224
 msgid "Add widgets here."
 msgstr ""
 
@@ -67,6 +67,10 @@ msgstr ""
 msgid "All FG Videos"
 msgstr ""
 
+#: inc/class-fremediti-guitars-fg-pickups.php:63
+msgid "Availability"
+msgstr ""
+
 #: comments.php:66
 msgid "Comments are closed."
 msgstr ""
@@ -80,12 +84,13 @@ msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-fremediti-guitars-fg-guitars.php:240
+#: inc/class-fremediti-guitars-fg-guitars.php:275
 #, php-format
 msgid "Configuration %s"
 msgstr ""
 
-#: inc/class-fremediti-guitars-available-guitars-post-type.php:251
+#: inc/class-fremediti-guitars-available-guitars-post-type.php:259
+#: inc/class-fremediti-guitars-fg-pickups.php:70
 msgid "Contact Us"
 msgstr ""
 
@@ -101,7 +106,7 @@ msgid "Copied"
 msgstr ""
 
 #. Description of the theme
-#: inc/class-fremediti-guitars-fg-guitars.php:65
+#: inc/class-fremediti-guitars-fg-guitars.php:89
 msgid "Description"
 msgstr ""
 
@@ -123,7 +128,7 @@ msgstr ""
 msgid "Edit FG Video"
 msgstr ""
 
-#: inc/class-fremediti-guitars-theme.php:268
+#: inc/class-fremediti-guitars-theme.php:270
 msgid "Enable Guitar Menu"
 msgstr ""
 
@@ -266,23 +271,23 @@ msgstr ""
 msgid "Filter FG Videos list"
 msgstr ""
 
-#: inc/class-fremediti-guitars-theme.php:225
+#: inc/class-fremediti-guitars-theme.php:227
 msgid "Footer #1"
 msgstr ""
 
-#: inc/class-fremediti-guitars-theme.php:230
+#: inc/class-fremediti-guitars-theme.php:232
 msgid "Footer #2"
 msgstr ""
 
-#: inc/class-fremediti-guitars-theme.php:235
+#: inc/class-fremediti-guitars-theme.php:237
 msgid "Footer #3"
 msgstr ""
 
-#: inc/class-fremediti-guitars-theme.php:240
+#: inc/class-fremediti-guitars-theme.php:242
 msgid "Footer #4"
 msgstr ""
 
-#: inc/class-fremediti-guitars-theme.php:245
+#: inc/class-fremediti-guitars-theme.php:247
 msgid "Footer #5"
 msgstr ""
 
@@ -294,8 +299,8 @@ msgstr ""
 msgid "Full width page"
 msgstr ""
 
-#: inc/class-fremediti-guitars-fg-guitars.php:119
 #: inc/class-fremediti-guitars-videos-post-type.php:180
+#: template-parts/video-template.php:16
 msgid "Guitar Video"
 msgstr ""
 
@@ -303,7 +308,7 @@ msgstr ""
 msgid "Hide page title"
 msgstr ""
 
-#: inc/class-fremediti-guitars-available-guitars-post-type.php:113
+#: inc/class-fremediti-guitars-available-guitars-post-type.php:112
 msgid "Image"
 msgstr ""
 
@@ -377,7 +382,7 @@ msgstr ""
 msgid "Not found in Trash"
 msgstr ""
 
-#: inc/class-fremediti-guitars-available-guitars-post-type.php:146
+#: inc/class-fremediti-guitars-available-guitars-post-type.php:139
 msgid "Notes"
 msgstr ""
 
@@ -385,7 +390,7 @@ msgstr ""
 msgid "Nothing Found"
 msgstr ""
 
-#: inc/class-fremediti-guitars-theme.php:152
+#: inc/class-fremediti-guitars-theme.php:154
 msgid "Offcanvas"
 msgstr ""
 
@@ -447,24 +452,24 @@ msgstr ""
 msgid "Posted in %1$s"
 msgstr ""
 
-#: inc/class-fremediti-guitars-theme.php:250
+#: inc/class-fremediti-guitars-theme.php:252
 msgid "Pre Footer"
 msgstr ""
 
-#: inc/class-fremediti-guitars-available-guitars-post-type.php:137
-#: inc/class-fremediti-guitars-fg-guitars.php:155
+#: inc/class-fremediti-guitars-available-guitars-post-type.php:132
+#: inc/class-fremediti-guitars-fg-guitars.php:187
 msgid "Price"
 msgstr ""
 
-#: inc/class-fremediti-guitars-available-guitars-post-type.php:235
+#: inc/class-fremediti-guitars-available-guitars-post-type.php:240
 msgid "Price:"
 msgstr ""
 
-#: inc/class-fremediti-guitars-theme.php:151
+#: inc/class-fremediti-guitars-theme.php:153
 msgid "Primary"
 msgstr ""
 
-#: inc/class-fremediti-guitars-theme.php:475
+#: inc/class-fremediti-guitars-theme.php:477
 msgid "Read More"
 msgstr ""
 
@@ -503,7 +508,7 @@ msgstr ""
 msgid "Search Results for: %s"
 msgstr ""
 
-#: inc/class-fremediti-guitars-fg-guitars.php:231
+#: inc/class-fremediti-guitars-fg-guitars.php:266
 msgid "Select Configuration"
 msgstr ""
 
@@ -522,7 +527,7 @@ msgstr ""
 msgid "Shortcode"
 msgstr ""
 
-#: inc/class-fremediti-guitars-theme.php:220
+#: inc/class-fremediti-guitars-theme.php:222
 msgid "Sidebar"
 msgstr ""
 
@@ -532,9 +537,9 @@ msgid ""
 "different keywords."
 msgstr ""
 
-#: inc/class-fremediti-guitars-available-guitars-post-type.php:125
-#: inc/class-fremediti-guitars-available-guitars-post-type.php:227
-#: template-parts/content-custom_post_type.php:42
+#: inc/class-fremediti-guitars-available-guitars-post-type.php:122
+#: inc/class-fremediti-guitars-available-guitars-post-type.php:231
+#: inc/class-fremediti-guitars-fg-pickups.php:32
 msgid "Specs"
 msgstr ""
 
@@ -620,27 +625,27 @@ msgstr ""
 msgid "View FG Videos"
 msgstr ""
 
-#: inc/class-fremediti-guitars-theme.php:252
+#: inc/class-fremediti-guitars-theme.php:254
 msgid "Widgets in this area will be displayed before the footer."
 msgstr ""
 
-#: inc/class-fremediti-guitars-theme.php:247
+#: inc/class-fremediti-guitars-theme.php:249
 msgid ""
 "Widgets in this area will be displayed in the fifth column in the footer."
 msgstr ""
 
-#: inc/class-fremediti-guitars-theme.php:242
+#: inc/class-fremediti-guitars-theme.php:244
 msgid ""
 "Widgets in this area will be displayed in the fourth column in the footer."
 msgstr ""
 
-#: inc/class-fremediti-guitars-theme.php:227
-#: inc/class-fremediti-guitars-theme.php:232
+#: inc/class-fremediti-guitars-theme.php:229
+#: inc/class-fremediti-guitars-theme.php:234
 msgid ""
 "Widgets in this area will be displayed in the second column in the footer."
 msgstr ""
 
-#: inc/class-fremediti-guitars-theme.php:237
+#: inc/class-fremediti-guitars-theme.php:239
 msgid ""
 "Widgets in this area will be displayed in the third column in the footer."
 msgstr ""
