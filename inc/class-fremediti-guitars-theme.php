@@ -48,7 +48,7 @@ class Fremediti_Guitars_Theme {
 
 		// Favicon
 		add_action( 'wp_head', array( $this, 'add_favicon' ) );
-		
+
 		Fremediti_Guitars_Customizer::instance();
 		Fremediti_Guitars_Metaboxes::instance();
 		Fremediti_Guitars_Available_Guitars_Post_Type::instance();
@@ -56,6 +56,7 @@ class Fremediti_Guitars_Theme {
 		Fremediti_Guitars_Videos_Post_Type::instance();
 		Fremediti_Guitars_Settings::instance();
 		Fremediti_Guitars_Multilanguage::instance();
+		Fremediti_Guitars_FG_Pickups::instance();
 	}
 
 	public function add_editor_style() {

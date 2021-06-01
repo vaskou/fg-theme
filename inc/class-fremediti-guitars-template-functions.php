@@ -158,14 +158,34 @@ class Fremediti_Guitars_Template_Functions {
 		echo $after;
 	}
 
-	public static function price_with_buttons( $price, $converted_price, $label = '', $original_currency_symbol = '&euro;', $converted_currency_symbol = '&dollar;' ) {
+	public static function currency_symbol() {
+		return apply_filters( 'fremediti_guitars_get_currency_symbol', '&euro;' );
+	}
+
+	public static function price_format( $price, $currency_symbol = '&euro;' ) {
+		if ( '' == $price ) {
+			return null;
+		}
+
+		return $currency_symbol . esc_attr( number_format( $price, 0, '.', '' ) );
+	}
+
+	public static function price_without_buttons( $price, $converted_price, $label = '', $original_currency_symbol = '&euro;', $converted_currency_symbol = '&dollar;' ) {
 		if ( ! empty( $price ) ): ?>
-			<?php echo $label; ?> <span class="fg-original-price"><?php echo $original_currency_symbol; ?><?php esc_attr_e( number_format( $price, 0, '.', '' ) ); ?></span>
+			<?php echo $label; ?> <span class="fg-original-price"><?php echo self::price_format( $price, $original_currency_symbol ); ?></span>
 		<?php endif; ?>
 		<?php
 		if ( ! empty( $converted_price ) ):
 			?>
-            <span class="fg-converted-price uk-hidden"><?php echo $converted_currency_symbol; ?><?php esc_attr_e( number_format( $converted_price, 0, '.', '' ) ); ?></span>
+            <span class="fg-converted-price uk-hidden"><?php echo self::price_format( $converted_price, $converted_currency_symbol ); ?></span>
+		<?php
+		endif;
+	}
+
+	public static function price_with_buttons( $price, $converted_price, $label = '', $original_currency_symbol = '&euro;', $converted_currency_symbol = '&dollar;' ) {
+		self::price_without_buttons( $price, $converted_price, $label, $original_currency_symbol, $converted_currency_symbol );
+		if ( ! empty( $converted_price ) ):
+			?>
             <button class="uk-button fg-original-currency-symbol fg-currency-button fg-selected"><?php echo $original_currency_symbol; ?></button>
             <button class="uk-button fg-converted-currency-symbol fg-currency-button"><?php echo $converted_currency_symbol; ?></button>
 		<?php

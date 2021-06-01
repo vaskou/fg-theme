@@ -20,9 +20,11 @@ class Fremediti_Guitars_FG_Pickups {
 	}
 
 	public function add_fg_pickup_specs() {
-		if ( class_exists( 'FG_Pickups_Post_Type' ) && FG_Pickups_Post_Type::POST_TYPE_NAME == get_post_type() ):
+		if ( $this->_is_fg_pickups() ):
+
 			$fg_pickups_image_id = FG_Pickups_Post_Type::instance()->get_pickup_image_id( get_the_ID() );
 			$url = wp_get_attachment_url( $fg_pickups_image_id );
+
 			if ( ! empty( $url ) ):
 				?>
                 <div uk-lightbox>
@@ -32,24 +34,26 @@ class Fremediti_Guitars_FG_Pickups {
                 </div>
 			<?php
 			endif;
+
 		endif;
 	}
 
 	public function add_fg_pickup_extra_row() {
 		$post_id = get_the_ID();
 
-		if ( class_exists( 'FG_Pickups_Post_Type' ) && FG_Pickups_Post_Type::POST_TYPE_NAME == get_post_type() ):
+		if ( $this->_is_singular_fg_pickups() ):
 			$pickups_instance = FG_Pickups_Post_Type::instance();
 
-			$price        = $pickups_instance->get_price( $post_id );
-			$availability = $pickups_instance->get_availability( $post_id );
+			$price           = $pickups_instance->get_price( $post_id );
+			$availability    = $pickups_instance->get_availability( $post_id );
+			$currency_symbol = Fremediti_Guitars_Template_Functions::currency_symbol();
 			?>
 
             <div class="uk-child-width-1-2@m uk-grid uk-flex-middle" uk-grid>
                 <div class="uk-text-center">
 					<?php if ( ! empty( $price ) ): ?>
                         <p>
-                            <span class="uk-text-large">&euro;<?php esc_attr_e( $price, 'fremediti-guitars' ); ?></span>
+                            <span class="uk-text-large"><?php echo Fremediti_Guitars_Template_Functions::price_format( $price, $currency_symbol ); ?></span>
                         </p>
 					<?php endif; ?>
 
@@ -60,9 +64,12 @@ class Fremediti_Guitars_FG_Pickups {
                             </span>
                         </p>
 					<?php endif; ?>
-                    <a href="<?php echo home_url( '/contact-us' ); ?>" class="uk-button uk-button-primary">
-						<?php _e( 'Contact Us', 'fremediti-guitars' ); ?>
-                    </a>
+
+					<?php if ( ! empty( $price ) && ! empty( $availability ) ): ?>
+                        <a href="<?php echo home_url( '/contact-us' ); ?>" class="uk-button uk-button-primary">
+							<?php _e( 'Contact Us', 'fremediti-guitars' ); ?>
+                        </a>
+					<?php endif; ?>
                 </div>
 
 				<?php
@@ -83,5 +90,27 @@ class Fremediti_Guitars_FG_Pickups {
 		<?php
 		endif;
 
+	}
+
+	private function _is_fg_pickups() {
+		if ( class_exists( 'FG_Pickups_Post_Type' ) ) {
+			$post_type = FG_Pickups_Post_Type::POST_TYPE_NAME;
+			if ( $post_type == get_post_type() ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	private function _is_singular_fg_pickups() {
+		if ( class_exists( 'FG_Pickups_Post_Type' ) ) {
+			$post_type = FG_Pickups_Post_Type::POST_TYPE_NAME;
+			if ( $post_type == get_post_type() && is_singular( $post_type ) ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 }

@@ -26,7 +26,7 @@
 
 .uk-child-width-1-2\@m {
   & > article {
-    &.uk-article.type-post {
+    &.uk-article {
       &:nth-child(2){
         @media (min-width: $breakpoint-medium) {
           margin-top: 0;

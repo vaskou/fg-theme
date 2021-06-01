@@ -14,7 +14,7 @@ $class = 'uk-article uk-flex';
     <div class="fg-article-wrapper uk-flex-1">
         <header class="entry-header">
 			<?php
-			if ( is_singular() ) :
+			if ( is_singular( get_post_type() ) ) :
 				the_title( '<h1 class="entry-title uk-article-title">', '</h1>' );
 			else :
 				the_title( '<h2 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );

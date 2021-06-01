@@ -46,16 +46,16 @@ $single_guitar = Fremediti_Guitars_FG_Guitars::instance();
     <div class="uk-margin-medium-top">
         <ul class="uk-tab" uk-tab="animation: uk-animation-fade">
             <li><a><?php echo __( 'Overview', 'fremediti-guitars' ); ?></a></li>
-            <li><a><?php echo $specifications->getMetaboxId(); ?></a></li>
-            <li><a><?php echo $sounds->getMetaboxId(); ?></a></li>
+            <li><a><?php echo $specifications->getMetaboxTitle(); ?></a></li>
+            <li><a><?php echo $sounds->getMetaboxTitle(); ?></a></li>
 			<?php
 			if ( $features->isEnabled() ):
 				?>
-                <li><a><?php echo $features->getMetaboxId(); ?></a></li>
+                <li><a><?php echo $features->getMetaboxTitle(); ?></a></li>
 			<?php
 			endif;
 			?>
-            <li><a><?php echo $pricing->getMetaboxId(); ?></a></li>
+            <li><a><?php echo $pricing->getMetaboxTitle(); ?></a></li>
         </ul>
         <ul class="uk-switcher uk-margin-medium-top">
             <!-- Overview -->
