@@ -237,7 +237,7 @@ class Fremediti_Guitars_FG_Guitars {
             </div>
             <div class="fg-guitar-pricing">
                 <h3 class="fg-base-price uk-text-right@m">
-					<?php if ( empty( $show_contact_us_button ) ): ?>
+					<?php if ( empty( $show_contact_us_button ) || ! class_exists( 'FG_Guitars_Settings' ) ): ?>
 						<?php echo $base_price_label; ?>: <span><?php echo Fremediti_Guitars_Template_Functions::price_format( $base_price, $currency_symbol ); ?></span>
 						<?php //Fremediti_Guitars_Template_Functions::price_with_buttons( $base_price, $base_price_converted, $base_price_label ); ?>
 					<?php else: ?>
