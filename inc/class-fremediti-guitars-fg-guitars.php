@@ -189,6 +189,8 @@ class Fremediti_Guitars_FG_Guitars {
 		$base_price_converted = '';
 		$currency_symbol      = Fremediti_Guitars_Template_Functions::currency_symbol();
 
+		$show_contact_us_button = $this->pricing->getShowContactButton( $post_id );
+
 		if ( function_exists( 'currency_exchange_rates_convert' ) ) {
 			$base_price_converted = currency_exchange_rates_convert( $base_price, 'USD', 'EUR' );
 		}
@@ -235,8 +237,13 @@ class Fremediti_Guitars_FG_Guitars {
             </div>
             <div class="fg-guitar-pricing">
                 <h3 class="fg-base-price uk-text-right@m">
-					<?php echo $base_price_label; ?> <span><?php echo Fremediti_Guitars_Template_Functions::price_format( $base_price, $currency_symbol ); ?></span>
-					<?php //Fremediti_Guitars_Template_Functions::price_with_buttons( $base_price, $base_price_converted, $base_price_label ); ?>
+					<?php if ( empty( $show_contact_us_button ) ): ?>
+						<?php echo $base_price_label; ?>: <span><?php echo Fremediti_Guitars_Template_Functions::price_format( $base_price, $currency_symbol ); ?></span>
+						<?php //Fremediti_Guitars_Template_Functions::price_with_buttons( $base_price, $base_price_converted, $base_price_label ); ?>
+					<?php else: ?>
+						<?php $contact_page_id = FG_Guitars_Settings::get_contact_page(); ?>
+						<?php echo $base_price_label; ?>: <a href="<?php echo get_permalink( $contact_page_id ); ?>" class="uk-button uk-button-primary"><?php _e( 'Contact Us', 'fremediti-guitars' ); ?></a>
+					<?php endif; ?>
                 </h3>
                 <div>
 					<?php echo wpautop( $pricing_text ); ?>
