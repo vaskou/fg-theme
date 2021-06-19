@@ -17,6 +17,12 @@ class Fremediti_Guitars_Settings {
 				'type' => 'text'
 			)
 		),
+		'fremediti_guitars_redirect_frontpage_to_el' => array(
+			'title' => 'Redirect Frontpage to Greek',
+			'args'  => array(
+				'type' => 'checkbox'
+			)
+		),
 	);
 
 	private $_submenu_parent_slug = 'themes.php';
