@@ -19,6 +19,12 @@ class Fremediti_Guitars_Multilanguage {
 	public function language_redirect() {
 		global $sitepress;
 
+		$redirection_on = Fremediti_Guitars_Settings::get_setting( 'fremediti_guitars_redirect_frontpage_to_el' );
+
+		if ( empty( $redirection_on ) ) {
+			return;
+		}
+
 		if ( ! empty( $sitepress ) && is_a( $sitepress, 'SitePress' ) && function_exists( 'geoip_detect2_get_info_from_current_ip' ) ) {
 
 			$args['skip_missing'] = intval( true );
