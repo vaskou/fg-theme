@@ -167,7 +167,7 @@ class Fremediti_Guitars_Template_Functions {
 			return null;
 		}
 
-		return $currency_symbol . esc_attr( number_format( $price, 0, '.', '' ) );
+		return $currency_symbol . ' ' . esc_attr( number_format( $price, 0, '.', '' ) );
 	}
 
 	public static function price_without_buttons( $price, $converted_price, $label = '', $original_currency_symbol = '&euro;', $converted_currency_symbol = '&dollar;' ) {
