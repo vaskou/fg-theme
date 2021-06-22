@@ -14,6 +14,8 @@ class Fremediti_Guitars_Multilanguage {
 
 	private function __construct() {
 		add_action( 'template_redirect', array( $this, 'language_redirect' ) );
+
+		add_filter( 'fremediti_guitars_fg_guitars_show_contact_us_button', array( $this, 'fg_guitars_show_contact_us_button' ) );
 	}
 
 	public function language_redirect() {
@@ -25,13 +27,12 @@ class Fremediti_Guitars_Multilanguage {
 			return;
 		}
 
-		if ( ! empty( $sitepress ) && is_a( $sitepress, 'SitePress' ) && function_exists( 'geoip_detect2_get_info_from_current_ip' ) ) {
+		$country = self::get_country_from_current_ip();
+
+		if ( ! empty( $sitepress ) && is_a( $sitepress, 'SitePress' ) && ! empty( $country ) ) {
 
 			$args['skip_missing'] = intval( true );
 			$languages            = $sitepress->get_ls_languages( $args );
-
-			$geo_info = geoip_detect2_get_info_from_current_ip();
-			$country  = $geo_info->country->isoCode;
 
 			$this_lang = $sitepress->get_this_lang();
 
@@ -50,5 +51,30 @@ class Fremediti_Guitars_Multilanguage {
 				exit();
 			}
 		}
+	}
+
+	public function fg_guitars_show_contact_us_button( $show_contact_us_button ) {
+		$country = self::get_country_from_current_ip();
+
+		if ( 'GR' != $country ) {
+			$show_contact_us_button = false;
+		}
+
+		return $show_contact_us_button;
+	}
+
+	/**
+	 * @return false|string|null
+	 */
+	public static function get_country_from_current_ip() {
+
+		if ( ! function_exists( 'geoip_detect2_get_info_from_current_ip' ) ) {
+			return false;
+		}
+
+		$geo_info = geoip_detect2_get_info_from_current_ip();
+
+		return $geo_info->country->isoCode;
+
 	}
 }

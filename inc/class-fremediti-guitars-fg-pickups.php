@@ -49,11 +49,11 @@ class Fremediti_Guitars_FG_Pickups {
 			$currency_symbol = Fremediti_Guitars_Template_Functions::currency_symbol();
 			?>
 
-            <div class="uk-child-width-1-2@m uk-grid uk-flex-middle" uk-grid>
-                <div class="uk-text-center">
+            <div class="uk-child-width-1-2@m uk-grid" uk-grid>
+                <div class="uk-text-left">
 					<?php if ( ! empty( $price ) ): ?>
                         <p>
-                            <span class="uk-text-large"><?php echo Fremediti_Guitars_Template_Functions::price_format( $price, $currency_symbol ); ?></span>
+                            <span class="uk-text-large"><?php echo __( 'Price', 'fremediti-guitars' ) . ': ' . Fremediti_Guitars_Template_Functions::price_format( $price, $currency_symbol ); ?></span>
                         </p>
 					<?php endif; ?>
 
