@@ -25,7 +25,11 @@ $class = 'uk-article uk-flex';
 
         <div class="uk-child-width-1-2@m uk-grid" uk-grid>
             <div class="uk-flex-last@m">
-				<?php Fremediti_Guitars_Template_Functions::post_thumbnail( '', '', true ); ?>
+				<?php
+				$post_thumbnail = Fremediti_Guitars_Template_Functions::post_thumbnail( '', '', true, false );
+
+				echo apply_filters( 'fremediti_guitars_custom_post_type_thumbnail', $post_thumbnail, get_the_ID() );
+				?>
             </div>
 
             <div class="entry-content uk-text-justify">

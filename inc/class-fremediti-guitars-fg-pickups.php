@@ -15,8 +15,31 @@ class Fremediti_Guitars_FG_Pickups {
 	}
 
 	private function __construct() {
+		add_filter( 'fremediti_guitars_custom_post_type_thumbnail', array( $this, 'pickup_thumbnail' ), 10, 2 );
 		add_action( 'fremediti_guitars_custom_post_type_after_content', array( $this, 'add_fg_pickup_specs' ) );
 		add_action( 'fremediti_guitars_custom_post_type_after_content_row', array( $this, 'add_fg_pickup_extra_row' ) );
+	}
+
+	public function pickup_thumbnail( $html, $post_id ) {
+		if ( $this->_is_fg_pickups() ):
+			$fg_pickups_image_id = FG_Pickups_Post_Type::instance()->get_pickup_single_image_id( $post_id );
+			$url = wp_get_attachment_url( $fg_pickups_image_id );
+
+			if ( ! empty( $url ) ):
+				ob_start();
+				?>
+                <div uk-lightbox>
+                    <a href="<?php echo esc_url( $url ); ?>">
+						<?php echo wp_get_attachment_image( $fg_pickups_image_id, 'post-thumbnail' ); ?>
+                    </a>
+                </div>
+				<?php
+				$html = ob_get_clean();
+			endif;
+
+		endif;
+
+		return $html;
 	}
 
 	public function add_fg_pickup_specs() {
@@ -45,7 +68,9 @@ class Fremediti_Guitars_FG_Pickups {
 			$pickups_instance = FG_Pickups_Post_Type::instance();
 
 			$price           = $pickups_instance->get_price( $post_id );
+			$price_set       = $pickups_instance->get_price_set( $post_id );
 			$availability    = $pickups_instance->get_availability( $post_id );
+			$notes           = $pickups_instance->get_notes( $post_id );
 			$currency_symbol = Fremediti_Guitars_Template_Functions::currency_symbol();
 			?>
 
@@ -53,7 +78,13 @@ class Fremediti_Guitars_FG_Pickups {
                 <div class="uk-text-left">
 					<?php if ( ! empty( $price ) ): ?>
                         <p>
-                            <span class="uk-text-large"><?php echo __( 'Price', 'fremediti-guitars' ) . ': ' . Fremediti_Guitars_Template_Functions::price_format( $price, $currency_symbol ); ?></span>
+                            <span class="uk-text-large"><?php echo __( 'Price for single', 'fremediti-guitars' ) . ': ' . Fremediti_Guitars_Template_Functions::price_format( $price, $currency_symbol ); ?></span>
+                        </p>
+					<?php endif; ?>
+
+					<?php if ( ! empty( $price_set ) ): ?>
+                        <p>
+                            <span class="uk-text-large"><?php echo __( 'Price for set', 'fremediti-guitars' ) . ': ' . Fremediti_Guitars_Template_Functions::price_format( $price_set, $currency_symbol ); ?></span>
                         </p>
 					<?php endif; ?>
 
@@ -62,6 +93,12 @@ class Fremediti_Guitars_FG_Pickups {
                             <span class="uk-text-bolder">
                                 <?php _e( 'Availability', 'fremediti-guitars' ); ?>: <?php esc_attr_e( $availability, 'fremediti-guitars' ); ?>
                             </span>
+                        </p>
+					<?php endif; ?>
+
+					<?php if ( ! empty( $notes ) ): ?>
+                        <p>
+							<?php echo esc_attr( $notes ); ?>
                         </p>
 					<?php endif; ?>
 
