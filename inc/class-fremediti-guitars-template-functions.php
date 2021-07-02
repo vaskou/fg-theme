@@ -124,10 +124,12 @@ class Fremediti_Guitars_Template_Functions {
 	 * Wraps the post thumbnail in an anchor element on index views, or a div
 	 * element when on single views.
 	 */
-	public static function post_thumbnail( $before = '', $after = '', $is_singular = false ) {
+	public static function post_thumbnail( $before = '', $after = '', $is_singular = false, $echo = true ) {
 		if ( post_password_required() || is_attachment() || ! has_post_thumbnail() ) {
-			return;
+			return '';
 		}
+
+		ob_start();
 
 		echo $before;
 
@@ -156,6 +158,14 @@ class Fremediti_Guitars_Template_Functions {
 		endif; // End is_singular().
 
 		echo $after;
+
+		$html = ob_get_clean();
+
+		if ( $echo ) {
+			echo $html;
+		} else {
+			return $html;
+		}
 	}
 
 	public static function currency_symbol() {
