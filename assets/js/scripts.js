@@ -1,4 +1,4 @@
-/*! UIkit 3.6.22 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
+/*! UIkit 3.7.0 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -539,12 +539,11 @@
     }
 
     function query(selector, context) {
-        return toNode(selector) || find(selector, getContext(selector, context));
+        return find(selector, getContext(selector, context));
     }
 
     function queryAll(selector, context) {
-        var nodes = toNodes(selector);
-        return nodes.length && nodes || findAll(selector, getContext(selector, context));
+        return findAll(selector, getContext(selector, context));
     }
 
     function getContext(selector, context) {
@@ -568,14 +567,14 @@
 
 
         if (!selector || !isString(selector)) {
-            return null;
+            return selector;
         }
 
         selector = selector.replace(contextSanitizeRe, '$1 *');
 
         if (isContextSelector(selector)) {
 
-            selector = splitSelector(selector).map(function (selector, i) {
+            selector = splitSelector(selector).map(function (selector) {
 
                 var ctx = context;
 
@@ -1230,23 +1229,19 @@
     }
 
     function $(selector, context) {
-        return !isString(selector)
-            ? toNode(selector)
-            : isHtml(selector)
-                ? toNode(fragment(selector))
-                : find(selector, context);
+        return isHtml(selector)
+            ? toNode(fragment(selector))
+            : find(selector, context);
     }
 
     function $$(selector, context) {
-        return !isString(selector)
-            ? toNodes(selector)
-            : isHtml(selector)
-                ? toNodes(fragment(selector))
-                : findAll(selector, context);
+        return isHtml(selector)
+            ? toNodes(fragment(selector))
+            : findAll(selector, context);
     }
 
     function isHtml(str) {
-        return str[0] === '<' || str.match(/^\s*</);
+        return isString(str) && (str[0] === '<' || str.match(/^\s*</));
     }
 
     function addClass(element) {
@@ -2809,7 +2804,9 @@
             if (!this._updates) {
                 this._updates = new Set();
                 fastdom.read(function () {
-                    runUpdates.call(this$1, this$1._updates);
+                    if (this$1._connected) {
+                        runUpdates.call(this$1, this$1._updates);
+                    }
                     delete this$1._updates;
                 });
             }
@@ -2825,33 +2822,12 @@
                 return;
             }
 
-            var initital = !hasOwn(this, '_watch');
+            var initial = !hasOwn(this, '_watch');
 
             this._watch = fastdom.read(function () {
-
-                var ref = this$1;
-                var computed = ref.$options.computed;
-                var _computeds = ref._computeds;
-
-                for (var key in computed) {
-
-                    var hasPrev = hasOwn(_computeds, key);
-                    var prev = _computeds[key];
-
-                    delete _computeds[key];
-
-                    var ref$1 = computed[key];
-                    var watch = ref$1.watch;
-                    var immediate = ref$1.immediate;
-                    if (watch && (
-                        initital && immediate
-                        || hasPrev && !isEqual(prev, this$1[key])
-                    )) {
-                        watch.call(this$1, this$1[key], prev);
-                    }
-
+                if (this$1._connected) {
+                    runWatches.call(this$1, initial);
                 }
-
                 this$1._watch = null;
 
             });
@@ -2891,6 +2867,32 @@
             };
 
             for (var i = 0; i < updates.length; i++) loop( i );
+        }
+
+        function runWatches(initial) {
+
+            var ref = this;
+            var computed = ref.$options.computed;
+            var _computeds = ref._computeds;
+
+            for (var key in computed) {
+
+                var hasPrev = hasOwn(_computeds, key);
+                var prev = _computeds[key];
+
+                delete _computeds[key];
+
+                var ref$1 = computed[key];
+                var watch = ref$1.watch;
+                var immediate = ref$1.immediate;
+                if (watch && (
+                    initial && immediate
+                    || hasPrev && !isEqual(prev, this[key])
+                )) {
+                    watch.call(this, this[key], prev);
+                }
+
+            }
         }
     }
 
@@ -3446,7 +3448,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.6.22';
+    UIkit.version = '3.7.0';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -4137,6 +4139,28 @@
         }
     }
 
+    var Container = {
+
+        props: {
+            container: Boolean
+        },
+
+        data: {
+            container: true
+        },
+
+        computed: {
+
+            container: function(ref) {
+                var container = ref.container;
+
+                return container === true && this.$container || container && $(container);
+            }
+
+        }
+
+    };
+
     var Position = {
 
         props: {
@@ -4220,7 +4244,7 @@
 
     var drop = {
 
-        mixins: [Position, Togglable],
+        mixins: [Container, Position, Togglable],
 
         args: 'pos',
 
@@ -4243,7 +4267,8 @@
             delayHide: 800,
             clsDrop: false,
             animation: ['uk-animation-fade'],
-            cls: 'uk-open'
+            cls: 'uk-open',
+            container: false
         },
 
         computed: {
@@ -4274,12 +4299,12 @@
 
             addClass(this.$el, this.clsDrop);
 
-            var ref = this.$props;
-            var toggle = ref.toggle;
-            this.toggle = toggle && this.$create('toggle', query(toggle, this.$el), {
-                target: this.$el,
-                mode: this.mode
-            });
+            if (this.toggle && !this.target) {
+                this.target = this.$create('toggle', query(this.toggle, this.$el), {
+                    target: this.$el,
+                    mode: this.mode
+                });
+            }
 
         },
 
@@ -4348,7 +4373,7 @@
                     if (this.isToggled()) {
                         this.hide(false);
                     } else {
-                        this.show(toggle, false);
+                        this.show(toggle.$el, false);
                     }
                 }
 
@@ -4362,7 +4387,7 @@
 
                 handler: function(e, toggle) {
                     e.preventDefault();
-                    this.show(toggle);
+                    this.show(toggle.$el);
                 }
 
             },
@@ -4452,7 +4477,7 @@
                             var type = ref.type;
                             var newTarget = ref.target;
 
-                            if (!defaultPrevented && type === pointerUp && target === newTarget && !(this$1.toggle && within(target, this$1.toggle.$el))) {
+                            if (!defaultPrevented && type === pointerUp && target === newTarget && !(this$1.target && within(target, this$1.target))) {
                                 this$1.hide(false);
                             }
                         }, true);
@@ -4518,17 +4543,17 @@
 
         methods: {
 
-            show: function(toggle, delay) {
+            show: function(target, delay) {
                 var this$1 = this;
-                if ( toggle === void 0 ) toggle = this.toggle;
+                if ( target === void 0 ) target = this.target;
                 if ( delay === void 0 ) delay = true;
 
 
-                if (this.isToggled() && toggle && this.toggle && toggle.$el !== this.toggle.$el) {
+                if (this.isToggled() && target && this.target && target !== this.target) {
                     this.hide(false);
                 }
 
-                this.toggle = toggle;
+                this.target = target;
 
                 this.clearTimers();
 
@@ -4551,7 +4576,11 @@
 
                 }
 
-                this.showTimer = setTimeout(function () { return !this$1.isToggled() && this$1.toggleElement(this$1.$el, true); }, delay && this.delayShow || 0);
+                if (this.container && parent(this.$el) !== this.container) {
+                    append(this.container, this.$el);
+                }
+
+                this.showTimer = setTimeout(function () { return this$1.toggleElement(this$1.$el, true); }, delay && this.delayShow || 0);
 
             },
 
@@ -4593,7 +4622,7 @@
                 toggleClass(this.$el, ((this.clsDrop) + "-boundary"), this.boundaryAlign);
 
                 var boundary = offset(this.boundary);
-                var alignTo = this.boundaryAlign ? boundary : offset(this.toggle.$el);
+                var alignTo = this.boundaryAlign ? boundary : offset(this.target);
 
                 if (this.align === 'justify') {
                     var prop = this.getAxis() === 'y' ? 'width' : 'height';
@@ -4602,7 +4631,7 @@
                     addClass(this.$el, ((this.clsDrop) + "-stack"));
                 }
 
-                this.positionAt(this.$el, this.boundaryAlign ? this.boundary : this.toggle.$el, this.boundary);
+                this.positionAt(this.$el, this.boundaryAlign ? this.boundary : this.target, this.boundary);
 
             }
 
@@ -6107,28 +6136,6 @@
 
     };
 
-    var Container = {
-
-        props: {
-            container: Boolean
-        },
-
-        data: {
-            container: true
-        },
-
-        computed: {
-
-            container: function(ref) {
-                var container = ref.container;
-
-                return container === true && this.$container || container && $(container);
-            }
-
-        }
-
-    };
-
     var active = [];
 
     var Modal = {
@@ -6519,9 +6526,11 @@
 
     };
 
+    var navItem = '.uk-navbar-nav > li > a, .uk-navbar-item, .uk-navbar-toggle';
+
     var navbar = {
 
-        mixins: [Class, FlexBug],
+        mixins: [Class, Container, FlexBug],
 
         props: {
             dropdown: String,
@@ -6540,7 +6549,7 @@
         },
 
         data: {
-            dropdown: '.uk-navbar-nav > li',
+            dropdown: navItem,
             align: !isRtl ? 'left' : 'right',
             clsDrop: 'uk-navbar-dropdown',
             mode: undefined,
@@ -6555,7 +6564,8 @@
             dropbarAnchor: false,
             duration: 200,
             forceHeight: true,
-            selMinHeight: '.uk-navbar-nav > li > a, .uk-navbar-item, .uk-navbar-toggle'
+            selMinHeight: navItem,
+            container: false
         },
 
         computed: {
@@ -6603,13 +6613,22 @@
 
             },
 
+            dropContainer: function(_, $el) {
+                return this.container || $el;
+            },
+
             dropdowns: {
 
                 get: function(ref, $el) {
-                    var dropdown = ref.dropdown;
                     var clsDrop = ref.clsDrop;
 
-                    return $$((dropdown + " ." + clsDrop), $el);
+                    var dropdowns = $$(("." + clsDrop), $el);
+
+                    if (this.container !== $el) {
+                        $$(("." + clsDrop), this.container).forEach(function (el) { return !includes(dropdowns, el) && dropdowns.push(el); });
+                    }
+
+                    return dropdowns;
                 },
 
                 watch: function(dropdowns) {
@@ -6646,7 +6665,7 @@
                     var current = ref.current;
 
                     var active = this.getActive();
-                    if (active && active.toggle && !within(active.toggle.$el, current) && !active.tracker.movesTo(active.$el)) {
+                    if (active && active.target && !within(active.target, current) && !active.tracker.movesTo(active.$el)) {
                         active.hide(false);
                     }
                 }
@@ -6672,7 +6691,9 @@
             {
                 name: 'beforeshow',
 
-                capture: true,
+                el: function() {
+                    return this.dropContainer;
+                },
 
                 filter: function() {
                     return this.dropbar;
@@ -6689,6 +6710,10 @@
 
             {
                 name: 'show',
+
+                el: function() {
+                    return this.dropContainer;
+                },
 
                 filter: function() {
                     return this.dropbar;
@@ -6717,6 +6742,10 @@
             {
                 name: 'beforehide',
 
+                el: function() {
+                    return this.dropContainer;
+                },
+
                 filter: function() {
                     return this.dropbar;
                 },
@@ -6735,6 +6764,10 @@
 
             {
                 name: 'hide',
+
+                el: function() {
+                    return this.dropContainer;
+                },
 
                 filter: function() {
                     return this.dropbar;
@@ -6760,9 +6793,7 @@
         methods: {
 
             getActive: function() {
-                var ref = this.dropdowns.map(this.getDropdown).filter(function (drop) { return drop && drop.isActive(); });
-                var active = ref[0];
-                return active && includes(active.mode, 'hover') && within(active.toggle.$el, this.$el) && active;
+                return active$1 && includes(active$1.mode, 'hover') && within(active$1.target, this.$el) && active$1;
             },
 
             transitionTo: function(newHeight, el) {
@@ -6957,7 +6988,7 @@
                         return;
                     }
 
-                    var clientY = event.targetTouches[0].clientY - this.clientY;
+                    var clientY = e.targetTouches[0].clientY - this.clientY;
                     var ref = this.panel;
                     var scrollTop = ref.scrollTop;
                     var scrollHeight = ref.scrollHeight;
@@ -7448,13 +7479,15 @@
                     var active = ref.active;
 
 
+                    var changed = active !== false && !hasClass(this.elements[active], this.cls);
+
                     this.links.forEach(function (el) { return el.blur(); });
                     removeClass(this.elements, this.cls);
+                    addClass(this.elements[active], this.cls);
 
-                    if (active !== false) {
-                        trigger(this.$el, 'active', [active, addClass(this.elements[active], this.cls)]);
+                    if (changed) {
+                        trigger(this.$el, 'active', [active, this.elements[active]]);
                     }
-
                 },
 
                 events: ['scroll', 'resize']
@@ -10928,7 +10961,7 @@
 
                 percent = prev ? clamp(percent, -1, 1) : 0;
 
-                children(list).forEach(function (slide, i) {
+                children(list).forEach(function (slide) {
                     var isActive = includes(actives, slide);
                     var isIn = slide === itemIn;
                     var isOut = slide === itemOut;
@@ -11204,7 +11237,9 @@
             },
 
             itemshow: function() {
-                ~this.prevIndex && addClass(this._getTransitioner().getItemIn(), this.clsActive);
+                if (~this.prevIndex) {
+                    addClass(this._getTransitioner().getItemIn(), this.clsActive);
+                }
             }
 
         },
@@ -12367,7 +12402,7 @@
 
 })));
 
-/*! UIkit 3.6.22 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
+/*! UIkit 3.7.0 | https://www.getuikit.com | (c) 2014 - 2021 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -12388,6 +12423,7 @@
         "arrow-left": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" xmlns=\"http://www.w3.org/2000/svg\"><polyline fill=\"none\" stroke=\"#000\" points=\"10 14 5 9.5 10 5\"/><line fill=\"none\" stroke=\"#000\" x1=\"16\" y1=\"9.5\" x2=\"5\" y2=\"9.52\"/></svg>",
         "arrow-right": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" xmlns=\"http://www.w3.org/2000/svg\"><polyline fill=\"none\" stroke=\"#000\" points=\"10 5 15 9.5 10 14\"/><line fill=\"none\" stroke=\"#000\" x1=\"4\" y1=\"9.5\" x2=\"15\" y2=\"9.5\"/></svg>",
         "arrow-up": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" xmlns=\"http://www.w3.org/2000/svg\"><polygon points=\"10.5,4 15.37,9.4 14.63,10.08 10.5,5.49 6.37,10.08 5.63,9.4\"/><line fill=\"none\" stroke=\"#000\" x1=\"10.5\" y1=\"16\" x2=\"10.5\" y2=\"5\"/></svg>",
+        "bag": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" xmlns=\"http://www.w3.org/2000/svg\"><path fill=\"none\" stroke=\"#000\" d=\"M7.5,7.5V4A2.48,2.48,0,0,1,10,1.5,2.54,2.54,0,0,1,12.5,4V7.5\"/><polygon fill=\"none\" stroke=\"#000\" points=\"16.5 7.5 3.5 7.5 2.5 18.5 17.5 18.5 16.5 7.5\"/></svg>",
         "ban": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" xmlns=\"http://www.w3.org/2000/svg\"><circle fill=\"none\" stroke=\"#000\" stroke-width=\"1.1\" cx=\"10\" cy=\"10\" r=\"9\"/><line fill=\"none\" stroke=\"#000\" stroke-width=\"1.1\" x1=\"4\" y1=\"3.5\" x2=\"16\" y2=\"16.5\"/></svg>",
         "behance": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M9.5,10.6c-0.4-0.5-0.9-0.9-1.6-1.1c1.7-1,2.2-3.2,0.7-4.7C7.8,4,6.3,4,5.2,4C3.5,4,1.7,4,0,4v12c1.7,0,3.4,0,5.2,0 c1,0,2.1,0,3.1-0.5C10.2,14.6,10.5,12.3,9.5,10.6L9.5,10.6z M5.6,6.1c1.8,0,1.8,2.7-0.1,2.7c-1,0-2,0-2.9,0V6.1H5.6z M2.6,13.8v-3.1 c1.1,0,2.1,0,3.2,0c2.1,0,2.1,3.2,0.1,3.2L2.6,13.8z\"/><path d=\"M19.9,10.9C19.7,9.2,18.7,7.6,17,7c-4.2-1.3-7.3,3.4-5.3,7.1c0.9,1.7,2.8,2.3,4.7,2.1c1.7-0.2,2.9-1.3,3.4-2.9h-2.2 c-0.4,1.3-2.4,1.5-3.5,0.6c-0.4-0.4-0.6-1.1-0.6-1.7H20C20,11.7,19.9,10.9,19.9,10.9z M13.5,10.6c0-1.6,2.3-2.7,3.5-1.4 c0.4,0.4,0.5,0.9,0.6,1.4H13.5L13.5,10.6z\"/><rect x=\"13\" y=\"4\" width=\"5\" height=\"1.4\"/></svg>",
         "bell": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" xmlns=\"http://www.w3.org/2000/svg\"><path fill=\"none\" stroke=\"#000\" stroke-width=\"1.1\" d=\"M17,15.5 L3,15.5 C2.99,14.61 3.79,13.34 4.1,12.51 C4.58,11.3 4.72,10.35 5.19,7.01 C5.54,4.53 5.89,3.2 7.28,2.16 C8.13,1.56 9.37,1.5 9.81,1.5 L9.96,1.5 C9.96,1.5 11.62,1.41 12.67,2.17 C14.08,3.2 14.42,4.54 14.77,7.02 C15.26,10.35 15.4,11.31 15.87,12.52 C16.2,13.34 17.01,14.61 17,15.5 L17,15.5 Z\"/><path fill=\"none\" stroke=\"#000\" d=\"M12.39,16 C12.39,17.37 11.35,18.43 9.91,18.43 C8.48,18.43 7.42,17.37 7.42,16\"/></svg>",

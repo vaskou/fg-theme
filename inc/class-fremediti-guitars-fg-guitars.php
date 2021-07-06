@@ -141,11 +141,7 @@ class Fremediti_Guitars_FG_Guitars {
 
 		ob_start();
 		if ( ! empty( $sounds ) ):
-			$args = array(
-				'videos'  => $sounds,
-				'columns' => 4
-			);
-			get_template_part( 'template-parts/video-template', null, $args );
+			echo Fremediti_Guitars_Template_Functions::videos_grid( $sounds );
 		else:
 			?>
             <div class="uk-text-center uk-margin-top">

@@ -167,25 +167,8 @@ class Fremediti_Guitars_Videos_Post_Type {
 
 		ob_start();
 
-		?>
-        <div class="fg-videos uk-child-width-1-2@s uk-child-width-1-4@m uk-grid-medium" uk-grid uk-lightbox>
-			<?php
-			foreach ( $videos as $video ):
-				if ( empty( $video['url'] ) ) {
-					continue;
-				}
-				?>
-                <div>
-                    <a href="//youtube.com/watch?v=<?php echo $video['url']; ?>" data-attrs="width: 1280; height: 720;">
-                        <img src="//img.youtube.com/vi/<?php echo $video['url']; ?>/sddefault.jpg" alt="<?php _e( 'Guitar Video', 'fremediti-guitars' ); ?>"/>
-                    </a>
-                    <h4><?php esc_attr_e( $video['title'] ); ?></h4>
-                </div>
-			<?php
-			endforeach;
-			?>
-        </div>
-		<?php
+		echo Fremediti_Guitars_Template_Functions::videos_grid( $videos, 4, 'fg-videos' );
+
 		return ob_get_clean();
 
 	}
