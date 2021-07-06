@@ -1,0 +1,15 @@
+.fg-pickups-prices {
+  &.hide-price {
+    .fg-pickups-prices__price-single,
+    .fg-pickups-prices__divider {
+      display: none;
+    }
+  }
+
+  &.hide-price_set {
+    .fg-pickups-prices__price-set,
+    .fg-pickups-prices__divider {
+      display: none;
+    }
+  }
+}

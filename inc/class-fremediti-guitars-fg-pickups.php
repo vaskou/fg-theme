@@ -111,17 +111,10 @@ class Fremediti_Guitars_FG_Pickups {
 
 				<?php
 				$video = $pickups_instance->get_video( $post_id );
-				$args  = array(
-					'videos' => array( $video )
-				);
 
-				if ( ! empty( $video ) ):
-					?>
-                    <div>
-						<?php get_template_part( 'template-parts/video-template', null, $args ); ?>
-                    </div>
-				<?php
-				endif;
+				if ( ! empty( $video ) ) {
+					echo Fremediti_Guitars_Template_Functions::videos_grid( array( $video ), 1 );
+				}
 				?>
             </div>
 		<?php

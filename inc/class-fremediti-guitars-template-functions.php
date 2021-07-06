@@ -202,4 +202,31 @@ class Fremediti_Guitars_Template_Functions {
 		endif;
 
 	}
+
+	public static function videos_grid( $videos, $columns = 4, $class = '' ) {
+
+		$videos_array = array();
+
+		foreach ( $videos as $key => $video ) {
+			if ( is_array( $video ) ) {
+				$videos_array[ $key ]['url']   = ! empty( $video['url'] ) ? $video['url'] : '';
+				$videos_array[ $key ]['title'] = ! empty( $video['title'] ) ? $video['title'] : '';
+			} else {
+				$videos_array[ $key ]['url']   = ! empty( $video ) ? $video : '';
+				$videos_array[ $key ]['title'] = '';
+			}
+		}
+
+		$args = array(
+			'videos'  => $videos_array,
+			'columns' => $columns,
+			'class'   => $class,
+		);
+
+		ob_start();
+
+		get_template_part( 'template-parts/video-template', null, $args );
+
+		return ob_get_clean();
+	}
 }
