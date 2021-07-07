@@ -45,6 +45,10 @@
     padding: 10px 10px;
   }
 
+  .uk-tab-left > * > a {
+    justify-content: flex-start;
+  }
+
   #menu-categories {
     [class*='uk-animation-'] {
       animation-duration: 500ms;
