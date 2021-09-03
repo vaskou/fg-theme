@@ -14,12 +14,8 @@
 
 get_header();
 
-$has_sidebar = Fremediti_Guitars_Metaboxes::has_sidebar( get_the_ID() );
-if ( $has_sidebar ):
-	?>
-    <div class="uk-grid uk-grid-divider" uk-grid>
-<?php
-endif;
+do_action( 'fremediti_guitars_page_before' );
+$has_sidebar = apply_filters( 'fremediti_guitars_has_sidebar', false );
 ?>
     <div id="primary" class="content-area <?php echo $has_sidebar ? 'uk-width-2-3@s uk-width-1-1' : ''; ?>">
         <main id="main" class="site-main">
@@ -42,10 +38,7 @@ endif;
     </div><!-- #primary -->
 
 <?php
-if ( $has_sidebar ) :
-	get_sidebar();
-	?>
-    </div>
-<?php
-endif;
+
+do_action( 'fremediti_guitars_page_after' );
+
 get_footer();

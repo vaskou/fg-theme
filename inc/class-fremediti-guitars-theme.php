@@ -49,6 +49,13 @@ class Fremediti_Guitars_Theme {
 		// Favicon
 		add_action( 'wp_head', array( $this, 'add_favicon' ) );
 
+		// Sidebar
+		add_filter( 'fremediti_guitars_has_sidebar', array( $this, 'fremediti_guitars_has_sidebar' ) );
+		add_action( 'fremediti_guitars_page_before', array( $this, 'markup_for_sidebar_before' ) );
+		add_action( 'fremediti_guitars_page_after', array( $this, 'markup_for_sidebar_after' ) );
+		add_action( 'fremediti_guitars_single_before', array( $this, 'markup_for_sidebar_before' ) );
+		add_action( 'fremediti_guitars_single_after', array( $this, 'markup_for_sidebar_after' ) );
+
 		Fremediti_Guitars_Customizer::instance();
 		Fremediti_Guitars_Metaboxes::instance();
 		Fremediti_Guitars_Available_Guitars_Post_Type::instance();
@@ -541,6 +548,35 @@ class Fremediti_Guitars_Theme {
         <meta name="msapplication-TileImage" content="<?php echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/ms-icon-144x144.png">
         <meta name="theme-color" content="#ffffff">
 		<?php
+	}
+
+	public function fremediti_guitars_has_sidebar( $has_sidebar ) {
+		if ( is_singular( 'page' ) ) {
+			$has_sidebar = Fremediti_Guitars_Metaboxes::has_sidebar( get_the_ID() );
+		}
+
+		return $has_sidebar;
+	}
+
+	public function markup_for_sidebar_before() {
+		$has_sidebar = apply_filters( 'fremediti_guitars_has_sidebar', false );
+
+		if ( $has_sidebar ):
+			?>
+            <div class="uk-grid uk-grid-divider" uk-grid>
+		<?php
+		endif;
+	}
+
+	public function markup_for_sidebar_after() {
+		$has_sidebar = apply_filters( 'fremediti_guitars_has_sidebar', false );
+
+		if ( $has_sidebar ) :
+			get_sidebar();
+			?>
+            </div>
+		<?php
+		endif;
 	}
 
 	private function _get_file_version( $filename ) {

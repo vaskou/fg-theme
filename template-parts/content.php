@@ -20,7 +20,8 @@ $class = 'uk-article uk-flex';
 				the_title( '<h2 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );
 			endif;
 
-			if ( 'post' === get_post_type() ) :
+			$post_types = apply_filters( 'fremediti_guitars_single_content_show_posted_on', array( 'post' ) );
+			if ( in_array( get_post_type(), $post_types ) ) :
 				?>
                 <div class="entry-meta uk-article-meta uk-margin-bottom">
 					<?php

@@ -14,8 +14,6 @@ class Fremediti_Guitars_Multilanguage {
 
 	private function __construct() {
 		add_action( 'template_redirect', array( $this, 'language_redirect' ) );
-
-		add_filter( 'fremediti_guitars_fg_guitars_show_contact_us_button', array( $this, 'fg_guitars_show_contact_us_button' ) );
 	}
 
 	public function language_redirect() {
@@ -51,16 +49,6 @@ class Fremediti_Guitars_Multilanguage {
 				exit();
 			}
 		}
-	}
-
-	public function fg_guitars_show_contact_us_button( $show_contact_us_button ) {
-		$country = self::get_country_from_current_ip();
-
-		if ( 'GR' != $country ) {
-			$show_contact_us_button = false;
-		}
-
-		return $show_contact_us_button;
 	}
 
 	/**
