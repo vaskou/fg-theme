@@ -15,6 +15,8 @@ $has_sidebar = apply_filters( 'fremediti_guitars_has_sidebar', false );
 
 ?>
 
-<aside id="secondary" class="widget-area <?php echo $has_sidebar ? 'uk-width-1-3@s uk-width-1-1' : ''; ?>">
-	<?php dynamic_sidebar( 'sidebar-1' ); ?>
+<aside id="secondary" class="widget-area <?php echo $has_sidebar ? 'uk-width-1-3@m uk-width-1-1 uk-visible@m' : ''; ?>">
+    <div class="sidebar-wrapper">
+		<?php dynamic_sidebar( 'sidebar-1' ); ?>
+    </div>
 </aside><!-- #secondary -->

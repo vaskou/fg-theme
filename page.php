@@ -17,7 +17,7 @@ get_header();
 do_action( 'fremediti_guitars_page_before' );
 $has_sidebar = apply_filters( 'fremediti_guitars_has_sidebar', false );
 ?>
-    <div id="primary" class="content-area <?php echo $has_sidebar ? 'uk-width-2-3@s uk-width-1-1' : ''; ?>">
+    <div id="primary" class="content-area <?php echo $has_sidebar ? 'uk-width-2-3@m uk-width-1-1' : ''; ?>">
         <main id="main" class="site-main">
 
 			<?php
