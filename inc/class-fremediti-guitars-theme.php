@@ -563,7 +563,7 @@ class Fremediti_Guitars_Theme {
 
 		if ( $has_sidebar ):
 			?>
-            <div class="uk-grid uk-grid-divider" uk-grid>
+            <div class="uk-grid" uk-grid>
 		<?php
 		endif;
 	}

@@ -1,5 +1,41 @@
 aside.widget-area {
-  section.widget:not(:last-child) {
-    margin-bottom: 20px;
+  .sidebar-wrapper {
+    background: $global-border;
+    padding: 10px;
+  }
+
+  section.widget {
+    &:not(:first-child) {
+      .fg-sidebar-header {
+        border-top: 1px solid #cccccc;
+      }
+    }
+  }
+
+  .fg-sidebar-header {
+    margin-bottom: 0;
+
+    img {
+      margin: 5px 0;
+    }
+  }
+
+  .fg-sidebar-content {
+    margin-bottom: 35px;
+
+    @media (max-width: $breakpoint-small-max) {
+      .aligncenter {
+        margin: 0;
+      }
+    }
+  }
+
+  .fg-sidebar-contact {
+    margin-bottom: 35px;
+    margin-top: 10px;
+
+    a {
+      word-break: break-word;
+    }
   }
 }
