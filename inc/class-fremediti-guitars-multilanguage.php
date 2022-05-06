@@ -19,7 +19,7 @@ class Fremediti_Guitars_Multilanguage {
 	public function language_redirect() {
 		global $sitepress;
 
-		$redirection_on = Fremediti_Guitars_Settings::get_setting( 'fremediti_guitars_redirect_frontpage_to_el' );
+		$redirection_on = Fremediti_Guitars_Settings::get_redirect_frontpage_to_el();
 
 		if ( empty( $redirection_on ) ) {
 			return;

@@ -505,7 +505,7 @@ class Fremediti_Guitars_Theme {
 	}
 
 	public function gtm_head_script() {
-		$gtm_code = Fremediti_Guitars_Settings::get_setting( 'fremediti_guitars_gtm' );
+		$gtm_code = Fremediti_Guitars_Settings::get_gtm();
 
 		if ( ! empty( $gtm_code ) ) {
 			echo "<!-- Google Tag Manager -->
@@ -520,7 +520,7 @@ class Fremediti_Guitars_Theme {
 	}
 
 	public function gtm_body_script() {
-		$gtm_code = Fremediti_Guitars_Settings::get_setting( 'fremediti_guitars_gtm' );
+		$gtm_code = Fremediti_Guitars_Settings::get_gtm();
 
 		if ( ! empty( $gtm_code ) ) {
 			echo '<!-- Google Tag Manager (noscript) -->

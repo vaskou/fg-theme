@@ -1,8 +1,10 @@
 <?php
 
-define( 'FREMEDITI_GUITARS_THEME_VERSION', '1.1.3' );
+define( 'FREMEDITI_GUITARS_THEME_VERSION', '1.1.4' );
 define( 'FREMEDITI_GUITARS_THEME_PATH', get_stylesheet_directory() );
 define( 'FREMEDITI_GUITARS_THEME_URL', get_stylesheet_directory_uri() );
+
+require 'vendor/autoload.php';
 
 require get_template_directory() . '/inc/class-fremediti-guitars-theme.php';
 

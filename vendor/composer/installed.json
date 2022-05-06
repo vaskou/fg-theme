@@ -1,0 +1,46 @@
+{
+    "packages": [
+        {
+            "name": "vaskou/wordpress-custom-settings",
+            "version": "v2.0.2",
+            "version_normalized": "2.0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vaskou/wordpress-custom-settings.git",
+                "reference": "8efd6485149cf949c1d46366d65b3c32b2cc4d3d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vaskou/wordpress-custom-settings/zipball/8efd6485149cf949c1d46366d65b3c32b2cc4d3d",
+                "reference": "8efd6485149cf949c1d46366d65b3c32b2cc4d3d",
+                "shasum": ""
+            },
+            "time": "2022-05-05T16:32:48+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "files": [
+                    "WordpressCustomSettings/bootstrap_2_0_2.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Vasilis Koutsopoulos",
+                    "email": "vaskou@hotmail.com"
+                }
+            ],
+            "description": "Wordpress Custom Settings",
+            "support": {
+                "issues": "https://github.com/vaskou/wordpress-custom-settings/issues",
+                "source": "https://github.com/vaskou/wordpress-custom-settings/tree/v2.0.2"
+            },
+            "install-path": "../vaskou/wordpress-custom-settings"
+        }
+    ],
+    "dev": true,
+    "dev-package-names": []
+}

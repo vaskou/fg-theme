@@ -11,13 +11,13 @@
   &:not(.fg_guitars) {
     .fg-article-wrapper {
       border-bottom: 1px solid $global-border;
-      padding-bottom: $global-large-margin * 2 / 3;
+      padding-bottom: calc($global-large-margin * 2 / 3);
     }
 
     &:last-child {
       .fg-article-wrapper {
         border: none;
-        padding-bottom: $global-large-margin * 2 / 3;
+        padding-bottom: calc($global-large-margin * 2 / 3);
 
       }
     }
@@ -27,13 +27,13 @@
 .uk-child-width-1-2\@m {
   & > article {
     &.uk-article {
-      &:nth-child(2){
+      &:nth-child(2) {
         @media (min-width: $breakpoint-medium) {
           margin-top: 0;
         }
       }
 
-      &:nth-last-child(2){
+      &:nth-last-child(2) {
         .fg-article-wrapper {
           @media (min-width: $breakpoint-medium) {
             border: none;

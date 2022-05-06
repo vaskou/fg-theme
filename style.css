@@ -3,7 +3,7 @@
 Theme Name: Fremediti Guitars
 Author: Vasilis Koutsopoulos
 Description: Description
-Version: 1.1.3
+Version: 1.1.4
 License: GNU General Public License v2 or later
 License URI: LICENSE
 Text Domain: fremediti-guitars
@@ -10339,8 +10339,8 @@ iframe[data-uk-cover] {
  *    (Doesn't work on Surface touch devices)
  */
 :where(.uk-transition-fade),
-:where([class*="uk-transition-scale"]),
-:where([class*="uk-transition-slide"]) {
+:where([class*=uk-transition-scale]),
+:where([class*=uk-transition-slide]) {
   --uk-position-translate-x: 0;
   --uk-position-translate-y: 0;
 }
@@ -11986,7 +11986,7 @@ img[src=""] {
   background: rgba(255, 255, 255, 0.7);
 }
 .fg-secondary-slider .uk-slidenav:hover svg polyline {
-  stroke: black !important;
+  stroke: rgb(0, 0, 0) !important;
 }
 
 /* Article */
