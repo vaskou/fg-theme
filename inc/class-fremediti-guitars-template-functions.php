@@ -168,34 +168,48 @@ class Fremediti_Guitars_Template_Functions {
 		}
 	}
 
-	public static function currency_symbol() {
-		return apply_filters( 'fremediti_guitars_get_currency_symbol', '&euro;' );
-	}
-
-	public static function price_format( $price, $currency_symbol = '&euro;' ) {
+	public static function price_format( $price, $currency = '' ) {
 		if ( '' == $price ) {
 			return null;
 		}
 
-		$formatted_price = $currency_symbol . ' ' . esc_attr( number_format( $price, 0, '.', '' ) );
+		if ( empty( $currency ) ) {
+			$currency = Fremediti_Guitars_Multicurrency::get_current_currency();
+		}
 
-		return apply_filters( 'fremediti_guitars_price_format', $formatted_price, $price, $currency_symbol );
+		$currency_symbol = Fremediti_Guitars_Multicurrency::get_currency_symbol( $currency );
+
+		switch ( $currency ) {
+			case 'USD':
+				$formatted_price = sprintf( '%s%s', $currency_symbol, esc_attr( number_format( $price, 2, '.', ',' ) ) );
+				break;
+			case 'EUR':
+			default:
+				$formatted_price = sprintf( '%s %s', esc_attr( number_format( $price, 2, ',', '.' ) ), $currency_symbol );
+				break;
+		}
+
+		return apply_filters( 'fremediti_guitars_price_format', $formatted_price, $price, $currency, $currency_symbol );
 	}
 
-	public static function price_without_buttons( $price, $converted_price, $label = '', $original_currency_symbol = '&euro;', $converted_currency_symbol = '&dollar;' ) {
+	public static function price_without_buttons( $price, $converted_price, $label = '', $original_currency = 'EUR', $converted_currency = 'USD' ) {
 		if ( ! empty( $price ) ): ?>
-			<?php echo $label; ?> <span class="fg-original-price"><?php echo self::price_format( $price, $original_currency_symbol ); ?></span>
+			<?php echo $label; ?> <span class="fg-original-price"><?php echo self::price_format( $price, $original_currency ); ?></span>
 		<?php endif; ?>
 		<?php
 		if ( ! empty( $converted_price ) ):
 			?>
-            <span class="fg-converted-price uk-hidden"><?php echo self::price_format( $converted_price, $converted_currency_symbol ); ?></span>
+            <span class="fg-converted-price uk-hidden"><?php echo self::price_format( $converted_price, $converted_currency ); ?></span>
 		<?php
 		endif;
 	}
 
-	public static function price_with_buttons( $price, $converted_price, $label = '', $original_currency_symbol = '&euro;', $converted_currency_symbol = '&dollar;' ) {
-		self::price_without_buttons( $price, $converted_price, $label, $original_currency_symbol, $converted_currency_symbol );
+	public static function price_with_buttons( $price, $converted_price, $label = '', $original_currency = 'EUR', $converted_currency = 'USD' ) {
+		self::price_without_buttons( $price, $converted_price, $label, $original_currency, $converted_currency );
+
+		$original_currency_symbol  = Fremediti_Guitars_Multicurrency::get_currency_symbol( $original_currency );
+		$converted_currency_symbol = Fremediti_Guitars_Multicurrency::get_currency_symbol( $converted_currency );
+
 		if ( ! empty( $converted_price ) ):
 			?>
             <button class="uk-button fg-original-currency-symbol fg-currency-button fg-selected"><?php echo $original_currency_symbol; ?></button>
