@@ -1,6 +1,6 @@
 <?php
 
-define( 'FREMEDITI_GUITARS_THEME_VERSION', '1.1.4' );
+define( 'FREMEDITI_GUITARS_THEME_VERSION', '1.1.5' );
 define( 'FREMEDITI_GUITARS_THEME_PATH', get_stylesheet_directory() );
 define( 'FREMEDITI_GUITARS_THEME_URL', get_stylesheet_directory_uri() );
 
@@ -35,6 +35,8 @@ require get_template_directory() . '/inc/class-fremediti-guitars-videos-post-typ
 require get_template_directory() . '/inc/class-fremediti-guitars-settings.php';
 
 require get_template_directory() . '/inc/class-fremediti-guitars-multilanguage.php';
+
+require get_template_directory() . '/inc/class-fremediti-guitars-multicurrency.php';
 
 
 Fremediti_Guitars_Theme::instance();

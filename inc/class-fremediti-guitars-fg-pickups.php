@@ -71,20 +71,19 @@ class Fremediti_Guitars_FG_Pickups {
 			$price_set       = $pickups_instance->get_price_set( $post_id );
 			$availability    = $pickups_instance->get_availability( $post_id );
 			$notes           = $pickups_instance->get_notes( $post_id );
-			$currency_symbol = Fremediti_Guitars_Template_Functions::currency_symbol();
 			?>
 
             <div class="uk-child-width-1-2@m uk-grid" uk-grid>
                 <div class="uk-text-left">
 					<?php if ( ! empty( $price ) ): ?>
                         <p>
-                            <span class="uk-text-large"><?php echo __( 'Price for single', 'fremediti-guitars' ) . ': ' . Fremediti_Guitars_Template_Functions::price_format( $price, $currency_symbol ); ?></span>
+                            <span class="uk-text-large"><?php echo __( 'Price for single', 'fremediti-guitars' ) . ': ' . Fremediti_Guitars_Template_Functions::price_format( $price ); ?></span>
                         </p>
 					<?php endif; ?>
 
 					<?php if ( ! empty( $price_set ) ): ?>
                         <p>
-                            <span class="uk-text-large"><?php echo __( 'Price for set', 'fremediti-guitars' ) . ': ' . Fremediti_Guitars_Template_Functions::price_format( $price_set, $currency_symbol ); ?></span>
+                            <span class="uk-text-large"><?php echo __( 'Price for set', 'fremediti-guitars' ) . ': ' . Fremediti_Guitars_Template_Functions::price_format( $price_set ); ?></span>
                         </p>
 					<?php endif; ?>
 

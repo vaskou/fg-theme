@@ -25,7 +25,6 @@ foreach ( $prices_grid_visibility as $hide_item ) {
 
 $pickup_prices_class = implode( ' ', array_unique( $classes ) );
 
-$currency_symbol = Fremediti_Guitars_Template_Functions::currency_symbol();
 
 ?>
 
@@ -38,8 +37,8 @@ $currency_symbol = Fremediti_Guitars_Template_Functions::currency_symbol();
 
 
     <div class="fg-pickups-prices uk-text-center <?php echo $pickup_prices_class; ?>">
-        <span class="fg-pickups-prices__price-single"><?php echo Fremediti_Guitars_Template_Functions::price_format( $price, $currency_symbol ); ?></span>
+        <span class="fg-pickups-prices__price-single"><?php echo Fremediti_Guitars_Template_Functions::price_format( $price ); ?></span>
         <span class="fg-pickups-prices__divider">-</span>
-        <span class="fg-pickups-prices__price-set"><?php echo Fremediti_Guitars_Template_Functions::price_format( $price_set, $currency_symbol ) . ' ' . __( 'Set', 'fremediti-guitars' ); ?></span>
+        <span class="fg-pickups-prices__price-set"><?php echo Fremediti_Guitars_Template_Functions::price_format( $price_set ) . ' ' . __( 'Set', 'fremediti-guitars' ); ?></span>
     </div>
 </article>
