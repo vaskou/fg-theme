@@ -321,7 +321,7 @@ class Fremediti_Guitars_Theme {
 		ob_start();
 		?>
         <div class="uk-navbar-dropdown megamenu-wrapper fg-guitar-menu-guitars"
-             uk-dropdown="boundary: .fg-navbar-sticky; boundary-align: true; delay-hide: 100; animation: uk-animation-slide-top-small;">
+             uk-dropdown="boundary: .fg-navbar-sticky; boundary-align: true; delay-hide: 100; animation: uk-animation-slide-top-small; offset: 1;">
             <div class="uk-container">
                 <div class="uk-grid" uk-grid>
                     <div class="uk-width-1-5@m">
