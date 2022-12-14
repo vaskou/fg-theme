@@ -4,6 +4,20 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
+body {
+  &.fg-country-GR {
+    .hidden-GR {
+      display: none !important;
+    }
+  }
+
+  &:not(.fg-country-GR) {
+    .hidden-not-GR {
+      display: none !important;
+    }
+  }
+}
+
 .site-content {
   margin-bottom: 40px;
 
