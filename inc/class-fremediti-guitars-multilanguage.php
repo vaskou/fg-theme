@@ -14,6 +14,9 @@ class Fremediti_Guitars_Multilanguage {
 
 	private function __construct() {
 		add_action( 'template_redirect', array( $this, 'language_redirect' ) );
+		add_action( 'template_redirect', array( $this, 'redirect_services_pages' ) );
+
+		add_filter( 'body_class', array( $this, 'body_classes' ) );
 	}
 
 	public function language_redirect() {
@@ -49,6 +52,38 @@ class Fremediti_Guitars_Multilanguage {
 				exit();
 			}
 		}
+	}
+
+	public function redirect_services_pages() {
+		$enabled = Fremediti_Guitars_Settings::get_redirect_services_pages();
+
+		if ( empty( $enabled ) ) {
+			return;
+		}
+
+		$services_page = Fremediti_Guitars_Settings::get_services_page();
+
+		if ( is_post_type_archive( 'fg_services_cat' ) || is_singular( 'fg_services' ) ||
+		     ( ! empty( $services_page ) && is_page( $services_page ) )
+		) {
+			$country = self::get_country_from_current_ip();
+
+			if ( 'GR' != $country ) {
+				wp_redirect( home_url() );
+				exit;
+			}
+		}
+	}
+
+	public function body_classes( $classes ) {
+
+		$country = self::get_country_from_current_ip();
+
+		if ( ! empty( $country ) ) {
+			$classes[] = "fg-country-{$country}";
+		}
+
+		return $classes;
 	}
 
 	/**

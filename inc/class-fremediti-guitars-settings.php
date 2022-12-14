@@ -29,6 +29,8 @@ class Fremediti_Guitars_Settings extends SettingsSetup {
 		$settings = array(
 			new SettingField( 'fremediti_guitars_gtm', __( 'Google Tag Manage Code', 'fremediti-guitars' ), 'text', 'general' ),
 			new SettingField( 'fremediti_guitars_redirect_frontpage_to_el', __( 'Redirect Frontpage to Greek', 'fremediti-guitars' ), 'checkbox', 'general' ),
+			new SettingField( 'fremediti_guitars_redirect_services_pages', __( 'Redirect FG Services pages if user is not from Greek IP', 'fremediti-guitars' ), 'checkbox', 'general' ),
+			new SettingField( 'fremediti_guitars_services_page', __( 'FG Services page', 'fremediti-guitars' ), 'pages', 'general' ),
 		);
 
 		foreach ( $settings as $setting ) {
@@ -44,6 +46,14 @@ class Fremediti_Guitars_Settings extends SettingsSetup {
 
 	public static function get_redirect_frontpage_to_el() {
 		return self::instance()->get_setting( 'fremediti_guitars_redirect_frontpage_to_el' );
+	}
+
+	public static function get_redirect_services_pages() {
+		return self::instance()->get_setting( 'fremediti_guitars_redirect_services_pages' );
+	}
+
+	public static function get_services_page() {
+		return self::instance()->get_setting( 'fremediti_guitars_services_page' );
 	}
 
 }
