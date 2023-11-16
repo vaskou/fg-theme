@@ -62,6 +62,30 @@ class Fremediti_Guitars_FG_Guitars {
 		}
 	}
 
+	public function get_description_html( $post_id ) {
+		if ( ! is_a( $this->short_description, 'FG_Guitars_Short_Description_Fields' ) ) {
+			return '';
+		}
+
+		$title = $this->short_description->getTitle( $post_id );
+
+		ob_start();
+		?>
+        <div class="uk-grid" uk-grid>
+            <div>
+				<?php if ( ! empty( $title ) ): ?>
+                    <h3><?php esc_attr_e( $title ); ?></h3>
+                    <hr>
+				<?php endif; ?>
+                <div class="uk-text-justify">
+					<?php the_content(); ?>
+                </div>
+            </div>
+        </div>
+		<?php
+		return ob_get_clean();
+	}
+
 	public function get_short_description_html( $post_id ) {
 		if ( ! is_a( $this->short_description, 'FG_Guitars_Short_Description_Fields' ) ) {
 			return '';
@@ -165,7 +189,7 @@ class Fremediti_Guitars_FG_Guitars {
 		ob_start();
 
 		if ( ! empty( $features_post_in ) ):
-			echo do_shortcode( '[fg-guitar-features post__in="' . $features_post_in . '"]' );
+			echo do_shortcode( '[fg-guitar-features post__in="' . $features_post_in . '" layout="new"]' );
 		endif;
 
 		return ob_get_clean();

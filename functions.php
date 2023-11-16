@@ -30,6 +30,8 @@ require get_template_directory() . '/inc/class-fremediti-guitars-available-guita
 
 require get_template_directory() . '/inc/class-fremediti-guitars-gallery-post-type.php';
 
+require get_template_directory() . '/inc/class-fremediti-guitars-helpers.php';
+
 require get_template_directory() . '/inc/class-fremediti-guitars-videos-post-type.php';
 
 require get_template_directory() . '/inc/class-fremediti-guitars-settings.php';
