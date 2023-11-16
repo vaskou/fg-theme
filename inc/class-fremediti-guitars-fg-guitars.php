@@ -156,7 +156,7 @@ class Fremediti_Guitars_FG_Guitars {
 		return ob_get_clean();
 	}
 
-	public function get_sounds_html( $post_id ) {
+	public function get_sounds_html( $post_id, $columns = 4 ) {
 		if ( ! is_a( $this->sounds, 'FG_Guitars_Sounds_Fields' ) ) {
 			return '';
 		}
@@ -165,7 +165,7 @@ class Fremediti_Guitars_FG_Guitars {
 
 		ob_start();
 		if ( ! empty( $sounds ) ):
-			echo Fremediti_Guitars_Template_Functions::videos_grid( $sounds );
+			echo Fremediti_Guitars_Template_Functions::videos_grid( $sounds, $columns );
 		else:
 			?>
             <div class="uk-text-center uk-margin-top">

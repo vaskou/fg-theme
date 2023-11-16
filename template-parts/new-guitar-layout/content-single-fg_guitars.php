@@ -11,6 +11,7 @@ $image_gallery     = array_slice( $image_gallery, 1, null, true );
 $single_guitar = Fremediti_Guitars_FG_Guitars::instance();
 
 $features = FG_Guitars_Features_Fields::instance();
+$sounds   = FG_Guitars_Sounds_Fields::instance();
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -46,12 +47,20 @@ $features = FG_Guitars_Features_Fields::instance();
 	if ( $features->isEnabled() ):
 		?>
         <!-- Features -->
-        <h3><?php echo $features->getMetaboxTitle(); ?></h3>
-        <div class="uk-child-width-1-3@m uk-grid" uk-grid>
-			<?php echo $single_guitar->get_features_html( $post_id ); ?>
-            <!-- Features End -->
+        <div class="fg-features">
+            <h3><?php echo $features->getMetaboxTitle(); ?></h3>
+            <div class="uk-child-width-1-3@m uk-grid" uk-grid>
+				<?php echo $single_guitar->get_features_html( $post_id ); ?>
+                <!-- Features End -->
+            </div>
         </div>
 	<?php
 	endif;
 	?>
+
+    <div class="fg-sounds">
+        <h3><?php echo $sounds->getMetaboxTitle(); ?></h3>
+		<?php echo $single_guitar->get_sounds_html( $post_id, 3 ); ?>
+    </div>
+
 </article>
