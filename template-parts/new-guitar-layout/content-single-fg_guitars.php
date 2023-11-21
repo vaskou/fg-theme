@@ -47,7 +47,7 @@ $sounds   = FG_Guitars_Sounds_Fields::instance();
 	if ( $features->isEnabled() ):
 		?>
         <!-- Features -->
-        <div class="fg-features">
+        <div class="fg-features uk-margin-top">
             <h3><?php echo $features->getMetaboxTitle(); ?></h3>
             <div class="uk-child-width-1-3@m uk-grid" uk-grid>
 				<?php echo $single_guitar->get_features_html( $post_id ); ?>
@@ -58,9 +58,14 @@ $sounds   = FG_Guitars_Sounds_Fields::instance();
 	endif;
 	?>
 
-    <div class="fg-sounds">
+    <div class="fg-sounds uk-margin-top">
         <h3><?php echo $sounds->getMetaboxTitle(); ?></h3>
 		<?php echo $single_guitar->get_sounds_html( $post_id, 3 ); ?>
+    </div>
+
+    <div class="fg-specifications uk-margin-top">
+        <h3><?php echo __( 'Specifications', 'fg-guitars' ); ?></h3>
+		<?php echo $single_guitar->get_custom_specs_html( $post_id ); ?>
     </div>
 
 </article>

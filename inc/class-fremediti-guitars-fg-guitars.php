@@ -17,6 +17,11 @@ class Fremediti_Guitars_FG_Guitars {
 	/**
 	 * @var object
 	 */
+	private $custom_specifications;
+
+	/**
+	 * @var object
+	 */
 	private $sounds;
 
 	/**
@@ -47,6 +52,10 @@ class Fremediti_Guitars_FG_Guitars {
 
 		if ( class_exists( 'FG_Guitars_Specifications_Fields' ) ) {
 			$this->specifications = FG_Guitars_Specifications_Fields::instance();
+		}
+
+		if ( class_exists( 'FG_Guitars_Custom_Specifications_Fields' ) ) {
+			$this->custom_specifications = FG_Guitars_Custom_Specifications_Fields::instance();
 		}
 
 		if ( class_exists( 'FG_Guitars_Sounds_Fields' ) ) {
@@ -152,6 +161,47 @@ class Fremediti_Guitars_FG_Guitars {
 		endif;
 
 		echo $this->_get_specs_content( $specs );
+
+		return ob_get_clean();
+	}
+
+	public function get_custom_specs_html( $post_id ) {
+		if ( ! is_a( $this->custom_specifications, 'FG_Guitars_Custom_Specifications_Fields' ) ) {
+			return '';
+		}
+
+		$specs_groups = $this->custom_specifications->getPostMeta( $post_id );
+
+		$fields = $this->custom_specifications->getFields();
+
+		ob_start();
+		?>
+
+        <div class="uk-child-width-1-3@m uk-grid" uk-grid>
+			<?php foreach ( $specs_groups['specifications_group'] as $specs_group_key => $specs_group ): ?>
+                <div class="fg-custom-specs-group__<?php echo esc_attr( $specs_group_key ); ?>">
+                    <h4><?php echo $this->custom_specifications->getGroupLabel( $specs_group_key ); ?></h4>
+
+                    <ul class="uk-list">
+						<?php
+						foreach ( $specs_group[0] as $field => $value ):
+							$name = $fields[ $specs_group_key ]['fields'][ $field ]['name'];
+							$value = 'wysiwyg' == $fields[ $specs_group_key ]['fields'][ $field ]['type'] ? wpautop( $value ) : esc_attr( $value );
+							?>
+                            <li>
+                                <div class="uk-flex uk-flex-between">
+                                    <div><?php esc_attr_e( $name ); ?></div>
+                                    <div><?php echo $value; ?></div>
+                                </div>
+                            </li>
+						<?php
+						endforeach;
+						?>
+                    </ul>
+                </div>
+			<?php endforeach; ?>
+        </div>
+		<?php
 
 		return ob_get_clean();
 	}
