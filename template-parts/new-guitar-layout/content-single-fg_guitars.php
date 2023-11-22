@@ -47,13 +47,18 @@ $sounds   = FG_Guitars_Sounds_Fields::instance();
 	if ( $features->isEnabled() ):
 		?>
         <!-- Features -->
-        <div class="fg-features uk-margin-top">
+        <div class="fg-features uk-margin-top fg-read-more__block">
             <h3><?php echo $features->getMetaboxTitle(); ?></h3>
             <div class="uk-child-width-1-3@m uk-grid" uk-grid>
 				<?php echo $single_guitar->get_features_html( $post_id ); ?>
-                <!-- Features End -->
             </div>
         </div>
+        <div class="fg-read-more__button__container" >
+            <span class="fg-read-more__button__outside" uk-toggle="target: .fg-features; cls: fg-read-more__block;">
+                <span class="fg-read-more__button__inside"><?php echo __( 'Read more', 'fg-guitars' ); ?></span>
+            </span>
+        </div>
+        <!-- Features End -->
 	<?php
 	endif;
 	?>

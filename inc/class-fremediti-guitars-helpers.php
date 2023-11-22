@@ -7,12 +7,6 @@ class Fremediti_Guitars_Helpers {
 			return false;
 		}
 
-		$user = wp_get_current_user();
-
-		if ( empty( $user ) || empty( $user->ID ) ) {
-			return false;
-		}
-
 		$new_single_page_layout_roles = Fremediti_Guitars_Settings::get_new_single_page_layout_roles();
 
 		if ( empty( $new_single_page_layout_roles ) ) {
@@ -21,6 +15,12 @@ class Fremediti_Guitars_Helpers {
 
 		if ( in_array( 'all', $new_single_page_layout_roles ) ) {
 			return true;
+		}
+
+		$user = wp_get_current_user();
+
+		if ( empty( $user ) || empty( $user->ID ) ) {
+			return false;
 		}
 
 		$user_roles = $user->roles;
