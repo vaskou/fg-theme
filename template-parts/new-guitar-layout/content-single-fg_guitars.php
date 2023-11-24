@@ -16,7 +16,7 @@ $sounds   = FG_Guitars_Sounds_Fields::instance();
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-    <div uk-slideshow>
+    <div uk-slideshow class="fg-guitar-slideshow">
         <div class="uk-grid" uk-grid>
             <div class="uk-width-5-6@m">
                 <ul class="uk-slideshow-items" uk-lightbox>

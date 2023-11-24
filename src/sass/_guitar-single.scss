@@ -11,6 +11,16 @@
   }
 }
 
+.fg-guitar-slideshow {
+  .fg-guitar-thumbs {
+    @media (min-width: $breakpoint-medium) {
+      img {
+        max-width: 80px;
+      }
+    }
+  }
+}
+
 .fg-short-description {
   dd {
     p:last-child {
