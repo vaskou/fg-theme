@@ -15,31 +15,47 @@ $sounds   = FG_Guitars_Sounds_Fields::instance();
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-    <div uk-lightbox>
+
+    <div uk-slideshow>
         <div class="uk-grid" uk-grid>
             <div class="uk-width-5-6@m">
-                <a href="<?php echo wp_get_attachment_image_url( $featured_image_id, 'full' ); ?>">
-					<?php echo wp_get_attachment_image( $featured_image_id, 'full' ); ?>
-                </a>
-            </div>
-            <div class="uk-width-1-6@m">
-                <div class="uk-flex-center uk-child-width-1-5 uk-child-width-1-1@m uk-grid-small" uk-grid>
-					<?php
-					foreach ( $image_gallery as $image_id => $image_url ):
-						?>
-                        <div class="fg-guitar-thumbs">
-                            <a href="<?php echo wp_get_attachment_image_url( $image_id, 'full' ); ?>">
-								<?php echo wp_get_attachment_image( $image_id, 'thumbnail' ); ?>
+                <ul class="uk-slideshow-items" uk-lightbox>
+                    <li>
+                        <a href="<?php echo wp_get_attachment_image_url( $featured_image_id, 'full' ); ?>" class="uk-display-block uk-height-1-1">
+							<?php echo wp_get_attachment_image( $featured_image_id, 'full', false, [ 'class' => 'uk-object-contain uk-height-1-1 uk-width-1-1' ] ); ?>
+                        </a>
+                    </li>
+					<?php foreach ( $image_gallery as $image_id => $image_url ): ?>
+                        <li>
+                            <a href="<?php echo wp_get_attachment_image_url( $image_id, 'full' ); ?>" class="uk-display-block uk-height-1-1">
+								<?php echo wp_get_attachment_image( $image_id, 'full', false, [ 'class' => 'uk-object-contain uk-height-1-1 uk-width-1-1' ] ); ?>
                             </a>
-                        </div>
-					<?php
-					endforeach;
-					?>
+                        </li>
+					<?php endforeach; ?>
+                </ul>
+            </div>
 
+
+            <div class="uk-width-1-6@m">
+                <div class="uk-thumbnav uk-flex-center uk-child-width-1-6 uk-child-width-1-1@m uk-grid-small" uk-grid>
+					<?php $index = 1; ?>
+                    <div uk-slideshow-item="0" class="fg-guitar-thumbs">
+                        <a href="#"><?php echo wp_get_attachment_image( $featured_image_id, 'thumbnail' ); ?></a>
+                    </div>
+					<?php foreach ( $image_gallery as $image_id => $image_url ): ?>
+
+                        <div uk-slideshow-item="<?php echo $index; ?>" class="fg-guitar-thumbs">
+                            <a href="#"><?php echo wp_get_attachment_image( $image_id, 'thumbnail' ); ?></a>
+                        </div>
+
+						<?php $index ++; ?>
+					<?php endforeach; ?>
                 </div>
             </div>
+
         </div>
     </div>
+
 
 	<?php echo $single_guitar->get_description_html( $post_id ); ?>
 
@@ -53,7 +69,7 @@ $sounds   = FG_Guitars_Sounds_Fields::instance();
 				<?php echo $single_guitar->get_features_html( $post_id ); ?>
             </div>
         </div>
-        <div class="fg-read-more__button__container" >
+        <div class="fg-read-more__button__container">
             <span class="fg-read-more__button__outside" uk-toggle="target: .fg-features; cls: fg-read-more__block;">
                 <span class="fg-read-more__button__inside"><?php echo __( 'Read more', 'fg-guitars' ); ?></span>
             </span>
@@ -63,14 +79,28 @@ $sounds   = FG_Guitars_Sounds_Fields::instance();
 	endif;
 	?>
 
-    <div class="fg-sounds uk-margin-top">
+    <!-- Sounds -->
+    <div class="fg-sounds uk-margin-top fg-read-more__block">
         <h3><?php echo $sounds->getMetaboxTitle(); ?></h3>
 		<?php echo $single_guitar->get_sounds_html( $post_id, 3 ); ?>
     </div>
+    <div class="fg-read-more__button__container">
+        <span class="fg-read-more__button__outside" uk-toggle="target: .fg-sounds; cls: fg-read-more__block;">
+            <span class="fg-read-more__button__inside"><?php echo __( 'Read more', 'fg-guitars' ); ?></span>
+        </span>
+    </div>
+    <!-- Sounds End -->
 
-    <div class="fg-specifications uk-margin-top">
+    <!-- Specifications -->
+    <div class="fg-specifications uk-margin-top fg-read-more__block">
         <h3><?php echo __( 'Specifications', 'fg-guitars' ); ?></h3>
 		<?php echo $single_guitar->get_custom_specs_html( $post_id ); ?>
     </div>
+    <div class="fg-read-more__button__container">
+        <span class="fg-read-more__button__outside" uk-toggle="target: .fg-specifications; cls: fg-read-more__block;">
+            <span class="fg-read-more__button__inside"><?php echo __( 'Read more', 'fg-guitars' ); ?></span>
+        </span>
+    </div>
+    <!-- Specifications End -->
 
 </article>

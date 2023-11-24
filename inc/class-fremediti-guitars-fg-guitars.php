@@ -179,6 +179,11 @@ class Fremediti_Guitars_FG_Guitars {
 
         <div class="uk-child-width-1-3@m uk-grid" uk-grid>
 			<?php foreach ( $specs_groups['specifications_group'] as $specs_group_key => $specs_group ): ?>
+				<?php
+				if ( empty( $specs_group[0] ) ) {
+					continue;
+				}
+				?>
                 <div class="fg-custom-specs-group__<?php echo esc_attr( $specs_group_key ); ?>">
                     <h4><?php echo $this->custom_specifications->getGroupLabel( $specs_group_key ); ?></h4>
 
