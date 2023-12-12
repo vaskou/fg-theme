@@ -33,4 +33,24 @@ class Fremediti_Guitars_Helpers {
 
 		return false;
 	}
+
+	public static function get_read_more_button_html( $target ) {
+		if ( empty( $target ) ) {
+			return '';
+		}
+
+		ob_start();
+		?>
+        <div class="fg-read-more__button__container">
+            <span class="fg-read-more__button__outside" uk-toggle="target: <?php echo $target; ?>; cls: fg-read-more__block, fg-read-less;">
+                <span class="fg-read-more__button__inside">
+                    <span class="fg-read-more__button__more"><?php echo __( 'Read more', 'fg-guitars' ); ?></span>
+                    <span class="fg-read-more__button__less"><?php echo __( 'Read less', 'fg-guitars' ); ?></span>
+                </span>
+            </span>
+        </div>
+		<?php
+
+		return ob_get_clean();
+	}
 }

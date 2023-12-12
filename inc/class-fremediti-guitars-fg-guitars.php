@@ -174,13 +174,27 @@ class Fremediti_Guitars_FG_Guitars {
 
 		$fields = $this->custom_specifications->getFields();
 
+		$specs = [];
+
+		foreach ( $specs_groups['specifications_group'] as $specs_group_key => $specs_group ) {
+			if ( empty( $specs_group[0] ) ) {
+				continue;
+			}
+
+			$specs[ $specs_group_key ] = $specs_group[0];
+		}
+
+		if ( empty( $specs ) ) {
+			return '';
+		}
+
 		ob_start();
 		?>
 
         <div class="uk-child-width-1-3@m uk-grid" uk-grid>
-			<?php foreach ( $specs_groups['specifications_group'] as $specs_group_key => $specs_group ): ?>
+			<?php foreach ( $specs as $specs_group_key => $specs_group ): ?>
 				<?php
-				if ( empty( $specs_group[0] ) ) {
+				if ( empty( $specs_group ) ) {
 					continue;
 				}
 				?>
@@ -189,7 +203,7 @@ class Fremediti_Guitars_FG_Guitars {
 
                     <ul class="uk-list">
 						<?php
-						foreach ( $specs_group[0] as $field => $value ):
+						foreach ( $specs_group as $field => $value ):
 							$name = $fields[ $specs_group_key ]['fields'][ $field ]['name'];
 							$value = 'wysiwyg' == $fields[ $specs_group_key ]['fields'][ $field ]['type'] ? wpautop( $value ) : esc_attr( $value );
 							?>
@@ -211,7 +225,7 @@ class Fremediti_Guitars_FG_Guitars {
 		return ob_get_clean();
 	}
 
-	public function get_sounds_html( $post_id, $columns = 4 ) {
+	public function get_sounds_html( $post_id, $columns = 4, $return_empty = false ) {
 		if ( ! is_a( $this->sounds, 'FG_Guitars_Sounds_Fields' ) ) {
 			return '';
 		}
@@ -222,11 +236,13 @@ class Fremediti_Guitars_FG_Guitars {
 		if ( ! empty( $sounds ) ):
 			echo Fremediti_Guitars_Template_Functions::videos_grid( $sounds, $columns );
 		else:
-			?>
-            <div class="uk-text-center uk-margin-top">
-                <img src="<?php echo FREMEDITI_GUITARS_THEME_URL ?>/assets/images/coming_soon.png" alt="<?php _e( 'Guitar Videos Coming Soon' ); ?>">
-            </div>
-		<?php
+			if ( ! $return_empty ):
+				?>
+                <div class="uk-text-center uk-margin-top">
+                    <img src="<?php echo FREMEDITI_GUITARS_THEME_URL ?>/assets/images/coming_soon.png" alt="<?php _e( 'Guitar Videos Coming Soon' ); ?>">
+                </div>
+			<?php
+			endif;
 		endif;
 
 		return ob_get_clean();
