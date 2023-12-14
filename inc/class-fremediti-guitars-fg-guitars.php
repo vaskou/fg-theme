@@ -199,7 +199,7 @@ class Fremediti_Guitars_FG_Guitars {
 				}
 				?>
                 <div class="fg-custom-specs-group__<?php echo esc_attr( $specs_group_key ); ?>">
-                    <h4><?php echo $this->custom_specifications->getGroupLabel( $specs_group_key ); ?></h4>
+                    <h4 class="uk-heading-divider"><?php echo $this->custom_specifications->getGroupLabel( $specs_group_key ); ?></h4>
 
                     <ul class="uk-list">
 						<?php
