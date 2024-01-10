@@ -6,8 +6,9 @@ $image_gallery = ! empty( $image_gallery ) && ! is_array( $image_gallery ) ? arr
 
 $single_guitar = Fremediti_Guitars_FG_Guitars::instance();
 
-$features = FG_Guitars_Features_Fields::instance();
-$sounds   = FG_Guitars_Sounds_Fields::instance();
+$available_guitars = FG_Guitars_Available_Guitars_Fields::instance();
+$features          = FG_Guitars_Features_Fields::instance();
+$sounds            = FG_Guitars_Sounds_Fields::instance();
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -48,7 +49,24 @@ $sounds   = FG_Guitars_Sounds_Fields::instance();
 	<?php endif; ?>
 
 
-	<?php echo $single_guitar->get_description_html( $post_id ); ?>
+	<?php $description_html = $single_guitar->get_description_html( $post_id ); ?>
+
+	<?php $available_guitars_html = $single_guitar->get_available_guitars_html( $post_id ); ?>
+
+	<?php $has_available_guitars_class = ! empty( $available_guitars_html ) ? 'uk-width-2-5@m uk-width-1-2@xl' : ''; ?>
+
+    <div class="uk-grid uk-margin-top" uk-grid>
+        <div class="fg-guitar-description-wrapper <?php echo $has_available_guitars_class; ?>">
+			<?php echo $description_html; ?>
+        </div>
+
+		<?php if ( ! empty( $available_guitars_html ) ): ?>
+            <div class="fg-available-guitars-wrapper uk-width-3-5@m uk-width-1-2@xl">
+				<?php echo $available_guitars_html; ?>
+            </div>
+		<?php endif; ?>
+    </div>
+
 
 	<?php if ( $features->isEnabled() ): ?>
         <!-- Features -->

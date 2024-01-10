@@ -62,3 +62,33 @@
     }
   }
 }
+
+/* Available guitars */
+.fg-available-guitars-wrapper {
+  margin-top: 60px;
+}
+.fg-available-guitar {
+  &__specs,
+  &__price,
+  &__button {
+    flex: 0 0 auto;
+  }
+
+  &__availability {
+    flex: 0 0 17%;
+    max-width: 17%;
+    width: 17%;
+  }
+
+  &__photo {
+    flex: 0 0 32%;
+    max-width: 32%;
+    width: 32%;
+  }
+
+  &__button {
+    .uk-button {
+      //padding: 0 20px;
+    }
+  }
+}

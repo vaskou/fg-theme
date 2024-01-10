@@ -34,6 +34,11 @@ class Fremediti_Guitars_FG_Guitars {
 	 */
 	private $pricing;
 
+	/**
+	 * @var object
+	 */
+	private $available_guitars;
+
 	private static $instance = null;
 
 	public static function instance() {
@@ -69,6 +74,10 @@ class Fremediti_Guitars_FG_Guitars {
 		if ( class_exists( 'FG_Guitars_Pricing_Fields' ) ) {
 			$this->pricing = FG_Guitars_Pricing_Fields::instance();
 		}
+
+		if ( class_exists( 'FG_Guitars_Available_Guitars_Fields' ) ) {
+			$this->available_guitars = FG_Guitars_Available_Guitars_Fields::instance();
+		}
 	}
 
 	public function get_description_html( $post_id ) {
@@ -80,15 +89,13 @@ class Fremediti_Guitars_FG_Guitars {
 
 		ob_start();
 		?>
-        <div class="uk-grid" uk-grid>
-            <div>
-				<?php if ( ! empty( $title ) ): ?>
-                    <h3><?php esc_attr_e( $title ); ?></h3>
-                    <hr>
-				<?php endif; ?>
-                <div class="uk-text-justify">
-					<?php the_content(); ?>
-                </div>
+        <div class="fg-guitar-description">
+			<?php if ( ! empty( $title ) ): ?>
+                <h3><?php esc_attr_e( $title ); ?></h3>
+                <hr>
+			<?php endif; ?>
+            <div class="uk-text-justify">
+				<?php the_content(); ?>
             </div>
         </div>
 		<?php
@@ -143,6 +150,86 @@ class Fremediti_Guitars_FG_Guitars {
             </div>
         </div>
 		<?php
+		return ob_get_clean();
+	}
+
+	public function get_available_guitars_html( $post_id ) {
+		if ( ! is_a( $this->available_guitars, 'FG_Guitars_Available_Guitars_Fields' ) ) {
+			return '';
+		}
+
+		$items = $this->available_guitars->getPostMeta( $post_id );
+
+		if ( empty( $items['available_guitars']['guitars'] ) ) {
+			return '';
+		}
+
+		ob_start();
+
+		?>
+
+		<?php foreach ( $items['available_guitars']['guitars'] as $item ): ?>
+			<?php
+			$image_id  = get_post_meta( $item, 'fg_available_guitars_image_id', true );
+			$image_url = wp_get_attachment_image_url( $image_id, 'full' );
+			$image     = wp_get_attachment_image( $image_id, 'full' );
+
+			if ( empty( $image_url ) ) {
+				continue;
+			}
+
+			$specs_image_id  = get_post_meta( $item, 'fg_available_guitars_specs_id', true );
+			$specs_image_url = wp_get_attachment_image_url( $specs_image_id, 'full' );
+
+			$price = Fremediti_Guitars_Available_Guitars_Post_Type::instance()->get_price( $item );
+
+			$availability = get_post_meta( $item, 'fg_available_guitars_availability', true );
+
+			$contact_us_page = get_page_by_path( 'contact-us' );
+			if ( ! empty( $contact_us_page ) ) {
+				$contact_us_page_link = get_permalink( $contact_us_page->ID );
+			}
+			?>
+            <div class="uk-flex uk-flex-middle uk-flex-between uk-grid-small fg-available-guitar fg-available-guitar-<?php echo $item; ?>" uk-grid>
+                <div uk-lightbox class="fg-available-guitar__specs">
+					<?php if ( ! empty( $specs_image_url ) ): ?>
+                        <a href="<?php echo esc_url( $specs_image_url ); ?>" class="uk-icon-link" uk-icon="icon:info; ratio:1.2;" aria-label="info"></a>
+					<?php endif; ?>
+                </div>
+
+                <div uk-lightbox class="fg-available-guitar__photo">
+					<?php if ( ! empty( $image ) && ! empty( $image_url ) ): ?>
+                        <a href="<?php echo esc_url( $image_url ); ?>">
+							<?php echo $image; ?>
+                        </a>
+					<?php endif; ?>
+                </div>
+
+                <div uk-lightbox class="fg-available-guitar__availability uk-text-center">
+					<?php if ( ! empty( $availability ) ): ?>
+						<?php echo wpautop( $availability ); ?>
+					<?php endif; ?>
+                </div>
+
+                <div class="fg-available-guitar__price">
+					<?php if ( ! empty( $price ) ): ?>
+						<?php echo Fremediti_Guitars_Template_Functions::price_format( $price ) ?>
+					<?php endif; ?>
+                </div>
+
+                <div class="fg-available-guitar__button">
+					<?php if ( ! empty( $contact_us_page_link ) ): ?>
+                        <a href="<?php echo $contact_us_page_link; ?>" class="uk-button uk-button-primary uk-button-small" target="_blank">
+							<?php _e( 'Contact Us', 'fremediti-guitars' ); ?>
+                        </a>
+					<?php endif; ?>
+                </div>
+
+            </div>
+		<?php endforeach; ?>
+
+		<?php
+
 		return ob_get_clean();
 	}
 

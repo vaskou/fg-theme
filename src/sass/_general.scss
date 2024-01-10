@@ -160,7 +160,7 @@ img[src=""] {
       text-align: center;
 
       &:before {
-        background: $global-color;
+        background: $base-hr-border;
         content: '';
         height: 1px;
         left: 0;
@@ -172,8 +172,9 @@ img[src=""] {
     }
 
     &__outside {
-      background: $global-color;
+      background: $base-hr-border;
       clip-path: polygon(0% 0%, 100% 0%, 100% calc(100% - 5px), 50% 100%, 0% calc(100% - 5px));
+      color: #898989;
       cursor: pointer;
       display: inline-block;
       padding: 1px;
