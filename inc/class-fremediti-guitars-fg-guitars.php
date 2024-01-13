@@ -278,7 +278,7 @@ class Fremediti_Guitars_FG_Guitars {
 		ob_start();
 		?>
 
-        <div class="uk-child-width-1-3@m uk-grid" uk-grid>
+        <div class="uk-child-width-1-3@m uk-child-width-1-2@s uk-grid" uk-grid>
 			<?php foreach ( $specs as $specs_group_key => $specs_group ): ?>
 				<?php
 				if ( empty( $specs_group ) ) {
@@ -288,16 +288,16 @@ class Fremediti_Guitars_FG_Guitars {
                 <div class="fg-custom-specs-group__<?php echo esc_attr( $specs_group_key ); ?>">
                     <h4 class="uk-heading-divider"><?php echo $this->custom_specifications->getGroupLabel( $specs_group_key ); ?></h4>
 
-                    <ul class="uk-list">
+                    <ul class="uk-list fg-custom-specs-group__list">
 						<?php
 						foreach ( $specs_group as $field => $value ):
 							$name = $fields[ $specs_group_key ]['fields'][ $field ]['name'];
 							$value = 'wysiwyg' == $fields[ $specs_group_key ]['fields'][ $field ]['type'] ? wpautop( $value ) : esc_attr( $value );
 							?>
-                            <li>
+                            <li class="fg-custom-specs-group__item">
                                 <div class="uk-flex uk-flex-between">
-                                    <div><?php esc_attr_e( $name ); ?></div>
-                                    <div><?php echo $value; ?></div>
+                                    <div class="fg-custom-specs-group__item__name"><?php esc_attr_e( $name ); ?></div>
+                                    <div class="fg-custom-specs-group__item__value"><?php echo $value; ?></div>
                                 </div>
                             </li>
 						<?php

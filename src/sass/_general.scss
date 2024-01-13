@@ -136,7 +136,7 @@ img[src=""] {
 /* Read more */
 .fg-read-more {
   &__block {
-    height: 350px;
+    height: 450px;
     overflow: hidden;
     position: relative;
 
@@ -145,7 +145,7 @@ img[src=""] {
       bottom: 0;
       content: '';
       display: block;
-      height: 50px;
+      height: 70px;
       left: 0;
       position: absolute;
       width: 100%;
@@ -174,7 +174,7 @@ img[src=""] {
     &__outside {
       background: $base-hr-border;
       clip-path: polygon(0% 0%, 100% 0%, 100% calc(100% - 5px), 50% 100%, 0% calc(100% - 5px));
-      color: #898989;
+      color: #ababab;
       cursor: pointer;
       display: inline-block;
       padding: 1px;

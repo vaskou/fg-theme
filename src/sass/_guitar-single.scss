@@ -46,6 +46,11 @@
   }
 }
 
+/* Videos */
+.fg-sounds.fg-read-more__block {
+  height: 400px;
+}
+
 /* Specs */
 .fg-specs-variations-tabs {
   li {
@@ -63,10 +68,35 @@
   }
 }
 
+/* Custom specs */
+.fg-custom-specs-group {
+  &__item {
+    &__name,
+    &__value {
+      @include flex(50%);
+      word-break: break-all;
+    }
+
+    &__name {
+      padding-right: 5px;
+    }
+
+    &__value {
+      padding-left: 5px;
+      text-align: right;
+
+      p:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
 /* Available guitars */
 .fg-available-guitars-wrapper {
   margin-top: 60px;
 }
+
 .fg-available-guitar {
   &__specs,
   &__price,

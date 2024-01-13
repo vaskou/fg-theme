@@ -69,6 +69,12 @@ $navbar-nav-item-color: $navbar-nav-item-active-color;
 $footer-background-color: #363636;
 $footer-text-color: #d4d2c6;
 
+@mixin flex($width: 100%) {
+  flex: 0 0 $width;
+  max-width: $width;
+  width: $width;
+}
+
 @import "general";
 @import "header";
 @import "menu";
