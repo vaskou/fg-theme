@@ -9,6 +9,7 @@ $single_guitar = Fremediti_Guitars_FG_Guitars::instance();
 $available_guitars = FG_Guitars_Available_Guitars_Fields::instance();
 $features          = FG_Guitars_Features_Fields::instance();
 $sounds            = FG_Guitars_Sounds_Fields::instance();
+$reviews           = FG_Guitars_Reviews_Fields::instance();
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -105,5 +106,17 @@ $sounds            = FG_Guitars_Sounds_Fields::instance();
 		<?php echo Fremediti_Guitars_Helpers::get_read_more_button_html( '.fg-specifications' ); ?>
 	<?php endif; ?>
     <!-- Specifications End -->
+
+    <!-- Reviews -->
+	<?php $reviews_html = $single_guitar->get_reviews_html( $post_id ); ?>
+
+	<?php if ( ! empty( $reviews_html ) ): ?>
+        <div class="fg-reviews uk-margin-top fg-read-more__block">
+            <h3><?php echo __( 'Reviews', 'fg-guitars' ); ?></h3>
+			<?php echo $reviews_html; ?>
+        </div>
+		<?php echo Fremediti_Guitars_Helpers::get_read_more_button_html( '.fg-reviews' ); ?>
+	<?php endif; ?>
+    <!-- Reviews End -->
 
 </article>

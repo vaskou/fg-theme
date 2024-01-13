@@ -122,3 +122,26 @@
     }
   }
 }
+
+/* Reviews */
+.fg-reviews {
+  &.fg-read-more__block {
+    height: 200px;
+  }
+
+  .fg-review {
+    &.no-border {
+      hr {
+        display: none;
+      }
+    }
+
+    @media (max-width: ($breakpoint-small - 1)) {
+      &.no-border:nth-last-child(2) {
+        hr {
+          display: block;
+        }
+      }
+    }
+  }
+}

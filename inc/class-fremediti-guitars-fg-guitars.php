@@ -39,6 +39,11 @@ class Fremediti_Guitars_FG_Guitars {
 	 */
 	private $available_guitars;
 
+	/**
+	 * @var object
+	 */
+	private $reviews;
+
 	private static $instance = null;
 
 	public static function instance() {
@@ -77,6 +82,10 @@ class Fremediti_Guitars_FG_Guitars {
 
 		if ( class_exists( 'FG_Guitars_Available_Guitars_Fields' ) ) {
 			$this->available_guitars = FG_Guitars_Available_Guitars_Fields::instance();
+		}
+
+		if ( class_exists( 'FG_Guitars_Reviews_Fields' ) ) {
+			$this->reviews = FG_Guitars_Reviews_Fields::instance();
 		}
 	}
 
@@ -304,6 +313,64 @@ class Fremediti_Guitars_FG_Guitars {
 						endforeach;
 						?>
                     </ul>
+                </div>
+			<?php endforeach; ?>
+        </div>
+		<?php
+
+		return ob_get_clean();
+	}
+
+	public function get_reviews_html( $post_id ) {
+		if ( ! is_a( $this->reviews, 'FG_Guitars_Reviews_Fields' ) ) {
+			return '';
+		}
+
+		$items = $this->reviews->getPostMeta( $post_id );
+
+		if ( empty( $items ) ) {
+			return '';
+		}
+
+		$items = array_filter( $items, function ( $item ) {
+			$name = ! empty( $item['name'] ) ? esc_textarea( $item['name'] ) : '';
+			$text = ! empty( $item['text'] ) ? esc_textarea( $item['text'] ) : '';
+
+			if ( empty( $name ) || empty( $text ) ) {
+				return false;
+			}
+
+			return true;
+		} );
+
+		$count = count( $items );
+		$index = 0;
+
+		ob_start();
+		?>
+        <div class="uk-child-width-1-2@s uk-grid" uk-grid>
+			<?php foreach ( $items as $key => $review ) : ?>
+				<?php $name = ! empty( $review['name'] ) ? esc_textarea( $review['name'] ) : ''; ?>
+				<?php $text = ! empty( $review['text'] ) ? esc_textarea( $review['text'] ) : ''; ?>
+
+				<?php
+				$index ++;
+
+				error_log( print_r( $index, 1 ) );
+				error_log( print_r( $count - 1, 1 ) );
+				error_log( print_r( ( $index == $count - 1 ), 1 ) );
+				error_log( print_r( ( $index ) % 2, 1 ) );
+				error_log( print_r( ( ! ( $index ) % 2 ), 1 ) );
+                error_log( print_r( '--------', 1) );
+				$no_border_class = ( $index == $count ) || ( ( $index == $count - 1 ) && (  ( $index ) % 2 ) ) ? 'no-border' : '';
+				?>
+
+                <div class="fg-review fg-review__<?php echo esc_attr( $key ); ?> <?php echo esc_attr( $no_border_class ); ?>">
+                    <h5><?php echo $name; ?></h5>
+                    <div class="fg-review__text">
+						<?php echo wpautop( $text ); ?>
+                    </div>
+                    <hr>
                 </div>
 			<?php endforeach; ?>
         </div>
