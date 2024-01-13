@@ -356,13 +356,7 @@ class Fremediti_Guitars_FG_Guitars {
 				<?php
 				$index ++;
 
-				error_log( print_r( $index, 1 ) );
-				error_log( print_r( $count - 1, 1 ) );
-				error_log( print_r( ( $index == $count - 1 ), 1 ) );
-				error_log( print_r( ( $index ) % 2, 1 ) );
-				error_log( print_r( ( ! ( $index ) % 2 ), 1 ) );
-                error_log( print_r( '--------', 1) );
-				$no_border_class = ( $index == $count ) || ( ( $index == $count - 1 ) && (  ( $index ) % 2 ) ) ? 'no-border' : '';
+				$no_border_class = ( $index == $count ) || ( ( $index == $count - 1 ) && ( ( $index ) % 2 ) ) ? 'no-border' : '';
 				?>
 
                 <div class="fg-review fg-review__<?php echo esc_attr( $key ); ?> <?php echo esc_attr( $no_border_class ); ?>">
