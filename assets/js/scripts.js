@@ -9290,4 +9290,9 @@
     UIkit.grid($fg_auto_gallery, {masonry: true});
     UIkit.lightbox($fg_auto_gallery, {toggle: '.fg-auto-gallery > div > figure > a'});
 
+    // let wpcf7Elm = document.querySelector( '.wpcf7' );
+    // wpcf7Elm.addEventListener( 'wpcf7mailsent', function( event ) {
+    //     UIkit.modal('.fg-available-guitar__modal').hide();
+    // }, false );
+
 })(jQuery)

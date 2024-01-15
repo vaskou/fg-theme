@@ -118,15 +118,11 @@
   }
 
   &__availability {
-    flex: 0 0 17%;
-    max-width: 17%;
-    width: 17%;
+    @include flex(17%);
   }
 
   &__photo {
-    flex: 0 0 32%;
-    max-width: 32%;
-    width: 32%;
+    @include flex(32%);
   }
 
   &__button {
