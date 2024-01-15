@@ -373,6 +373,72 @@ class Fremediti_Guitars_FG_Guitars {
 		return ob_get_clean();
 	}
 
+	public function get_related_guitars_html( $post_id ) {
+		if ( ! class_exists( 'FG_Guitars_Post_Type' ) || ! class_exists( 'FG_Guitars_Images_Fields' ) ) {
+			return '';
+		}
+
+		$taxonomy = FG_Guitars_Post_Type::TAXONOMY_NAME;
+
+		$guitars = FG_Guitars_Post_Type::instance();
+
+		$images_fields = FG_Guitars_Images_Fields::instance();
+
+		$categories = wp_get_post_terms( $post_id, $taxonomy, [ 'fields' => 'ids' ] );
+
+		if ( is_wp_error( $categories ) ) {
+			return '';
+		}
+
+		$cat_ids = implode( ',', $categories );
+
+		$items = $guitars->get_items( [
+			'post__not_in' => [
+				$post_id
+			],
+			'tax_query'    => array(
+				array(
+					'taxonomy'         => $guitars::TAXONOMY_NAME,
+					'terms'            => $cat_ids,
+					'include_children' => false,
+				),
+			),
+			'orderby'      => 'menu_order name',
+			'order'        => 'ASC'
+		] );
+
+		ob_start();
+
+		$items_count = count( $items );
+		$columns     = $items_count > 4 ? $items_count : 4;
+		$width_class = 'uk-child-width-1-' . $columns . '@m';
+		?>
+        <div class="uk-grid uk-child-width-1-2@s uk-child-width-1-4@m" uk-grid>
+			<?php foreach ( $items as $item ) : ?>
+				<?php
+				$guitar_id  = $item->ID;
+				$title      = $item->post_title;
+				$image_meta = $images_fields->getMenuImageID( $item->ID );
+				$image      = wp_get_attachment_image( $image_meta, 'full' );
+				?>
+
+                <div class="uk-flex uk-child-width-1-1">
+                    <div class="fg-box uk-text-center uk-flex uk-child-width-1-1 uk-flex-right uk-flex-column">
+                        <a href="<?php echo get_permalink( $guitar_id ); ?>" class="uk-display-block">
+							<?php echo $image; ?>
+                            <h3 class="entry-title"><?php echo esc_html( $title ); ?></h3>
+                        </a>
+                    </div>
+                </div>
+
+			<?php endforeach; ?>
+        </div>
+
+		<?php
+
+		return ob_get_clean();
+	}
+
 	public function get_sounds_html( $post_id, $columns = 4, $return_empty = false ) {
 		if ( ! is_a( $this->sounds, 'FG_Guitars_Sounds_Fields' ) ) {
 			return '';

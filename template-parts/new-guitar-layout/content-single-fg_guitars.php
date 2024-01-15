@@ -95,6 +95,18 @@ $reviews           = FG_Guitars_Reviews_Fields::instance();
 	<?php endif; ?>
     <!-- Sounds End -->
 
+    <!-- Reviews -->
+	<?php $reviews_html = $single_guitar->get_reviews_html( $post_id ); ?>
+
+	<?php if ( ! empty( $reviews_html ) ): ?>
+        <div class="fg-reviews uk-margin-top fg-read-more__block">
+            <h3><?php echo __( 'Reviews', 'fg-guitars' ); ?></h3>
+			<?php echo $reviews_html; ?>
+        </div>
+		<?php echo Fremediti_Guitars_Helpers::get_read_more_button_html( '.fg-reviews' ); ?>
+	<?php endif; ?>
+    <!-- Reviews End -->
+
     <!-- Specifications -->
 	<?php $custom_specs_html = $single_guitar->get_custom_specs_html( $post_id ); ?>
 
@@ -107,16 +119,19 @@ $reviews           = FG_Guitars_Reviews_Fields::instance();
 	<?php endif; ?>
     <!-- Specifications End -->
 
-    <!-- Reviews -->
-	<?php $reviews_html = $single_guitar->get_reviews_html( $post_id ); ?>
+    <!-- Related guitars -->
+	<?php $related_guitars_html = $single_guitar->get_related_guitars_html( $post_id ); ?>
 
-	<?php if ( ! empty( $reviews_html ) ): ?>
-        <div class="fg-reviews uk-margin-top fg-read-more__block">
-            <h3><?php echo __( 'Reviews', 'fg-guitars' ); ?></h3>
-			<?php echo $reviews_html; ?>
+	<?php if ( ! empty( $related_guitars_html ) ): ?>
+        <div class="fg-related-guitars uk-margin-top">
+            <h3><?php echo __( 'Related guitars', 'fg-guitars' ); ?></h3>
+			<?php echo $related_guitars_html; ?>
         </div>
-		<?php echo Fremediti_Guitars_Helpers::get_read_more_button_html( '.fg-reviews' ); ?>
 	<?php endif; ?>
-    <!-- Reviews End -->
+    <!-- Related guitars End -->
+
+    <div class="fg-back-to-top uk-margin-large-top uk-text-center">
+        <a class="uk-button uk-button-primary" href="#body" uk-scroll><?php echo __( 'Back to top', 'fremediti-guitars' ); ?></a>
+    </div>
 
 </article>

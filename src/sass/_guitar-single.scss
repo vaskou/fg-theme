@@ -19,6 +19,19 @@
       }
     }
   }
+
+  .uk-thumbnav > * > *:after {
+    display: none;
+  }
+
+  .uk-thumbnav img {
+    border: 1px solid transparent;
+  }
+
+  .uk-thumbnav > .fg-guitar-thumbs.uk-active img,
+  .uk-thumbnav > .fg-guitar-thumbs img:hover {
+    border-color: $base-hr-border;
+  }
 }
 
 .fg-short-description {
