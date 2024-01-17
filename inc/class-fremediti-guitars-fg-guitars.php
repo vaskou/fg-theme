@@ -227,18 +227,14 @@ class Fremediti_Guitars_FG_Guitars {
                 </div>
 
                 <div class="fg-available-guitar__button">
-                    <!--					--><?php //if ( ! empty( $contact_us_page_link ) ): ?>
-                    <!--                        <a href="--><?php //echo $contact_us_page_link; ?><!--" class="uk-button uk-button-primary uk-button-small" target="_blank">-->
-                    <!--							--><?php //_e( 'Contact Us', 'fremediti-guitars' ); ?>
-                    <!--                        </a>-->
-                    <!--					--><?php //endif; ?>
 					<?php $modal_id = 'available_guitar_' . esc_attr( $item ); ?>
 					<?php $available_guitar_title = get_post_field( 'post_title', $item ); ?>
+					<?php $contact_form_id = Fremediti_Guitars_Settings::get_available_guitar_contact_form_id(); ?>
                     <button class="uk-button uk-button-primary uk-button-small" uk-toggle="target: #<?php echo esc_attr( $modal_id ); ?>" type="button"><?php _e( 'Contact Us', 'fremediti-guitars' ); ?></button>
                     <div id="<?php echo esc_attr( $modal_id ); ?>" class="fg-available-guitar__modal" uk-modal>
                         <div class="uk-modal-dialog uk-modal-body">
                             <button class="uk-modal-close-default" type="button" uk-close></button>
-							<?php echo do_shortcode( '[contact-form-7 id="045e991" title="Available guitars" selected-guitar="' . $available_guitar_title . '"]' ); ?>
+							<?php echo do_shortcode( '[contact-form-7 id="' . esc_attr( $contact_form_id ) . '" selected-guitar="' . $available_guitar_title . '"]' ); ?>
                         </div>
                     </div>
                 </div>
@@ -370,7 +366,7 @@ class Fremediti_Guitars_FG_Guitars {
 
                 <div class="fg-review fg-review__<?php echo esc_attr( $key ); ?> <?php echo esc_attr( $no_border_class ); ?>">
                     <h5><?php echo $name; ?></h5>
-                    <div class="fg-review__text">
+                    <div class="fg-review__text uk-text-justify">
 						<?php echo wpautop( $text ); ?>
                     </div>
                     <hr>

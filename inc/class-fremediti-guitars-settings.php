@@ -34,6 +34,7 @@ class Fremediti_Guitars_Settings extends SettingsSetup {
 			new SettingField( 'fremediti_guitars_services_page', __( 'FG Services page', 'fremediti-guitars' ), 'pages', 'general' ),
 
 			new SettingField( 'fg_guitars_new_single_page_layout_roles', __( 'Enable "New single page layout" for these roles', 'fg-guitars' ), 'multiselect', 'new_single_page_layout', $this->_get_user_role_options() ),
+			new SettingField( 'fg_guitars_available_guitar_contact_form_id', __( 'Available Guitar Contact Form ID', 'fg-guitars' ), 'text', 'new_single_page_layout' ),
 		);
 
 		foreach ( $settings as $setting ) {
@@ -63,6 +64,9 @@ class Fremediti_Guitars_Settings extends SettingsSetup {
 		return self::instance()->get_setting( 'fg_guitars_new_single_page_layout_roles' );
 	}
 
+	public static function get_available_guitar_contact_form_id() {
+		return self::instance()->get_setting( 'fg_guitars_available_guitar_contact_form_id' );
+	}
 
 	private function _get_user_role_options() {
 		$user_role_options = array(
