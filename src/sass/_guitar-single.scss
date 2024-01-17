@@ -87,7 +87,8 @@
     &__name,
     &__value {
       @include flex(50%);
-      word-break: break-all;
+      box-sizing: border-box;
+      word-break: break-word;
     }
 
     &__name {
