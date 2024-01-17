@@ -476,10 +476,12 @@ class Fremediti_Guitars_FG_Guitars {
 
 		$features_post_in = ! empty( $features['features']['feature'] ) ? implode( ',', $features['features']['feature'] ) : '';
 
+		$layout = Fremediti_Guitars_Helpers::show_new_layout() ? 'new' : 'old';
+
 		ob_start();
 
 		if ( ! empty( $features_post_in ) ):
-			echo do_shortcode( '[fg-guitar-features post__in="' . $features_post_in . '" layout="new"]' );
+			echo do_shortcode( '[fg-guitar-features post__in="' . $features_post_in . '" layout="' . $layout . '"]' );
 		endif;
 
 		return ob_get_clean();
