@@ -1,6 +1,6 @@
 <?php
 
-define( 'FREMEDITI_GUITARS_THEME_VERSION', '1.1.8' );
+define( 'FREMEDITI_GUITARS_THEME_VERSION', '1.2.0' );
 define( 'FREMEDITI_GUITARS_THEME_PATH', get_stylesheet_directory() );
 define( 'FREMEDITI_GUITARS_THEME_URL', get_stylesheet_directory_uri() );
 
