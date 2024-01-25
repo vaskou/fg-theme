@@ -49,6 +49,9 @@ class Fremediti_Guitars_Theme {
 		// Favicon
 		add_action( 'wp_head', array( $this, 'add_favicon' ) );
 
+		// Contact form
+		add_filter( 'shortcode_atts_wpcf7', [ $this, 'add_contact_form_attribute_support' ], 10, 3 );
+
 		// Sidebar
 		add_filter( 'fremediti_guitars_has_sidebar', array( $this, 'fremediti_guitars_has_sidebar' ) );
 		add_action( 'fremediti_guitars_page_before', array( $this, 'markup_for_sidebar_before' ) );
@@ -550,6 +553,16 @@ class Fremediti_Guitars_Theme {
         <meta name="msapplication-TileImage" content="<?php echo FREMEDITI_GUITARS_THEME_URL; ?>/assets/images/favicon/ms-icon-144x144.png">
         <meta name="theme-color" content="#ffffff">
 		<?php
+	}
+
+	public function add_contact_form_attribute_support( $out, $pairs, $atts ) {
+		$my_attr = 'selected-guitar';
+
+		if ( isset( $atts[ $my_attr ] ) ) {
+			$out[ $my_attr ] = $atts[ $my_attr ];
+		}
+
+		return $out;
 	}
 
 	public function fremediti_guitars_has_sidebar( $has_sidebar ) {

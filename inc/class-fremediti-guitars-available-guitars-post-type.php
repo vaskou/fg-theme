@@ -139,6 +139,10 @@ class Fremediti_Guitars_Available_Guitars_Post_Type {
 				'name' => __( 'Notes', 'fremediti-guitars' ),
 				'type' => 'textarea_small',
 			),
+			'availability'     => array(
+				'name' => __( 'Availability', 'fremediti-guitars' ),
+				'type' => 'wysiwyg',
+			),
 		) );
 
 		foreach ( $fields as $field_id => $field_args ) {
@@ -292,6 +296,13 @@ class Fremediti_Guitars_Available_Guitars_Post_Type {
 	}
 
 	/**
+	 * @return int[]|WP_Post[]
+	 */
+	public function get_items() {
+		return $this->_get_items();
+	}
+
+	/**
 	 * @param $atts array
 	 *
 	 * @return WP_Query
@@ -308,5 +319,14 @@ class Fremediti_Guitars_Available_Guitars_Post_Type {
 		$args = wp_parse_args( $atts, $default );
 
 		return new WP_Query( $args );
+	}
+
+	/**
+	 * @return int[]|WP_Post[]
+	 */
+	private function _get_items() {
+		$query = $this->_get_query();
+
+		return $query->get_posts();
 	}
 }

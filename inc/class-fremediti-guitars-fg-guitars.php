@@ -17,6 +17,11 @@ class Fremediti_Guitars_FG_Guitars {
 	/**
 	 * @var object
 	 */
+	private $custom_specifications;
+
+	/**
+	 * @var object
+	 */
 	private $sounds;
 
 	/**
@@ -28,6 +33,16 @@ class Fremediti_Guitars_FG_Guitars {
 	 * @var object
 	 */
 	private $pricing;
+
+	/**
+	 * @var object
+	 */
+	private $available_guitars;
+
+	/**
+	 * @var object
+	 */
+	private $reviews;
 
 	private static $instance = null;
 
@@ -49,6 +64,10 @@ class Fremediti_Guitars_FG_Guitars {
 			$this->specifications = FG_Guitars_Specifications_Fields::instance();
 		}
 
+		if ( class_exists( 'FG_Guitars_Custom_Specifications_Fields' ) ) {
+			$this->custom_specifications = FG_Guitars_Custom_Specifications_Fields::instance();
+		}
+
 		if ( class_exists( 'FG_Guitars_Sounds_Fields' ) ) {
 			$this->sounds = FG_Guitars_Sounds_Fields::instance();
 		}
@@ -60,6 +79,36 @@ class Fremediti_Guitars_FG_Guitars {
 		if ( class_exists( 'FG_Guitars_Pricing_Fields' ) ) {
 			$this->pricing = FG_Guitars_Pricing_Fields::instance();
 		}
+
+		if ( class_exists( 'FG_Guitars_Available_Guitars_Fields' ) ) {
+			$this->available_guitars = FG_Guitars_Available_Guitars_Fields::instance();
+		}
+
+		if ( class_exists( 'FG_Guitars_Reviews_Fields' ) ) {
+			$this->reviews = FG_Guitars_Reviews_Fields::instance();
+		}
+	}
+
+	public function get_description_html( $post_id ) {
+		if ( ! is_a( $this->short_description, 'FG_Guitars_Short_Description_Fields' ) ) {
+			return '';
+		}
+
+		$title = $this->short_description->getTitle( $post_id );
+
+		ob_start();
+		?>
+        <div class="fg-guitar-description">
+			<?php if ( ! empty( $title ) ): ?>
+                <h3><?php esc_attr_e( $title ); ?></h3>
+                <hr>
+			<?php endif; ?>
+            <div class="uk-text-justify">
+				<?php the_content(); ?>
+            </div>
+        </div>
+		<?php
+		return ob_get_clean();
 	}
 
 	public function get_short_description_html( $post_id ) {
@@ -113,6 +162,91 @@ class Fremediti_Guitars_FG_Guitars {
 		return ob_get_clean();
 	}
 
+	public function get_available_guitars_html( $post_id ) {
+		if ( ! is_a( $this->available_guitars, 'FG_Guitars_Available_Guitars_Fields' ) ) {
+			return '';
+		}
+
+		$items = $this->available_guitars->getPostMeta( $post_id );
+
+		if ( empty( $items['available_guitars']['guitars'] ) ) {
+			return '';
+		}
+
+		ob_start();
+
+		?>
+
+		<?php foreach ( $items['available_guitars']['guitars'] as $item ): ?>
+			<?php
+			$image_id  = get_post_meta( $item, 'fg_available_guitars_image_id', true );
+			$image_url = wp_get_attachment_image_url( $image_id, 'full' );
+			$image     = wp_get_attachment_image( $image_id, 'full' );
+
+			if ( empty( $image_url ) ) {
+				continue;
+			}
+
+			$specs_image_id  = get_post_meta( $item, 'fg_available_guitars_specs_id', true );
+			$specs_image_url = wp_get_attachment_image_url( $specs_image_id, 'full' );
+
+			$price = Fremediti_Guitars_Available_Guitars_Post_Type::instance()->get_price( $item );
+
+			$availability = get_post_meta( $item, 'fg_available_guitars_availability', true );
+
+			$contact_us_page = get_page_by_path( 'contact-us' );
+			if ( ! empty( $contact_us_page ) ) {
+				$contact_us_page_link = get_permalink( $contact_us_page->ID );
+			}
+			?>
+            <div class="uk-flex uk-flex-middle uk-flex-between uk-grid-small fg-available-guitar fg-available-guitar-<?php echo $item; ?>" uk-grid>
+                <div uk-lightbox class="fg-available-guitar__specs">
+					<?php if ( ! empty( $specs_image_url ) ): ?>
+                        <a href="<?php echo esc_url( $specs_image_url ); ?>" class="uk-icon-link" uk-icon="icon:info; ratio:1.2;" aria-label="info"></a>
+					<?php endif; ?>
+                </div>
+
+                <div uk-lightbox class="fg-available-guitar__photo">
+					<?php if ( ! empty( $image ) && ! empty( $specs_image_url ) ): ?>
+                        <a href="<?php echo esc_url( $specs_image_url ); ?>">
+							<?php echo $image; ?>
+                        </a>
+					<?php endif; ?>
+                </div>
+
+                <div class="fg-available-guitar__availability uk-text-center">
+					<?php if ( ! empty( $availability ) ): ?>
+						<?php echo wpautop( $availability ); ?>
+					<?php endif; ?>
+                </div>
+
+                <div class="fg-available-guitar__price">
+					<?php if ( ! empty( $price ) ): ?>
+						<?php echo Fremediti_Guitars_Template_Functions::price_format( $price ) ?>
+					<?php endif; ?>
+                </div>
+
+                <div class="fg-available-guitar__button">
+					<?php $modal_id = 'available_guitar_' . esc_attr( $item ); ?>
+					<?php $available_guitar_title = get_post_field( 'post_title', $item ); ?>
+					<?php $contact_form_id = Fremediti_Guitars_Settings::get_available_guitar_contact_form_id(); ?>
+                    <button class="uk-button uk-button-primary uk-button-small" uk-toggle="target: #<?php echo esc_attr( $modal_id ); ?>" type="button"><?php _e( 'Contact Us', 'fremediti-guitars' ); ?></button>
+                    <div id="<?php echo esc_attr( $modal_id ); ?>" class="fg-available-guitar__modal" uk-modal>
+                        <div class="uk-modal-dialog uk-modal-body">
+                            <button class="uk-modal-close-default" type="button" uk-close></button>
+							<?php echo do_shortcode( '[contact-form-7 id="' . esc_attr( $contact_form_id ) . '" selected-guitar="' . $available_guitar_title . '"]' ); ?>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+		<?php endforeach; ?>
+
+		<?php
+
+		return ob_get_clean();
+	}
+
 	public function get_specs_html( $post_id ) {
 		if ( ! is_a( $this->specifications, 'FG_Guitars_Specifications_Fields' ) ) {
 			return '';
@@ -132,7 +266,185 @@ class Fremediti_Guitars_FG_Guitars {
 		return ob_get_clean();
 	}
 
-	public function get_sounds_html( $post_id ) {
+	public function get_custom_specs_html( $post_id ) {
+		if ( ! is_a( $this->custom_specifications, 'FG_Guitars_Custom_Specifications_Fields' ) ) {
+			return '';
+		}
+
+		$specs_groups = $this->custom_specifications->getPostMeta( $post_id );
+
+		$fields = $this->custom_specifications->getFields();
+
+		$specs = [];
+
+		foreach ( $specs_groups['specifications_group'] as $specs_group_key => $specs_group ) {
+			if ( empty( $specs_group[0] ) ) {
+				continue;
+			}
+
+			$specs[ $specs_group_key ] = $specs_group[0];
+		}
+
+		if ( empty( $specs ) ) {
+			return '';
+		}
+
+		ob_start();
+		?>
+
+        <div class="uk-child-width-1-3@m uk-child-width-1-2@s uk-grid" uk-grid>
+			<?php foreach ( $specs as $specs_group_key => $specs_group ): ?>
+				<?php
+				if ( empty( $specs_group ) ) {
+					continue;
+				}
+				?>
+                <div class="fg-custom-specs-group__<?php echo esc_attr( $specs_group_key ); ?>">
+                    <h4 class="uk-heading-divider"><?php echo $this->custom_specifications->getGroupLabel( $specs_group_key ); ?></h4>
+
+                    <ul class="uk-list fg-custom-specs-group__list">
+						<?php
+						foreach ( $specs_group as $field => $value ):
+							$name = $fields[ $specs_group_key ]['fields'][ $field ]['name'];
+							$value = 'wysiwyg' == $fields[ $specs_group_key ]['fields'][ $field ]['type'] ? wpautop( $value ) : esc_attr( $value );
+							?>
+                            <li class="fg-custom-specs-group__item">
+                                <div class="uk-flex uk-flex-between">
+                                    <div class="fg-custom-specs-group__item__name"><?php esc_attr_e( $name ); ?></div>
+                                    <div class="fg-custom-specs-group__item__value"><?php echo $value; ?></div>
+                                </div>
+                            </li>
+						<?php
+						endforeach;
+						?>
+                    </ul>
+                </div>
+			<?php endforeach; ?>
+        </div>
+		<?php
+
+		return ob_get_clean();
+	}
+
+	public function get_reviews_html( $post_id ) {
+		if ( ! is_a( $this->reviews, 'FG_Guitars_Reviews_Fields' ) ) {
+			return '';
+		}
+
+		$items = $this->reviews->getPostMeta( $post_id );
+
+		if ( empty( $items ) ) {
+			return '';
+		}
+
+		$items = array_filter( $items, function ( $item ) {
+			$name = ! empty( $item['name'] ) ? esc_textarea( $item['name'] ) : '';
+			$text = ! empty( $item['text'] ) ? esc_textarea( $item['text'] ) : '';
+
+			if ( empty( $name ) || empty( $text ) ) {
+				return false;
+			}
+
+			return true;
+		} );
+
+		$count = count( $items );
+		$index = 0;
+
+		ob_start();
+		?>
+        <div class="uk-child-width-1-2@s uk-grid" uk-grid>
+			<?php foreach ( $items as $key => $review ) : ?>
+				<?php $name = ! empty( $review['name'] ) ? esc_textarea( $review['name'] ) : ''; ?>
+				<?php $text = ! empty( $review['text'] ) ? esc_textarea( $review['text'] ) : ''; ?>
+
+				<?php
+				$index ++;
+
+				$no_border_class = ( $index == $count ) || ( ( $index == $count - 1 ) && ( ( $index ) % 2 ) ) ? 'no-border' : '';
+				?>
+
+                <div class="fg-review fg-review__<?php echo esc_attr( $key ); ?> <?php echo esc_attr( $no_border_class ); ?>">
+                    <h5><?php echo $name; ?></h5>
+                    <div class="fg-review__text uk-text-justify">
+						<?php echo wpautop( $text ); ?>
+                    </div>
+                    <hr>
+                </div>
+			<?php endforeach; ?>
+        </div>
+		<?php
+
+		return ob_get_clean();
+	}
+
+	public function get_related_guitars_html( $post_id ) {
+		if ( ! class_exists( 'FG_Guitars_Post_Type' ) || ! class_exists( 'FG_Guitars_Images_Fields' ) ) {
+			return '';
+		}
+
+		$taxonomy = FG_Guitars_Post_Type::TAXONOMY_NAME;
+
+		$guitars = FG_Guitars_Post_Type::instance();
+
+		$images_fields = FG_Guitars_Images_Fields::instance();
+
+		$categories = wp_get_post_terms( $post_id, $taxonomy, [ 'fields' => 'ids' ] );
+
+		if ( is_wp_error( $categories ) ) {
+			return '';
+		}
+
+		$cat_ids = implode( ',', $categories );
+
+		$items = $guitars->get_items( [
+			'post__not_in' => [
+				$post_id
+			],
+			'tax_query'    => array(
+				array(
+					'taxonomy'         => $guitars::TAXONOMY_NAME,
+					'terms'            => $cat_ids,
+					'include_children' => false,
+				),
+			),
+			'orderby'      => 'menu_order name',
+			'order'        => 'ASC'
+		] );
+
+		ob_start();
+
+		$items_count = count( $items );
+		$columns     = $items_count > 4 ? $items_count : 4;
+		$width_class = 'uk-child-width-1-' . $columns . '@m';
+		?>
+        <div class="uk-grid uk-child-width-1-2@s uk-child-width-1-4@m" uk-grid>
+			<?php foreach ( $items as $item ) : ?>
+				<?php
+				$guitar_id  = $item->ID;
+				$title      = $item->post_title;
+				$image_meta = $images_fields->getMenuImageID( $item->ID );
+				$image      = wp_get_attachment_image( $image_meta, 'full' );
+				?>
+
+                <div class="uk-flex uk-child-width-1-1">
+                    <div class="fg-box uk-text-center uk-flex uk-child-width-1-1 uk-flex-right uk-flex-column">
+                        <a href="<?php echo get_permalink( $guitar_id ); ?>" class="uk-display-block">
+							<?php echo $image; ?>
+                            <h3 class="entry-title"><?php echo esc_html( $title ); ?></h3>
+                        </a>
+                    </div>
+                </div>
+
+			<?php endforeach; ?>
+        </div>
+
+		<?php
+
+		return ob_get_clean();
+	}
+
+	public function get_sounds_html( $post_id, $columns = 4, $return_empty = false ) {
 		if ( ! is_a( $this->sounds, 'FG_Guitars_Sounds_Fields' ) ) {
 			return '';
 		}
@@ -141,13 +453,15 @@ class Fremediti_Guitars_FG_Guitars {
 
 		ob_start();
 		if ( ! empty( $sounds ) ):
-			echo Fremediti_Guitars_Template_Functions::videos_grid( $sounds );
+			echo Fremediti_Guitars_Template_Functions::videos_grid( $sounds, $columns );
 		else:
-			?>
-            <div class="uk-text-center uk-margin-top">
-                <img src="<?php echo FREMEDITI_GUITARS_THEME_URL ?>/assets/images/coming_soon.png" alt="<?php _e( 'Guitar Videos Coming Soon' ); ?>">
-            </div>
-		<?php
+			if ( ! $return_empty ):
+				?>
+                <div class="uk-text-center uk-margin-top">
+                    <img src="<?php echo FREMEDITI_GUITARS_THEME_URL ?>/assets/images/coming_soon.png" alt="<?php _e( 'Guitar Videos Coming Soon' ); ?>">
+                </div>
+			<?php
+			endif;
 		endif;
 
 		return ob_get_clean();
@@ -162,10 +476,12 @@ class Fremediti_Guitars_FG_Guitars {
 
 		$features_post_in = ! empty( $features['features']['feature'] ) ? implode( ',', $features['features']['feature'] ) : '';
 
+		$layout = Fremediti_Guitars_Helpers::show_new_layout() ? 'new' : 'old';
+
 		ob_start();
 
 		if ( ! empty( $features_post_in ) ):
-			echo do_shortcode( '[fg-guitar-features post__in="' . $features_post_in . '"]' );
+			echo do_shortcode( '[fg-guitar-features post__in="' . $features_post_in . '" layout="' . $layout . '"]' );
 		endif;
 
 		return ob_get_clean();

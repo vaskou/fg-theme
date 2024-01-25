@@ -11,6 +11,29 @@
   }
 }
 
+.fg-guitar-slideshow {
+  .fg-guitar-thumbs {
+    @media (min-width: $breakpoint-medium) {
+      img {
+        max-width: 80px;
+      }
+    }
+  }
+
+  .uk-thumbnav > * > *:after {
+    display: none;
+  }
+
+  .uk-thumbnav img {
+    border: 1px solid transparent;
+  }
+
+  .uk-thumbnav > .fg-guitar-thumbs.uk-active img,
+  .uk-thumbnav > .fg-guitar-thumbs img:hover {
+    border-color: $base-hr-border;
+  }
+}
+
 .fg-short-description {
   dd {
     p:last-child {
@@ -36,6 +59,11 @@
   }
 }
 
+/* Videos */
+.fg-sounds.fg-read-more__block {
+  height: 400px;
+}
+
 /* Specs */
 .fg-specs-variations-tabs {
   li {
@@ -48,6 +76,91 @@
     .uk-table tr:first-child {
       @media (max-width: $breakpoint-small-max) {
         border-top: $table-divider-border-width solid $table-divider-border;
+      }
+    }
+  }
+}
+
+/* Custom specs */
+.fg-specifications {
+  .uk-heading-divider {
+    border-color: $base-hr-border;
+  }
+}
+
+.fg-custom-specs-group {
+  &__item {
+    &__name,
+    &__value {
+      @include flex(50%);
+      box-sizing: border-box;
+      word-break: break-word;
+    }
+
+    &__name {
+      padding-right: 5px;
+    }
+
+    &__value {
+      padding-left: 5px;
+      text-align: right;
+
+      p:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+/* Available guitars */
+.fg-available-guitars-wrapper {
+  margin-top: 60px;
+}
+
+.fg-available-guitar {
+  &__specs,
+  &__price,
+  &__button {
+    flex: 0 0 auto;
+  }
+
+  &__availability {
+    @include flex(17%);
+
+    p {
+      margin: 0;
+    }
+  }
+
+  &__photo {
+    @include flex(32%);
+  }
+
+  &__button {
+    .uk-button {
+      //padding: 0 20px;
+    }
+  }
+}
+
+/* Reviews */
+.fg-reviews {
+  &.fg-read-more__block {
+    height: 200px;
+  }
+
+  .fg-review {
+    &.no-border {
+      hr {
+        display: none;
+      }
+    }
+
+    @media (max-width: ($breakpoint-small - 1)) {
+      &.no-border:nth-last-child(2) {
+        hr {
+          display: block;
+        }
       }
     }
   }
