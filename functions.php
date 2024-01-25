@@ -1,6 +1,6 @@
 <?php
 
-define( 'FREMEDITI_GUITARS_THEME_VERSION', '1.1.8' );
+define( 'FREMEDITI_GUITARS_THEME_VERSION', '1.2.0' );
 define( 'FREMEDITI_GUITARS_THEME_PATH', get_stylesheet_directory() );
 define( 'FREMEDITI_GUITARS_THEME_URL', get_stylesheet_directory_uri() );
 
@@ -29,6 +29,8 @@ require get_template_directory() . '/inc/class-fremediti-guitars-fg-pickups.php'
 require get_template_directory() . '/inc/class-fremediti-guitars-available-guitars-post-type.php';
 
 require get_template_directory() . '/inc/class-fremediti-guitars-gallery-post-type.php';
+
+require get_template_directory() . '/inc/class-fremediti-guitars-helpers.php';
 
 require get_template_directory() . '/inc/class-fremediti-guitars-videos-post-type.php';
 

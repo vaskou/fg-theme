@@ -57,4 +57,13 @@
     UIkit.grid($fg_auto_gallery, {masonry: true});
     UIkit.lightbox($fg_auto_gallery, {toggle: '.fg-auto-gallery > div > figure > a'});
 
+    // $(body).on('wpcf7mailsent', '.wpcf7', function () {
+    //     let $this = $(this);
+    //
+    //     setTimeout(function () {
+    //         let elementID = $this.closest('.fg-available-guitar__modal').attr("id");
+    //         UIkit.modal(`#${elementID}`).hide();
+    //     }, 5000);
+    // });
+
 })(jQuery)

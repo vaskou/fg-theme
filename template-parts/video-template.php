@@ -8,7 +8,7 @@ if ( ! empty( $videos ) ):
 
     <div class="<?php echo $class; ?>" uk-lightbox>
 		<?php if ( $columns > 1 ): ?>
-        <div class="uk-child-width-1-2 uk-child-width-1-<?php echo $columns; ?>@m uk-grid-medium" uk-grid>
+        <div class="uk-child-width-1-1 uk-child-width-1-2@s uk-child-width-1-<?php echo $columns; ?>@m uk-grid-medium" uk-grid>
 			<?php endif; ?>
 
 			<?php foreach ( $videos as $video ): ?>
