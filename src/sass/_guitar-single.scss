@@ -82,6 +82,12 @@
 }
 
 /* Custom specs */
+.fg-specifications {
+  .uk-heading-divider {
+    border-color: $base-hr-border;
+  }
+}
+
 .fg-custom-specs-group {
   &__item {
     &__name,
@@ -120,6 +126,10 @@
 
   &__availability {
     @include flex(17%);
+
+    p {
+      margin: 0;
+    }
   }
 
   &__photo {

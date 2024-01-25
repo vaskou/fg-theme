@@ -207,8 +207,8 @@ class Fremediti_Guitars_FG_Guitars {
                 </div>
 
                 <div uk-lightbox class="fg-available-guitar__photo">
-					<?php if ( ! empty( $image ) && ! empty( $image_url ) ): ?>
-                        <a href="<?php echo esc_url( $image_url ); ?>">
+					<?php if ( ! empty( $image ) && ! empty( $specs_image_url ) ): ?>
+                        <a href="<?php echo esc_url( $specs_image_url ); ?>">
 							<?php echo $image; ?>
                         </a>
 					<?php endif; ?>
