@@ -417,21 +417,22 @@ class Fremediti_Guitars_FG_Guitars {
 		$items_count = count( $items );
 		$columns     = $items_count > 4 ? $items_count : 4;
 		$width_class = 'uk-child-width-1-' . $columns . '@m';
+		$size        = [ 90, 90 ];
 		?>
-        <div class="uk-grid uk-child-width-1-2@s uk-child-width-1-4@m" uk-grid>
+        <div class="uk-grid uk-child-width-1-2@s uk-child-width-1-5@m" uk-grid>
 			<?php foreach ( $items as $item ) : ?>
 				<?php
 				$guitar_id  = $item->ID;
 				$title      = $item->post_title;
 				$image_meta = $images_fields->getMenuImageID( $item->ID );
-				$image      = wp_get_attachment_image( $image_meta, 'full' );
+				$image      = wp_get_attachment_image( $image_meta, $size );
 				?>
 
                 <div class="uk-flex uk-child-width-1-1">
                     <div class="fg-box uk-text-center uk-flex uk-child-width-1-1 uk-flex-right uk-flex-column">
                         <a href="<?php echo get_permalink( $guitar_id ); ?>" class="uk-display-block">
 							<?php echo $image; ?>
-                            <h3 class="entry-title"><?php echo esc_html( $title ); ?></h3>
+                            <h4 class="entry-title uk-margin-small-top"><?php echo esc_html( $title ); ?></h4>
                         </a>
                     </div>
                 </div>
