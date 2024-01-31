@@ -52,6 +52,7 @@ class Fremediti_Guitars_Theme {
 
 		// Contact form
 		add_filter( 'shortcode_atts_wpcf7', [ $this, 'add_contact_form_attribute_support' ], 10, 3 );
+		add_filter( 'wpcf7_autop_or_not', '__return_false' );
 
 		// Sidebar
 		add_filter( 'fremediti_guitars_has_sidebar', array( $this, 'fremediti_guitars_has_sidebar' ) );
