@@ -1,6 +1,6 @@
 <?php
 
-define( 'FREMEDITI_GUITARS_THEME_VERSION', '1.2.1' );
+define( 'FREMEDITI_GUITARS_THEME_VERSION', '1.2.2' );
 define( 'FREMEDITI_GUITARS_THEME_PATH', get_stylesheet_directory() );
 define( 'FREMEDITI_GUITARS_THEME_URL', get_stylesheet_directory_uri() );
 
@@ -16,6 +16,8 @@ require get_template_directory() . '/inc/class-fremediti-guitars-template-functi
 /**
  * Customizer additions.
  */
+require get_template_directory() . '/inc/class-fremediti-guitars-accessibility.php';
+
 require get_template_directory() . '/inc/class-fremediti-guitars-customizer.php';
 
 require get_template_directory() . '/inc/class-fremediti-guitars-nav-walker.php';

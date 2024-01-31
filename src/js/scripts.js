@@ -67,3 +67,14 @@
     // });
 
 })(jQuery)
+
+// Accessibility
+var onloadCallback = function () {
+    //Contact form 7 reCaptcha
+    var textarea = document.getElementById("g-recaptcha-response-100000");
+    if (textarea) {
+        textarea.setAttribute("aria-hidden", "true");
+        textarea.setAttribute("aria-label", "do not use");
+        textarea.setAttribute("aria-readonly", "true");
+    }
+};
