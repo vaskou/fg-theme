@@ -41,6 +41,7 @@ class Fremediti_Guitars_Theme {
 
 		// Pagination
 		add_filter( 'navigation_markup_template', array( $this, 'pagination_template' ), 10, 2 );
+		add_filter( 'the_posts_pagination_args', array( $this, 'the_posts_pagination_args' ) );
 
 		// Google Tag Manager
 		add_action( 'wp_head', array( $this, 'gtm_head_script' ), 1 );
@@ -506,6 +507,14 @@ class Fremediti_Guitars_Theme {
 		}
 
 		return $template;
+	}
+
+	public function the_posts_pagination_args( $args ) {
+
+		$args['prev_text'] = '<span uk-pagination-previous><span class="uk-hidden">' . __( 'Previous', 'fremediti-guitars' ) . '</span></span>';
+		$args['next_text'] = '<span uk-pagination-next><span class="uk-hidden">' . __( 'Next', 'fremediti-guitars' ) . '</span></span>';
+
+		return $args;
 	}
 
 	public function gtm_head_script() {
