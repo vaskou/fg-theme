@@ -43,8 +43,8 @@ $has_sidebar = apply_filters( 'fremediti_guitars_has_sidebar', false );
 				<?php
 				the_posts_pagination( array(
 					'type'      => 'list',
-					'prev_text' => '<span uk-pagination-previous></span>',
-					'next_text' => '<span uk-pagination-next></span>',
+					'prev_text' => '<span uk-pagination-previous><span class="uk-hidden">' . __( 'Previous', 'fremediti-guitars' ) . '</span></span>',
+					'next_text' => '<span uk-pagination-next><span class="uk-hidden">' . __( 'Next', 'fremediti-guitars' ) . '</span></span>',
 				) );
 
 			else :
