@@ -61,6 +61,7 @@ class Fremediti_Guitars_Theme {
 		add_action( 'fremediti_guitars_archive_before', array( $this, 'markup_for_sidebar_before' ) );
 		add_action( 'fremediti_guitars_archive_after', array( $this, 'markup_for_sidebar_after' ) );
 
+		Fremediti_Guitars_Accessibility::instance();
 		Fremediti_Guitars_Customizer::instance();
 		Fremediti_Guitars_Metaboxes::instance();
 		Fremediti_Guitars_Available_Guitars_Post_Type::instance();

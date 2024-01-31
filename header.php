@@ -53,7 +53,7 @@
         </div>
         <div id="offcanvas" uk-offcanvas="overlay: true;">
             <div class="uk-offcanvas-bar">
-                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <a class="uk-offcanvas-close" type="button" uk-close></a>
 				<?php
 				if ( has_nav_menu( 'offcanvas' ) ):
 					wp_nav_menu( array(
