@@ -5,13 +5,13 @@ html {
 }
 
 body {
-  &.fg-country-GR {
+  &.geoip-country-GR {
     .hidden-GR {
       display: none !important;
     }
   }
 
-  &:not(.fg-country-GR) {
+  &:not(.geoip-country-GR) {
     .hidden-not-GR {
       display: none !important;
     }

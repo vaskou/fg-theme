@@ -11614,10 +11614,10 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
-body.fg-country-GR .hidden-GR {
+body.geoip-country-GR .hidden-GR {
   display: none !important;
 }
-body:not(.fg-country-GR) .hidden-not-GR {
+body:not(.geoip-country-GR) .hidden-not-GR {
   display: none !important;
 }
 
