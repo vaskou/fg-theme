@@ -140,7 +140,7 @@ class Fremediti_Guitars_FG_Guitars {
 		ob_start();
 		?>
 
-        <div class="fg-guitar-gallery " uk-lightbox>
+        <div class="fg-guitar-gallery" uk-lightbox>
 			<?php foreach ( $image_gallery as $image_id => $image_url ): ?>
                 <a href="<?php echo wp_get_attachment_image_url( $image_id, 'full' ); ?>" class="uk-display-block uk-height-1-1 uk-cover-container">
 					<?php echo wp_get_attachment_image( $image_id, 'full', false, [ 'class' => 'uk-position-center' ] ); ?>

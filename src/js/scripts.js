@@ -66,6 +66,10 @@
     //     }, 5000);
     // });
 
+    $('.fg-guitar-main-image').on('click', function () {
+        UIkit.lightbox($('.fg-guitar-gallery')).show();
+    })
+
 })(jQuery)
 
 // Accessibility
