@@ -89,6 +89,69 @@ class Fremediti_Guitars_FG_Guitars {
 		}
 	}
 
+	public function get_images_slideshow( $image_gallery ) {
+		ob_start();
+		?>
+
+		<?php if ( ! empty( $image_gallery ) ): ?>
+            <div uk-slideshow class="fg-guitar-slideshow">
+                <div class="uk-grid" uk-grid>
+                    <div class="uk-width-5-6@m">
+                        <ul class="uk-slideshow-items" uk-lightbox>
+							<?php foreach ( $image_gallery as $image_id => $image_url ): ?>
+                                <li>
+                                    <a href="<?php echo wp_get_attachment_image_url( $image_id, 'full' ); ?>" class="uk-display-block uk-height-1-1">
+										<?php echo wp_get_attachment_image( $image_id, 'full', false, [ 'class' => 'uk-object-contain uk-height-1-1 uk-width-1-1' ] ); ?>
+                                    </a>
+                                </li>
+							<?php endforeach; ?>
+                        </ul>
+                    </div>
+
+
+                    <div class="uk-width-1-6@m">
+                        <div class="uk-thumbnav uk-flex-center uk-child-width-1-6 uk-child-width-1-1@m uk-grid-small" uk-grid>
+							<?php $index = 0; ?>
+							<?php foreach ( $image_gallery as $image_id => $image_url ): ?>
+
+                                <div uk-slideshow-item="<?php echo $index; ?>" class="fg-guitar-thumbs">
+                                    <a href="#"><?php echo wp_get_attachment_image( $image_id, 'thumbnail' ); ?></a>
+                                </div>
+
+								<?php $index ++; ?>
+							<?php endforeach; ?>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+		<?php endif; ?>
+
+		<?php
+		return ob_get_clean();
+	}
+
+	public function get_new_images( $image_gallery ) {
+		if ( empty( $image_gallery ) ) {
+			return '';
+		}
+
+		ob_start();
+		?>
+
+        <div class="fg-guitar-gallery " uk-lightbox>
+			<?php foreach ( $image_gallery as $image_id => $image_url ): ?>
+                <a href="<?php echo wp_get_attachment_image_url( $image_id, 'full' ); ?>" class="uk-display-block uk-height-1-1 uk-cover-container">
+					<?php echo wp_get_attachment_image( $image_id, 'full', false, [ 'class' => 'uk-position-center' ] ); ?>
+                </a>
+			<?php endforeach; ?>
+        </div>
+
+		<?php
+		return ob_get_clean();
+	}
+
 	public function get_description_html( $post_id ) {
 		if ( ! is_a( $this->short_description, 'FG_Guitars_Short_Description_Fields' ) ) {
 			return '';

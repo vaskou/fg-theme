@@ -1,4 +1,51 @@
 /* Guitar Single */
+.fg-guitar-main-image {
+  aspect-ratio: 1920 / 750;
+  background-color: #000000;
+}
+
+.fg-guitar-gallery-wrapper {
+  background-color: #000000;
+  padding-bottom: 40px;
+  padding-top: 20px;
+
+  h3 {
+    color: #fff;
+  }
+}
+
+.fg-guitar-gallery {
+  --fg-guitar-gallery-cols: 3;
+  background-color: #000000;
+  display: grid;
+  grid-template-columns: repeat(var(--fg-guitar-gallery-cols), minmax(0, 1fr));
+  gap: 20px;
+
+  @media (min-width: $breakpoint-small) {
+    --fg-guitar-gallery-cols: 3;
+  }
+
+  @media (min-width: $breakpoint-medium) {
+    --fg-guitar-gallery-cols: 6;
+  }
+
+  & > a {
+    aspect-ratio: 1;
+    border: 1px solid $base-hr-border;
+    //overflow: hidden;
+    //position: relative;
+    //margin: 20px;
+
+    & > img {
+      //object-fit: cover;
+      //left: 50%;
+      //position: absolute;
+      //top: 50%;
+      //transform: translate(-50%, -50%);
+    }
+  }
+}
+
 .fg-guitar-thumbs {
   @media (min-width: $breakpoint-medium) {
     a {
