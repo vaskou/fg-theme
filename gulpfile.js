@@ -1,21 +1,26 @@
-const gulp = require('gulp');
-const sass = require('gulp-sass')(require('sass'));
-const cleanCSS = require('gulp-clean-css');
-const browserSync = require('browser-sync').create();
-const concat = require('gulp-concat');
-const minify = require('gulp-minify');
-const del = require('del');
-const autoprefixer = require('gulp-autoprefixer');
-const sourcemaps = require('gulp-sourcemaps');
-const rename = require('gulp-rename');
-const replace = require('gulp-replace');
-const config = require( './gulp.config.js' );
+import gulp from 'gulp';
+import * as dartSass from 'sass';
+import gulpSass from 'gulp-sass';
+import cleanCSS from 'gulp-clean-css';
+import browserSyncInit from 'browser-sync';
+import concat from 'gulp-concat';
+import minify from 'gulp-minify';
+import {deleteAsync} from 'del';
+import autoprefixer from "gulp-autoprefixer";
+import sourcemaps from 'gulp-sourcemaps';
+import rename from 'gulp-rename';
+import replace from "gulp-replace";
+import {config} from './gulp.config.js';
 
+const sass = gulpSass(dartSass);
+const browserSync = browserSyncInit.create();
 
-gulp.task('clean:output', function () {
-    del('style.css');
-    del('style.min.css');
-    return del('assets/js/**/*');
+gulp.task('clean:output', async function () {
+    return await deleteAsync([
+        'style.css',
+        'style.min.css',
+        'assets/js/**/*'
+    ]);
 });
 
 gulp.task('build:scripts', function () {
@@ -78,4 +83,4 @@ gulp.task('watch:changes', function (cb) {
 
 });
 
-exports.default = gulp.task('default', gulp.series('build', 'watch:changes'));
+export default gulp.task('default', gulp.series('build', 'watch:changes'));
