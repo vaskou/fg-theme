@@ -41,6 +41,8 @@ $not_full_width_class = $show_new_images ? 'uk-container' : '';
 			<?php if ( ! empty( $available_guitars_html ) ): ?>
                 <div class="fg-available-guitars-wrapper uk-width-3-5@m uk-width-1-2@xl">
 					<?php echo $available_guitars_html; ?>
+
+					<?php do_action( 'fremediti_guitars_single_fg_guitars_available_guitars_after', get_the_ID() ); ?>
                 </div>
 			<?php endif; ?>
         </div>
@@ -107,6 +109,8 @@ $not_full_width_class = $show_new_images ? 'uk-container' : '';
 		<?php echo Fremediti_Guitars_Helpers::get_read_more_button_html( '.fg-specifications', $not_full_width_class ); ?>
 	<?php endif; ?>
     <!-- Specifications End -->
+
+	<?php do_action( 'fremediti_guitars_single_fg_guitars_related_guitars_before', get_the_ID() ); ?>
 
     <!-- Related guitars -->
 	<?php $related_guitars_html = $single_guitar->get_related_guitars_html( $post_id ); ?>
