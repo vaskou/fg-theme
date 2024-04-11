@@ -1,4 +1,4 @@
-module.exports = {
+export const config = {
     // Project options
     projectURL: 'https://new.fremeditiguitars.com/',
     browser: 'chrome',

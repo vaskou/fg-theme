@@ -37,10 +37,13 @@
 
 .megamenu {
   .megamenu-wrapper {
-    left: 0 !important;
-    margin-top: 0 !important;
-    max-width: 100% !important;
-    width: 100%;
+    //left: 0 !important;
+    //margin-top: 0 !important;
+    //max-width: 100% !important;
+    //width: 100%;
+    &.uk-drop {
+      --uk-position-viewport-offset: 0;
+    }
   }
 
   .uk-tab > * > a {

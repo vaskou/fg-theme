@@ -159,6 +159,13 @@ img[src=""] {
       position: relative;
       text-align: center;
 
+      &.uk-container {
+        &:before {
+          left: 40px;
+          width: calc(100% - 40px * 2);
+        }
+      }
+
       &:before {
         background: $base-hr-border;
         content: '';
