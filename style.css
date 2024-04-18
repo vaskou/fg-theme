@@ -12239,7 +12239,7 @@ img[src=""] {
 .fg-read-more__button__outside {
   background: #e5e5e5;
   clip-path: polygon(0% 0%, 100% 0%, 100% calc(100% - 5px), 50% 100%, 0% calc(100% - 5px));
-  color: #ababab;
+  color: #bcbcbc;
   cursor: pointer;
   display: inline-block;
   padding: 1px;
@@ -12486,7 +12486,7 @@ img[src=""] {
 }
 .fg-guitar-gallery > a {
   aspect-ratio: 1;
-  border: 1px solid #e5e5e5;
+  border: 1px solid #858585;
 }
 @media (min-width: 960px) {
   .fg-guitar-thumbs a {
