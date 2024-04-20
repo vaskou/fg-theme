@@ -19,6 +19,8 @@ for ( $i = 1; $i <= 5; $i ++ ) {
 		$has_footers[ $i ] = false;
 	}
 }
+
+$year = date("Y");
 ?>
 
 	</div><!-- #content -->
@@ -47,7 +49,7 @@ for ( $i = 1; $i <= 5; $i ++ ) {
 		<div class="site-info">
 			<div class="uk-container">
 				<div class="uk-grid-small uk-flex-right@m uk-flex-center" uk-grid>
-					<span class="">© 2020 Fremediti Guitars - All rights reserved. </span>
+					<span class="">© <?php echo esc_attr( $year ); ?> Fremediti Guitars - All rights reserved. </span>
 					<span class="">::website by <a title="" href="http://www.yesinternet.gr" target="_blank" rel="noreferrer noopener">YES Internet</a></span>
 				</div>
 			</div>
