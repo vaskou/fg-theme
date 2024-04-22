@@ -1,7 +1,7 @@
 /* Guitar Single */
 .fg-guitar-main-image {
   aspect-ratio: 1920 / 750;
-  background-color: #000000;
+  background-color: #111111;
 }
 
 .fg-guitar-gallery-wrapper {
@@ -16,7 +16,7 @@
 
 .fg-guitar-gallery {
   --fg-guitar-gallery-cols: 3;
-  background-color: #000000;
+  background-color: #111111;
   display: grid;
   grid-template-columns: repeat(var(--fg-guitar-gallery-cols), minmax(0, 1fr));
   gap: 20px;
