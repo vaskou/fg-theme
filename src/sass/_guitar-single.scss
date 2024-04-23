@@ -30,6 +30,7 @@
   }
 
   & > a {
+    padding-top: calc(100% - 2px);
     aspect-ratio: 1;
     border: 1px solid #858585;
     //overflow: hidden;
@@ -209,6 +210,51 @@
           display: block;
         }
       }
+    }
+  }
+}
+
+.fggc-create-guitar-block {
+  @media (max-width: ($breakpoint-small - 1)) {
+    &__wrapper {
+      padding-top: 30vw;
+      width: 100%;
+    }
+
+    &__image {
+      height: 100%;
+      left: 0;
+      object-fit: cover;
+      object-position: center;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+
+    &__text-wrapper {
+      flex-wrap: wrap;
+      left: 50%;
+      text-align: center;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+    }
+    &__text {
+      font-size: 1.25rem;
+      margin-bottom: 20px;
+      margin-right: 0 !important;
+      text-align: center;
+      width: 100%;
+    }
+    &__button {
+      margin: 0 auto;
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 469px) {
+    &__wrapper {
+      padding-top: 50vw;
     }
   }
 }
