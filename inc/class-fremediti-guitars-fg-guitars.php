@@ -171,7 +171,7 @@ class Fremediti_Guitars_FG_Guitars {
 		?>
         <div class="fg-guitar-description">
 			<?php if ( ! empty( $title ) ): ?>
-                <h3><?php esc_attr_e( $title ); ?></h3>
+                <h1 class="uk-h3"><?php esc_attr_e( $title ); ?></h1>
                 <hr>
 			<?php endif; ?>
             <div class="uk-text-justify">
