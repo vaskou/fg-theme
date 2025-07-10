@@ -326,8 +326,10 @@ class Fremediti_Guitars_Theme {
 
 		ob_start();
 		?>
-        <div class="uk-navbar-dropdown megamenu-wrapper fg-guitar-menu-guitars"
-             uk-dropdown="boundary: .fg-navbar-sticky; boundary-align: true; delay-hide: 100; animation: uk-animation-slide-top-small; offset: 1;">
+        <!--        <div class="uk-navbar-dropdown megamenu-wrapper fg-guitar-menu-guitars"-->
+        <!--             uk-dropdown="boundary: .fg-navbar-sticky; boundary-align: true; delay-hide: 100; animation: uk-animation-slide-top-small; offset: 1;">-->
+        <div class="uk-navbar-dropdown megamenu-wrapper fg-guitar-menu-guitars uk-dropbar uk-dropbar-top uk-drop"
+             uk-drop="boundary: .fg-navbar-sticky; boundary-align: true; delay-hide: 100; animation: uk-animation-slide-top-small; offset: 1; stretch: x;">
             <div class="uk-container">
                 <div class="uk-grid" uk-grid>
                     <div class="uk-width-1-5@m">
@@ -353,10 +355,10 @@ class Fremediti_Guitars_Theme {
 									if ( ! empty( $categories['items'] ) ):
 										$items_count = count( $categories['items'] );
 										$items = $items_count > 4 ? $items_count : 4;
-										$width_class = 'uk-child-width-1-' . $items . '@m';
+										$width_class = $items > 6 ? 'uk-child-width-auto uk-grid-medium' : 'uk-child-width-1-' . $items . '@m';
 										?>
                                         <!--                                        <div uk-slider>-->
-                                        <ul class="uk-slider-items uk-grid <?php echo $width_class; ?>" uk-grid>
+                                        <ul class="uk-grid <?php echo $width_class; ?>" uk-grid>
 											<?php
 											foreach ( $categories['items'] as $guitar ):
 												?>

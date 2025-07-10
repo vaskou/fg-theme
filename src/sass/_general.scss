@@ -5,13 +5,13 @@ html {
 }
 
 body {
-  &.fg-country-GR {
+  &.geoip-country-GR {
     .hidden-GR {
       display: none !important;
     }
   }
 
-  &:not(.fg-country-GR) {
+  &:not(.geoip-country-GR) {
     .hidden-not-GR {
       display: none !important;
     }
@@ -159,6 +159,13 @@ img[src=""] {
       position: relative;
       text-align: center;
 
+      &.uk-container {
+        &:before {
+          left: 40px;
+          width: calc(100% - 40px * 2);
+        }
+      }
+
       &:before {
         background: $base-hr-border;
         content: '';
@@ -174,7 +181,7 @@ img[src=""] {
     &__outside {
       background: $base-hr-border;
       clip-path: polygon(0% 0%, 100% 0%, 100% calc(100% - 5px), 50% 100%, 0% calc(100% - 5px));
-      color: #ababab;
+      color: #bcbcbc;
       cursor: pointer;
       display: inline-block;
       padding: 1px;

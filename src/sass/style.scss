@@ -2,7 +2,7 @@
 Theme Name: Fremediti Guitars
 Author: Vasilis Koutsopoulos
 Description: Description
-Version: 1.2.4
+Version: 1.3.0
 License: GNU General Public License v2 or later
 License URI: LICENSE
 Text Domain: fremediti-guitars
@@ -34,6 +34,8 @@ $icon-button-color: $global-color;
 $icon-button-hover-color: $global-link-hover-color;
 $offcanvas-bar-width: 320px;
 $heading-divider-border: $global-color;
+$form-horizontal-label-width: 33%;
+$form-horizontal-controls-margin-left: calc(33% + 15px);
 
 @import "./node_modules/uikit/src/scss/variables-theme.scss";
 

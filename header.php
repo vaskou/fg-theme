@@ -69,8 +69,13 @@
         </div>
     </header><!-- #masthead -->
 	<?php
+
+	$show_new_images = Fremediti_Guitars_Helpers::show_new_images();
+
+	$is_full_width = Fremediti_Guitars_Metaboxes::is_full_width( get_the_ID() ) || ( is_singular( 'fg_guitars' ) && $show_new_images );
+
 	$container_class = '';
-	if ( ! Fremediti_Guitars_Metaboxes::is_full_width( get_the_ID() ) ) {
+	if ( ! $is_full_width ) {
 		$container_class = 'uk-container';
 	}
 	?>

@@ -16,7 +16,7 @@ class Fremediti_Guitars_Multilanguage {
 		add_action( 'template_redirect', array( $this, 'language_redirect' ) );
 		add_action( 'template_redirect', array( $this, 'redirect_services_pages' ) );
 
-		add_filter( 'body_class', array( $this, 'body_classes' ) );
+//		add_filter( 'body_class', array( $this, 'body_classes' ) );
 	}
 
 	public function language_redirect() {
