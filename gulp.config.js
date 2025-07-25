@@ -1,6 +1,6 @@
 export const config = {
     // Project options
-    projectURL: 'https://new.fremeditiguitars.com/',
+    projectURL: 'https://dev.fremeditiguitars.com/',
     browser: 'chrome',
 
     // Style options

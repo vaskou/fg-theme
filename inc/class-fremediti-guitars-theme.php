@@ -268,6 +268,11 @@ class Fremediti_Guitars_Theme {
 				'id'          => 'pre-footer',
 				'description' => __( 'Widgets in this area will be displayed before the footer.', 'fremediti-guitars' ),
 			),
+			array(
+				'name'        => __( 'Navbar right', 'fremediti-guitars' ),
+				'id'          => 'navbar-right',
+				'description' => __( 'Widgets in this area will be displayed at the left side of the navbar.', 'fremediti-guitars' ),
+			),
 		);
 
 		foreach ( $sidebars as $sidebar ) {

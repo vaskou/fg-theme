@@ -17,6 +17,14 @@
   margin-left: 200px;
 
   .uk-navbar-nav {
+    @media (min-width: 960px) {
+      gap: 13px;
+    }
+
+    @media (min-width: 1000px) {
+      gap: 20px;
+    }
+
     & > li > a {
       align-items: unset;
       line-height: 100px;
