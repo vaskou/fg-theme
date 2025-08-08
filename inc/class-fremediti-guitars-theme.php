@@ -49,6 +49,7 @@ class Fremediti_Guitars_Theme {
 
 		// Favicon
 		add_action( 'wp_head', array( $this, 'add_favicon' ) );
+		add_action( 'wp_head', array( $this, 'preload_fonts' ), 6 );
 
 		// Contact form
 		add_filter( 'shortcode_atts_wpcf7', [ $this, 'add_contact_form_attribute_support' ], 10, 3 );
@@ -572,6 +573,14 @@ class Fremediti_Guitars_Theme {
         <meta name="theme-color" content="#ffffff">
 		<?php
 	}
+
+    public function preload_fonts() {
+        ?>
+        <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+        <link rel="preload" href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i&display=swap" as="style" crossorigin/>
+        <?php
+    }
 
 	public function add_contact_form_attribute_support( $out, $pairs, $atts ) {
 		$my_attr = 'selected-guitar';
