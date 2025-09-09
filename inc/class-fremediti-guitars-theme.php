@@ -115,7 +115,7 @@ class Fremediti_Guitars_Theme {
 
 		$prefix = defined( 'WP_DEBUG' ) && true === WP_DEBUG ? '' : '.min';
 
-		wp_enqueue_style( 'ubuntu-fonts', 'https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i&display=swap' );
+		wp_enqueue_style( 'ubuntu-fonts', 'https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap' );
 
 		wp_enqueue_script( 'js-cookie', 'https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js', array(), '2', true );
 
@@ -578,7 +578,7 @@ class Fremediti_Guitars_Theme {
         ?>
         <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-        <link rel="preload" href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i&display=swap" as="style" crossorigin/>
+        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" as="style" crossorigin/>
         <?php
     }
 

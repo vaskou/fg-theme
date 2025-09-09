@@ -76,8 +76,8 @@ class Fremediti_Guitars_Helpers {
         <div class="fg-read-more__button__container <?php echo $classes; ?>">
             <span class="fg-read-more__button__outside" uk-toggle="target: <?php echo $target; ?>; cls: fg-read-more__block, fg-read-less;">
                 <span class="fg-read-more__button__inside">
-                    <span class="fg-read-more__button__more"><?php echo __( 'Read more', 'fg-guitars' ); ?></span>
-                    <span class="fg-read-more__button__less"><?php echo __( 'Read less', 'fg-guitars' ); ?></span>
+                    <span class="fg-read-more__button__more"><?php echo __( 'Read more', 'fremediti-guitars' ); ?></span>
+                    <span class="fg-read-more__button__less"><?php echo __( 'Read less', 'fremediti-guitars' ); ?></span>
                 </span>
             </span>
         </div>
