@@ -11,6 +11,24 @@
       justify-content: center;
     }
   }
+
+  .wpml-ls-legacy-list-horizontal {
+    a {
+      padding: 0;
+    }
+  }
+
+  @media (min-width: $breakpoint-medium) {
+    .wpml-ls-legacy-list-horizontal {
+      padding: 0 7px;
+
+      a {
+        line-height: 100px;
+        max-height: 70px;
+        padding: 0;
+      }
+    }
+  }
 }
 
 .menu-main-menu-container,
