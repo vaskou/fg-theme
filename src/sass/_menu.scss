@@ -13,8 +13,15 @@
   }
 
   .wpml-ls-legacy-list-horizontal {
+    padding: 0;
+
     a {
+      color: #333;
       padding: 0;
+
+      &:hover {
+        color: $global-link-hover-color;
+      }
     }
   }
 
