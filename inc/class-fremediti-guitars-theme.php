@@ -49,6 +49,7 @@ class Fremediti_Guitars_Theme {
 
 		// Favicon
 		add_action( 'wp_head', array( $this, 'add_favicon' ) );
+		add_action( 'wp_head', array( $this, 'preload_fonts' ), 6 );
 
 		// Contact form
 		add_filter( 'shortcode_atts_wpcf7', [ $this, 'add_contact_form_attribute_support' ], 10, 3 );
@@ -114,7 +115,7 @@ class Fremediti_Guitars_Theme {
 
 		$prefix = defined( 'WP_DEBUG' ) && true === WP_DEBUG ? '' : '.min';
 
-		wp_enqueue_style( 'ubuntu-fonts', 'https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i&display=swap' );
+		wp_enqueue_style( 'ubuntu-fonts', 'https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap' );
 
 		wp_enqueue_script( 'js-cookie', 'https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js', array(), '2', true );
 
@@ -267,6 +268,11 @@ class Fremediti_Guitars_Theme {
 				'name'        => __( 'Pre Footer', 'fremediti-guitars' ),
 				'id'          => 'pre-footer',
 				'description' => __( 'Widgets in this area will be displayed before the footer.', 'fremediti-guitars' ),
+			),
+			array(
+				'name'        => __( 'Navbar right', 'fremediti-guitars' ),
+				'id'          => 'navbar-right',
+				'description' => __( 'Widgets in this area will be displayed at the left side of the navbar.', 'fremediti-guitars' ),
 			),
 		);
 
@@ -567,6 +573,14 @@ class Fremediti_Guitars_Theme {
         <meta name="theme-color" content="#ffffff">
 		<?php
 	}
+
+    public function preload_fonts() {
+        ?>
+        <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" as="style" crossorigin/>
+        <?php
+    }
 
 	public function add_contact_form_attribute_support( $out, $pairs, $atts ) {
 		$my_attr = 'selected-guitar';

@@ -11,12 +11,46 @@
       justify-content: center;
     }
   }
+
+  .wpml-ls-legacy-list-horizontal {
+    padding: 0;
+
+    a {
+      color: #333;
+      padding: 0;
+
+      &:hover {
+        color: $global-link-hover-color;
+      }
+    }
+  }
+
+  @media (min-width: $breakpoint-medium) {
+    .wpml-ls-legacy-list-horizontal {
+      padding: 0 7px;
+
+      a {
+        line-height: 100px;
+        max-height: 70px;
+        padding: 0;
+      }
+    }
+  }
 }
 
-.menu-main-menu-container {
+.menu-main-menu-container,
+.menu-main-menu-greek-container {
   margin-left: 200px;
 
   .uk-navbar-nav {
+    @media (min-width: 960px) {
+      gap: 13px;
+    }
+
+    @media (min-width: 1000px) {
+      gap: 20px;
+    }
+
     & > li > a {
       align-items: unset;
       line-height: 100px;

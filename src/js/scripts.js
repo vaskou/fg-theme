@@ -70,6 +70,36 @@
         UIkit.lightbox($('.fg-guitar-gallery')).show();
     })
 
+    geoip_detect.get_info().then(function (record) {
+
+        if (Cookies.get('fg-lang-redirected')) {
+            return;
+        }
+
+        if (record.error()) {
+            console.error('WARNING Geodata Error:' + record.error());
+        }
+
+        let country_code = record.get('country.iso_code');
+
+        if (country_code !== 'GR') {
+            return;
+        }
+
+        let current_language = Cookies.get('wp-wpml_current_language');
+
+        if (current_language === 'el') {
+            return;
+        }
+
+        let new_url = `${window.location.origin}/el${window.location.pathname}`;
+
+        Cookies.set('fg-lang-redirected', true);
+
+        window.location.replace(new_url);
+
+    });
+
 })(jQuery)
 
 // Accessibility
