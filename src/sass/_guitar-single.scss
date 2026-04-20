@@ -259,22 +259,29 @@
   }
 }
 
-.fg-some-versions{
-  --fg-guitar-gallery-cols: 3;
+.fg-some-versions {
   display: grid;
-  grid-template-columns: repeat(var(--fg-guitar-gallery-cols), minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 20px;
-
-  @media (min-width: $breakpoint-small) {
-    --fg-guitar-gallery-cols: 3;
-  }
-
-  @media (min-width: $breakpoint-medium) {
-    --fg-guitar-gallery-cols: 4;
-  }
 
   a {
     padding-top: 100%;
     aspect-ratio: 1;
+  }
+}
+
+.fg-some-versions--buttons {
+  .uk-flex {
+    @media (max-width: 375px) {
+      flex-wrap: wrap;
+    }
+
+    & > .uk-button {
+      @include flex(150px);
+
+      @media (max-width: 375px) {
+        @include flex(100%);
+      }
+    }
   }
 }

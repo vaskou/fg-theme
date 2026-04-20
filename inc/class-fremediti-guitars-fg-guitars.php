@@ -384,21 +384,29 @@ class Fremediti_Guitars_FG_Guitars {
 
 		<?php endif; ?>
 
-		<?php do_action( 'fremediti_guitars_single_fg_guitars_available_guitars_after', $post_id ); ?>
+        <div class="fg-some-versions--buttons">
 
-		<?php if ( ! empty( $approximate_time ) ): ?>
-            <div class="uk-flex uk-flex-right uk-flex-middle uk-margin-top">
-				<span class="uk-margin-right">
-                <?php
-                printf(
-	                __( 'Lead time for a new order is approximately %s', 'fremediti-guitars' ),
-	                esc_html( $approximate_time )
-                );
-                ?>
-                </span>
-                <a href="<?php echo "/contact-us"; ?>" class="uk-button uk-button-primary"><?php echo __( 'Contact Us', 'fg-guitars-customizer' ); ?></a>
-            </div>
-		<?php endif; ?>
+			<?php do_action( 'fremediti_guitars_single_fg_guitars_available_guitars_after', $post_id ); ?>
+
+			<?php if ( ! empty( $approximate_time ) ): ?>
+				<?php
+				$contact_page_id = Fremediti_Guitars_Settings::get_contact_page_id();
+				$contact_page    = get_permalink( $contact_page_id );
+				?>
+                <div class="uk-flex uk-flex-right@m uk-flex-between uk-flex-middle uk-margin-top">
+                    <span class="uk-margin-right uk-text-right@m">
+                    <?php
+                    printf(
+	                    __( 'Lead time for a new order is approximately %s', 'fremediti-guitars' ),
+	                    esc_html( $approximate_time )
+                    );
+                    ?>
+                    </span>
+                    <a href="<?php echo esc_url( $contact_page ); ?>" class="uk-button uk-button-primary uk-text-nowrap"><?php echo __( 'Contact Us', 'fg-guitars-customizer' ); ?></a>
+                </div>
+			<?php endif; ?>
+
+        </div>
 
 		<?php
 
