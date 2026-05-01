@@ -35,6 +35,7 @@ class Fremediti_Guitars_Settings extends SettingsSetup {
 
 			new SettingField( 'fg_guitars_new_single_page_layout_roles', __( 'Enable "New single page layout" for these roles', 'fremediti-guitars' ), 'multiselect', 'new_single_page_layout', $this->_get_user_role_options() ),
 			new SettingField( 'fg_guitars_new_single_page_images_roles', __( 'Enable "New single page images" for these roles', 'fremediti-guitars' ), 'multiselect', 'new_single_page_layout', $this->_get_user_role_options() ),
+			new SettingField( 'fg_guitars_new_single_page_some_versions_section_roles', __( 'Enable "New single page "Some Versions" section for these roles', 'fremediti-guitars' ), 'multiselect', 'new_single_page_layout', $this->_get_user_role_options() ),
 			new SettingField( 'fg_guitars_available_guitar_contact_form_id', __( 'Available Guitar Contact Form ID', 'fremediti-guitars' ), 'text', 'new_single_page_layout' ),
 			new SettingField( 'fg_guitars_contact_page_id', __( 'Contact Page ID', 'fremediti-guitars' ), 'pages', 'new_single_page_layout' ),
 		);
@@ -68,6 +69,10 @@ class Fremediti_Guitars_Settings extends SettingsSetup {
 
 	public static function get_new_single_page_images_roles() {
 		return self::instance()->get_setting( 'fg_guitars_new_single_page_images_roles' );
+	}
+
+	public static function get_new_single_page_some_versions_section_roles() {
+		return self::instance()->get_setting( 'fg_guitars_new_single_page_some_versions_section_roles' );
 	}
 
 	public static function get_available_guitar_contact_form_id() {

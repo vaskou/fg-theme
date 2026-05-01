@@ -28,11 +28,19 @@ $not_full_width_class = $show_new_images ? 'uk-container' : '';
 
 	<?php $description_html = $single_guitar->get_description_html( $post_id ); ?>
 
-	<?php //$available_guitars_html = $single_guitar->get_available_guitars_html( $post_id ); ?>
+	<?php $available_guitars_html = $single_guitar->get_available_guitars_html( $post_id ); ?>
 
-	<?php $some_versions_html = $single_guitar->get_some_versions_html( $post_id ); ?>
+	<?php
+	$some_versions_enabled = Fremediti_Guitars_Helpers::show_new_some_versions_section();
 
-	<?php $has_available_guitars_class = ! empty( $some_versions_html ) ? 'uk-width-1-2@m uk-width-1-2@xl' : ''; ?>
+	if ( $some_versions_enabled ) {
+		$some_versions_html     = $single_guitar->get_some_versions_html( $post_id );
+		$available_guitars_html = '';
+	}
+
+	?>
+
+	<?php $has_available_guitars_class = ! empty( $available_guitars_html ) || ! empty( $some_versions_html ) ? 'uk-width-1-2@m uk-width-1-2@xl' : ''; ?>
 
     <div class="fg-guitar-description-available-guitars <?php echo $not_full_width_class; ?>">
         <div class="uk-grid uk-margin-top" uk-grid>
@@ -48,11 +56,11 @@ $not_full_width_class = $show_new_images ? 'uk-container' : '';
                 </div>
 			<?php endif; ?>
 
-	        <?php if ( ! empty( $some_versions_html ) ): ?>
+			<?php if ( ! empty( $some_versions_html ) ): ?>
                 <div class="fg-some-versions-wrapper uk-width-1-2@m uk-width-1-2@xl">
-			        <?php echo $some_versions_html; ?>
+					<?php echo $some_versions_html; ?>
                 </div>
-	        <?php endif; ?>
+			<?php endif; ?>
         </div>
     </div>
 
