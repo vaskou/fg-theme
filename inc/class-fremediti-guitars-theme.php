@@ -118,7 +118,7 @@ class Fremediti_Guitars_Theme {
 
 		wp_enqueue_style( 'ubuntu-fonts', 'https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap' );
 
-		wp_enqueue_script( 'js-cookie', 'https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js', array(), '2', true );
+//		wp_enqueue_script( 'js-cookie', 'https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js', array(), '2', true );
 
 		$version = $this->_get_file_version( FREMEDITI_GUITARS_THEME_PATH . '/style' . $prefix . '.css' );
 		wp_enqueue_style( 'fremediti-guitars-style', FREMEDITI_GUITARS_THEME_URL . '/style' . $prefix . '.css', array(), $version );
@@ -206,6 +206,9 @@ class Fremediti_Guitars_Theme {
 
 		add_theme_support( 'editor-styles' );
 		add_theme_support( 'woocommerce' );
+		add_theme_support( 'wc-product-gallery-zoom' );
+		add_theme_support( 'wc-product-gallery-slider' );
+		add_theme_support( 'wc-product-gallery-lightbox' );
 	}
 
 	/**

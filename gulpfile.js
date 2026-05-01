@@ -28,6 +28,7 @@ gulp.task('build:scripts', function () {
     return gulp.src([
         './node_modules/uikit/dist/js/uikit.js',
         './node_modules/uikit/dist/js/uikit-icons.js',
+        './node_modules/js-cookie/dist/js.cookie.js',
         './src/js/scripts.js'
     ])
         .pipe(concat('scripts.js'))

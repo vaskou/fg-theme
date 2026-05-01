@@ -37,12 +37,12 @@ $heading-divider-border: $global-color;
 $form-horizontal-label-width: 33%;
 $form-horizontal-controls-margin-left: calc(33% + 15px);
 
-@import "./node_modules/uikit/src/scss/variables-theme.scss";
+@import "../../node_modules/uikit/src/scss/variables-theme.scss";
 
 $navbar-nav-item-color: $navbar-nav-item-active-color;
 $navbar-gap-m: 20px;
 
-@import "./node_modules/uikit/src/scss/mixins-theme.scss";
+@import "../../node_modules/uikit/src/scss/mixins-theme.scss";
 
 @mixin hook-dropdown-nav-item() {
   padding-left: 25px;
@@ -68,7 +68,7 @@ $navbar-gap-m: 20px;
   transition: border-color 200ms ease 200ms;
 }
 
-@import "./node_modules/uikit/src/scss/uikit-theme.scss";
+@import "../../node_modules/uikit/src/scss/uikit-theme.scss";
 
 $footer-background-color: #363636;
 $footer-text-color: #d4d2c6;
@@ -99,3 +99,4 @@ $footer-text-color: #d4d2c6;
 @import "pickups-grid";
 @import "services-grid";
 @import "product-archive";
+@import "product-single";

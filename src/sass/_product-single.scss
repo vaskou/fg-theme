@@ -1,0 +1,28 @@
+.woocommerce,
+.woocommerce-page {
+  div.product,
+  #content div.product {
+    display: grid;
+    gap: 30px;
+
+    @media (min-width: $breakpoint-small) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    div.images {
+      float: none;
+      width: 100%;
+    }
+
+    div.summary {
+      float: none;
+      width: 100%;
+    }
+
+    div.fg-specifications {
+      @media (min-width: $breakpoint-small) {
+        grid-column: 1 / 3;
+      }
+    }
+  }
+}
