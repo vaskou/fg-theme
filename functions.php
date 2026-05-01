@@ -42,5 +42,7 @@ require get_template_directory() . '/inc/class-fremediti-guitars-multilanguage.p
 
 require get_template_directory() . '/inc/class-fremediti-guitars-multicurrency.php';
 
+require get_template_directory() . '/inc/class-fremediti-guitars-woocommerce.php';
+
 
 Fremediti_Guitars_Theme::instance();

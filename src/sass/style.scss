@@ -79,6 +79,13 @@ $footer-text-color: #d4d2c6;
   width: $width;
 }
 
+@mixin remove_clearfix() {
+  &:before,
+  &:after {
+    content: none;
+  }
+}
+
 @import "general";
 @import "header";
 @import "menu";
@@ -91,4 +98,4 @@ $footer-text-color: #d4d2c6;
 @import "sidebar";
 @import "pickups-grid";
 @import "services-grid";
-
+@import "product-archive";

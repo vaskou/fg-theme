@@ -73,6 +73,7 @@ class Fremediti_Guitars_Theme {
 		Fremediti_Guitars_Settings::instance();
 		Fremediti_Guitars_Multilanguage::instance();
 		Fremediti_Guitars_FG_Pickups::instance();
+        Fremediti_Guitars_Woocommerce::instance();
 	}
 
 	public function add_editor_style() {
@@ -204,6 +205,7 @@ class Fremediti_Guitars_Theme {
 		) );
 
 		add_theme_support( 'editor-styles' );
+		add_theme_support( 'woocommerce' );
 	}
 
 	/**
