@@ -224,3 +224,8 @@ img[src=""] {
     padding: 5px 10px 1px;
   }
 }
+
+.button {
+  @extend .uk-button;
+  @extend .uk-button-primary;
+}

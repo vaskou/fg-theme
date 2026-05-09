@@ -1,0 +1,8 @@
+.woocommerce {
+  .quantity {
+    .qty {
+      @extend .uk-input;
+      @extend .uk-form-width-small;
+    }
+  }
+}

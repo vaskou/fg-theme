@@ -24,6 +24,8 @@ class Fremediti_Guitars_Woocommerce {
 		remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10 );
 
 		// Single product
+		remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
+		remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
 		remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_upsell_display', 15 );
 		remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
 	}
@@ -39,31 +41,17 @@ class Fremediti_Guitars_Woocommerce {
 		$content = apply_filters( 'the_content', $content );
 		$content = str_replace( ']]>', ']]&gt;', $content );
 
-		$sections = $this->parse_spec_sections( $content );
-
-		if ( empty( $sections ) ) {
-			echo $content;
-
-			return;
-		}
-
 		?>
 
-        <div class="fg-specifications uk-margin-top">
-            <div class="uk-child-width-1-3@m uk-child-width-1-2@s uk-grid" uk-grid>
-				<?php
-				foreach ( $sections as $section ) {
-					echo $section;
-				}
-				?>
-            </div>
+        <div class="fg-product-content uk-margin-top uk-margin-bottom">
+			<?php echo $this->transform_content( $content ); ?>
         </div>
 		<?php
 	}
 
-	private function parse_spec_sections( string $html ): array {
+	private function transform_content( string $html ): string {
 		if ( empty( trim( $html ) ) ) {
-			return [];
+			return '';
 		}
 
 		libxml_use_internal_errors( true );
@@ -71,71 +59,104 @@ class Fremediti_Guitars_Woocommerce {
 		$dom->loadHTML( '<?xml encoding="UTF-8">' . $html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
 		libxml_clear_errors();
 
-		$sections    = [];
-		$child_nodes = iterator_to_array( $dom->childNodes );
+		$output     = '';
+		$spec_group = [];
+		$nodes      = iterator_to_array( $dom->childNodes );
+		$count      = count( $nodes );
 
-		foreach ( $child_nodes as $index => $node ) {
-			if ( ! ( $node instanceof DOMElement ) || 'h4' !== $node->nodeName ) {
-				continue;
-			}
+		for ( $i = 0; $i < $count; $i ++ ) {
+			$node = $nodes[ $i ];
 
-			$heading         = trim( $node->textContent );
-			$specs_group_key = strtolower( preg_replace( '/[\s_]+/', '-', preg_replace( '/[^a-zA-Z0-9\s_]/', '', $heading ) ) );
-			$next_ul         = null;
+			if ( $node instanceof DOMElement && 'h4' === $node->nodeName ) {
+				$next_element = null;
+				$next_index   = null;
 
-			for ( $i = $index + 1; $i < count( $child_nodes ); $i ++ ) {
-				$sibling = $child_nodes[ $i ];
-				if ( ! ( $sibling instanceof DOMElement ) ) {
-					continue;
-				}
-				if ( 'ul' === $sibling->nodeName ) {
-					$next_ul = $sibling;
-				}
-				break;
-			}
-
-			if ( null === $next_ul ) {
-				continue;
-			}
-
-			$items_html = '';
-			foreach ( $next_ul->childNodes as $li ) {
-				if ( ! ( $li instanceof DOMElement ) || 'li' !== $li->nodeName ) {
-					continue;
+				for ( $j = $i + 1; $j < $count; $j ++ ) {
+					if ( $nodes[ $j ] instanceof DOMElement ) {
+						$next_element = $nodes[ $j ];
+						$next_index   = $j;
+						break;
+					}
 				}
 
-				$text  = trim( $li->textContent );
-				$parts = explode( '|', $text, 2 );
-
-				if ( 2 === count( $parts ) ) {
-					$name       = esc_html( trim( $parts[0] ) );
-					$value      = esc_html( trim( $parts[1] ) );
-					$items_html .= '<li class="fg-custom-specs-group__item">'
-					               . '<div class="uk-flex uk-flex-between">'
-					               . '<div class="fg-custom-specs-group__item__name">' . $name . '</div>'
-					               . '<div class="fg-custom-specs-group__item__value">' . $value . '</div>'
-					               . '</div>'
-					               . '</li>';
+				if ( null !== $next_element && 'ul' === $next_element->nodeName ) {
+					$rendered = $this->render_spec_section( $node, $next_element, $dom );
+					if ( ! empty( $rendered ) ) {
+						$spec_group[] = $rendered;
+					}
+					$i = $next_index;
 				} else {
-					$label      = esc_html( trim( $parts[0] ) );
-					$items_html .= '<li class="fg-custom-specs-group__item"><div>' . $label . '</div></li>';
+					$output     .= $this->flush_spec_group( $spec_group );
+					$spec_group = [];
+					$output     .= $dom->saveHTML( $node );
 				}
+			} else {
+				$output     .= $this->flush_spec_group( $spec_group );
+				$spec_group = [];
+				$output     .= $dom->saveHTML( $node );
 			}
-
-			if ( empty( $items_html ) ) {
-				continue;
-			}
-
-			ob_start();
-			?>
-            <div class="fg-custom-specs-group__<?php echo esc_attr( $specs_group_key ); ?>">
-                <h4 class="uk-heading-divider"><?php echo esc_html( $heading ); ?></h4>
-                <ul class="uk-list fg-custom-specs-group__list"><?php echo $items_html; ?></ul>
-            </div>
-			<?php
-			$sections[] = ob_get_clean();
 		}
 
-		return $sections;
+		$output .= $this->flush_spec_group( $spec_group );
+
+		return $output;
+	}
+
+	private function render_spec_section( DOMElement $h4, DOMElement $ul, DOMDocument $dom ): string {
+		$heading         = trim( $h4->textContent );
+		$specs_group_key = strtolower( preg_replace( '/[\s_]+/', '-', preg_replace( '/[^a-zA-Z0-9\s_]/', '', $heading ) ) );
+
+		$items_html = '';
+		foreach ( $ul->childNodes as $li ) {
+			if ( ! ( $li instanceof DOMElement ) || 'li' !== $li->nodeName ) {
+				continue;
+			}
+
+			$text  = trim( $li->textContent );
+			$parts = explode( '|', $text, 2 );
+
+			if ( 2 === count( $parts ) ) {
+				$name       = esc_html( trim( $parts[0] ) );
+				$value      = esc_html( trim( $parts[1] ) );
+				$items_html .= '<li class="fg-custom-specs-group__item">'
+				               . '<div class="uk-flex uk-flex-between">'
+				               . '<div class="fg-custom-specs-group__item__name">' . $name . '</div>'
+				               . '<div class="fg-custom-specs-group__item__value">' . $value . '</div>'
+				               . '</div>'
+				               . '</li>';
+			} else {
+				$label      = esc_html( trim( $parts[0] ) );
+				$items_html .= '<li class="fg-custom-specs-group__item"><div>' . $label . '</div></li>';
+			}
+		}
+
+		if ( empty( $items_html ) ) {
+			return '';
+		}
+
+		ob_start();
+		?>
+        <div class="fg-custom-specs-group__<?php echo esc_attr( $specs_group_key ); ?>">
+            <h4 class="uk-heading-divider"><?php echo esc_html( $heading ); ?></h4>
+            <ul class="uk-list fg-custom-specs-group__list"><?php echo $items_html; ?></ul>
+        </div>
+		<?php
+		return ob_get_clean();
+	}
+
+	private function flush_spec_group( array $sections ): string {
+		if ( empty( $sections ) ) {
+			return '';
+		}
+
+		ob_start();
+		?>
+        <div class="fg-specifications uk-margin-top">
+            <div class="uk-child-width-1-3@m uk-child-width-1-2@s uk-grid" uk-grid>
+				<?php echo implode( '', $sections ); ?>
+            </div>
+        </div>
+		<?php
+		return ob_get_clean();
 	}
 }
