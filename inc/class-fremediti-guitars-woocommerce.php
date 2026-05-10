@@ -15,6 +15,10 @@ class Fremediti_Guitars_Woocommerce {
 	private function __construct() {
 		add_action( 'wp', [ $this, 'remove_wp_hooks' ] );
 
+		// Products archive
+		add_action( 'woocommerce_before_shop_loop_item_title', [ $this, 'product_loop_image_wrapper_open' ], 5 );
+		add_action( 'woocommerce_before_shop_loop_item_title', [ $this, 'product_loop_image_wrapper_close' ], 100 );
+
 		// Single product
 		add_filter( 'woocommerce_product_tabs', [ $this, 'remove_product_tabs' ], 99 );
 		add_action( 'woocommerce_after_single_product_summary', [ $this, 'show_description' ] );
@@ -28,6 +32,18 @@ class Fremediti_Guitars_Woocommerce {
 		remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
 		remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_upsell_display', 15 );
 		remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
+	}
+
+	public function product_loop_image_wrapper_open() {
+		?>
+        <div class="fg-product-image-wrapper">
+		<?php
+	}
+
+	public function product_loop_image_wrapper_close() {
+		?>
+        </div>
+		<?php
 	}
 
 	public function remove_product_tabs( $tabs ) {
@@ -112,12 +128,16 @@ class Fremediti_Guitars_Woocommerce {
 				continue;
 			}
 
-			$text  = trim( $li->textContent );
-			$parts = explode( '|', $text, 2 );
+			$inner_html = '';
+			foreach ( $li->childNodes as $child ) {
+				$inner_html .= $dom->saveHTML( $child );
+			}
+			$inner_html = trim( $inner_html );
+			$parts      = explode( '|', $inner_html, 2 );
 
 			if ( 2 === count( $parts ) ) {
-				$name       = esc_html( trim( $parts[0] ) );
-				$value      = esc_html( trim( $parts[1] ) );
+				$name       = esc_html( trim( strip_tags( $parts[0] ) ) );
+				$value      = wp_kses_post( trim( $parts[1] ) );
 				$items_html .= '<li class="fg-custom-specs-group__item">'
 				               . '<div class="uk-flex uk-flex-between">'
 				               . '<div class="fg-custom-specs-group__item__name">' . $name . '</div>'
@@ -125,7 +145,7 @@ class Fremediti_Guitars_Woocommerce {
 				               . '</div>'
 				               . '</li>';
 			} else {
-				$label      = esc_html( trim( $parts[0] ) );
+				$label      = esc_html( trim( strip_tags( $parts[0] ) ) );
 				$items_html .= '<li class="fg-custom-specs-group__item"><div>' . $label . '</div></li>';
 			}
 		}

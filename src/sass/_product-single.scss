@@ -2,11 +2,10 @@
 .woocommerce-page {
   div.product,
   #content div.product {
-    display: grid;
-    gap: 30px;
-
     @media (min-width: $breakpoint-small) {
-      grid-template-columns: 1fr 1fr;
+      display: grid;
+      column-gap: 30px;
+      grid-template-columns: repeat(2, calc(50% - 15px));
     }
 
     div.images {
@@ -19,12 +18,49 @@
       width: 100%;
     }
 
+    div.images {
+      .woocommerce-product-gallery__image {
+        a {
+          overflow: hidden;
+          padding-top: 100%;
+          position: relative;
+
+          img {
+            @include image_contain();
+            border: 1px solid $global-border;
+          }
+        }
+      }
+
+      .flex-control-nav {
+        display: grid;
+        gap: 10px;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        margin-top: 10px;
+
+        li {
+          float: none;
+          width: 100%;
+
+          img {
+            border: 1px solid $global-border;
+
+            &.flex-active {
+              border-color: darken($global-border, 10%);;
+            }
+          }
+        }
+      }
+    }
+
     p.price {
       color: $global-link-color;
       font-size: 1.5rem;
     }
 
     form.cart {
+      margin-bottom: 0;
+
       .single_add_to_cart_button {
         @extend .button;
       }

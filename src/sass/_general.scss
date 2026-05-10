@@ -226,6 +226,30 @@ img[src=""] {
 }
 
 .button {
-  @extend .uk-button;
-  @extend .uk-button-primary;
+  &, &.alt {
+    @extend .uk-button;
+    @extend .uk-button-primary;
+  }
+}
+
+input {
+  &:not([type="checkbox"]):not([type="radio"]) {
+    @extend .uk-input;
+  }
+}
+
+select {
+  @extend .uk-select;
+}
+
+textarea {
+  @extend .uk-textarea;
+}
+
+input[type="checkbox"] {
+  @extend .uk-checkbox;
+}
+
+input[type="radio"] {
+  @extend .uk-radio;
 }

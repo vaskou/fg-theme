@@ -86,6 +86,28 @@ $footer-text-color: #d4d2c6;
   }
 }
 
+@mixin image_cover() {
+  box-sizing: border-box;
+  height: 100%;
+  left: 0;
+  object-fit: cover;
+  object-position: center;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+@mixin image_contain() {
+  box-sizing: border-box;
+  height: 100%;
+  left: 0;
+  object-fit: contain;
+  object-position: center;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
 @import "general";
 @import "header";
 @import "menu";
