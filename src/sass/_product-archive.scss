@@ -11,7 +11,7 @@
       margin: 0;
       width: 100% !important;
 
-      .fg-product-image-wrapper {
+      .fg-product-loop-image-wrapper {
         overflow: hidden;
         padding-top: 100%;
         position: relative;
@@ -24,6 +24,21 @@
 
       .price {
         color: $global-link-color;
+      }
+
+      .fg-product-loop-buttons-wrapper {
+        align-items: center;
+        display: flex;
+        gap: 10px;
+        margin-top: $global-margin;
+
+        .add_to_cart_button {
+          margin-top: 0;
+        }
+
+        .added_to_cart {
+          padding-top: 0;
+        }
       }
 
       .button {

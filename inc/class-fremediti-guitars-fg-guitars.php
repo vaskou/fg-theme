@@ -328,10 +328,13 @@ class Fremediti_Guitars_FG_Guitars {
 			return '';
 		}
 
-		$versions         = $this->some_versions->getVersions( $post_id );
-		$price_range_form = $this->some_versions->getPriceRangeFrom( $post_id );
-		$price_range_to   = $this->some_versions->getPriceRangeTo( $post_id );
-		$approximate_time = $this->some_versions->getApproximateTime( $post_id );
+		$versions               = $this->some_versions->getVersions( $post_id );
+		$price_range_form       = $this->some_versions->getPriceRangeFrom( $post_id );
+		$price_range_to         = $this->some_versions->getPriceRangeTo( $post_id );
+		$approximate_time       = $this->some_versions->getApproximateTime( $post_id );
+		$has_available_products = $this->some_versions->getHasAvailableProducts( $post_id );
+
+		$shop_url = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : '';
 
 		ob_start();
 
@@ -340,9 +343,10 @@ class Fremediti_Guitars_FG_Guitars {
         <div class="uk-h3" style="height: 2.1rem"></div>
         <hr>
 
-        <h4 style="margin-top: 0"><?php printf( '%s - %s', $this->short_description->getName( $post_id ), __( 'Some Versions', 'fremediti-guitars' ) ); ?></h4>
-
 		<?php if ( ! empty( $versions ) ): ?>
+
+            <h4 style="margin-top: 0"><?php printf( '%s - %s', $this->short_description->getName( $post_id ), __( 'Some Versions', 'fremediti-guitars' ) ); ?></h4>
+
             <div class="fg-some-versions">
 				<?php foreach ( $versions as $version ): ?>
 					<?php
@@ -385,6 +389,13 @@ class Fremediti_Guitars_FG_Guitars {
 		<?php endif; ?>
 
         <div class="fg-some-versions--buttons">
+
+			<?php if ( ! empty( $has_available_products ) && ! empty( $shop_url ) ): ?>
+                <div class="uk-flex uk-flex-right@m uk-flex-between uk-flex-middle uk-margin-top">
+                    <span class="uk-margin-right uk-text-right@m"><?php echo __( 'Check for available guitars here', 'fremediti-guitars' ); ?></span>
+                    <a href="<?php echo esc_url( $shop_url ); ?>" class="uk-button uk-button-primary uk-text-nowrap"><?php _e( 'Availability', 'fremediti-guitars' ); ?></a>
+                </div>
+			<?php endif; ?>
 
 			<?php do_action( 'fremediti_guitars_single_fg_guitars_available_guitars_after', $post_id ); ?>
 

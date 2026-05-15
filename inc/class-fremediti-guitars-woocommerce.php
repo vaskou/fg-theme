@@ -18,6 +18,8 @@ class Fremediti_Guitars_Woocommerce {
 		// Products archive
 		add_action( 'woocommerce_before_shop_loop_item_title', [ $this, 'product_loop_image_wrapper_open' ], 5 );
 		add_action( 'woocommerce_before_shop_loop_item_title', [ $this, 'product_loop_image_wrapper_close' ], 100 );
+		add_action( 'woocommerce_after_shop_loop_item', [ $this, 'product_loop_button_wrapper_open' ], 9 );
+		add_action( 'woocommerce_after_shop_loop_item', [ $this, 'product_loop_button_wrapper_close' ], 11 );
 
 		// Single product
 		add_filter( 'woocommerce_product_tabs', [ $this, 'remove_product_tabs' ], 99 );
@@ -36,11 +38,23 @@ class Fremediti_Guitars_Woocommerce {
 
 	public function product_loop_image_wrapper_open() {
 		?>
-        <div class="fg-product-image-wrapper">
+        <div class="fg-product-loop-image-wrapper">
 		<?php
 	}
 
 	public function product_loop_image_wrapper_close() {
+		?>
+        </div>
+		<?php
+	}
+
+	public function product_loop_button_wrapper_open() {
+		?>
+        <div class="fg-product-loop-buttons-wrapper">
+		<?php
+	}
+
+	public function product_loop_button_wrapper_close() {
 		?>
         </div>
 		<?php
