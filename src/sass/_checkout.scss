@@ -1,0 +1,266 @@
+.woocommerce-page.woocommerce-checkout {
+  form.woocommerce-checkout {
+    // "Order Review" heading sibling of #order_review — restyle as an eyebrow
+    // label so it reads as the order-summary card's section title on every
+    // viewport (keeps WooCommerce's translatable string intact for WPML).
+    > h3#order_review_heading {
+      margin: 0 0 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: $global-link-color;
+    }
+
+    @media (min-width: $breakpoint-medium) {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      grid-template-rows: auto 1fr;
+      column-gap: 30px;
+      align-items: start;
+
+      > h3#order_review_heading {
+        grid-column: 2;
+        grid-row: 1;
+      }
+
+      #customer_details {
+        grid-column: 1;
+        grid-row: 1 / span 2;
+      }
+
+      #order_review {
+        grid-column: 2;
+        grid-row: 2;
+        position: sticky;
+        top: 30px;
+      }
+    }
+
+    // Reset WooCommerce float-based col2-set layout
+    #customer_details {
+      &.col2-set::after {
+        content: none;
+      }
+
+      .col-1,
+      .col-2 {
+        float: none;
+        width: 100%;
+      }
+    }
+
+    // Boxed form sections
+    .woocommerce-billing-fields,
+    .woocommerce-shipping-fields,
+    .woocommerce-additional-fields {
+      background: #fff;
+      border: 1px solid $global-border;
+      border-radius: 4px;
+      padding: 20px 24px;
+      margin-bottom: 20px;
+
+      h3 {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: $global-link-color;
+        margin-bottom: 16px;
+      }
+    }
+
+    // Hide empty shipping section (when shipping address equals billing).
+    // :empty won't match because WooCommerce emits whitespace inside, so check
+    // for absence of element children via :has().
+    .woocommerce-shipping-fields:not(:has(*)) {
+      display: none;
+    }
+
+    // First / last name (and other paired rows) — use grid instead of floats
+    // for cleaner gutters matching the rest of the form.
+    .woocommerce-billing-fields__field-wrapper,
+    .woocommerce-shipping-fields__field-wrapper {
+      @media (min-width: $breakpoint-small) {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 20px;
+
+        .form-row {
+          grid-column: 1 / -1;
+          width: 100%;
+          float: none;
+        }
+
+        .form-row-first {
+          grid-column: 1;
+        }
+
+        .form-row-last {
+          grid-column: 2;
+        }
+      }
+    }
+
+    // Form inputs already inherit UIKit styling from _general.scss (which
+    // extends .uk-input/.uk-select/.uk-textarea/.uk-checkbox/.uk-radio onto
+    // every form element site-wide). Only the checkout-specific tweaks live
+    // here.
+    label {
+      font-size: 0.85rem;
+      color: $global-muted-color;
+    }
+
+    // Brand-colored focus ring — softer and more legible than UIKit's default
+    // border-color change. Reuses the brand burgundy at 12% opacity.
+    .input-text:focus,
+    select:focus,
+    textarea:focus {
+      border-color: $global-link-color;
+      box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.12);
+    }
+
+    // Sticky summary panel
+    #order_review {
+      background: #f7f3f0;
+      border: 1px solid darken(#f7f3f0, 8%);
+      border-radius: 4px;
+      padding: 20px 24px;
+      // Breathing room when the right rail collapses below the form on mobile.
+      // No effect on the desktop sticky layout since the grid handles spacing.
+      margin-top: 20px;
+
+      // Order summary table
+      .woocommerce-checkout-review-order-table {
+        width: 100%;
+        border-collapse: collapse;
+
+        th,
+        td {
+          padding: 8px 0;
+          border-bottom: 1px solid darken(#f7f3f0, 8%);
+          font-size: 0.9rem;
+        }
+
+        // Right-align the price column so totals stack down a clean edge —
+        // standard e-commerce convention for scannable subtotals.
+        th:last-child,
+        td:last-child {
+          text-align: right;
+        }
+
+        .product-name {
+          color: $base-heading-color;
+        }
+
+        .product-total,
+        .order-total td {
+          color: $global-link-color;
+        }
+
+        .order-total th,
+        .order-total td {
+          font-weight: 700;
+          font-size: 1rem;
+          border-bottom: none;
+        }
+
+        // VAT/tax note ("(includes $X VAT)") — break onto its own muted line
+        // beneath the total instead of wrapping mid-amount. WooCommerce wraps
+        // it in <small class="includes_tax">.
+        .includes_tax {
+          display: block;
+          margin-top: 4px;
+          font-size: 0.75rem;
+          font-weight: 400;
+          color: $global-muted-color;
+        }
+      }
+
+      // Payment methods block
+      #payment {
+        border-top: 1px solid darken(#f7f3f0, 8%);
+        margin-top: 16px;
+        padding-top: 16px;
+        background: transparent;
+        border-left: none;
+        border-right: none;
+        border-bottom: none;
+        border-radius: 0;
+        padding-left: 0;
+        padding-right: 0;
+
+        label {
+          font-size: 0.85rem;
+          color: $global-muted-color;
+        }
+      }
+
+      // Place Order button
+      #place_order {
+        @extend .uk-button;
+        @extend .uk-button-primary;
+        width: 100%;
+        margin-top: 16px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        font-weight: 700;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+        &:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 6px 16px rgba(139, 0, 0, 0.22);
+        }
+      }
+
+      // Lavender payment-method info box → brand-matching white card
+      .payment_box {
+        background: #fff;
+        border: 1px solid $global-border;
+        border-radius: 4px;
+        color: $global-color;
+        font-size: 0.85rem;
+
+        &::before {
+          // The little triangle "pointer" above the info box
+          border-bottom-color: $global-border !important;
+        }
+      }
+    }
+
+  }
+
+  // The coupon toggle and coupon form sit OUTSIDE form.woocommerce-checkout
+  // (as siblings), so they need to be styled here at the page-scope level.
+
+  // "Have a coupon?" notice — replace WooCommerce's default blue accent
+  .woocommerce-form-coupon-toggle .woocommerce-info {
+    background: #fff;
+    border: 1px solid $global-border;
+    border-top: 3px solid $global-link-color;
+    color: $global-color;
+
+    &::before {
+      color: $global-link-color;
+    }
+
+    a {
+      color: $global-link-color;
+    }
+  }
+
+  // Expanded coupon form — match the boxed-card treatment
+  form.checkout_coupon {
+    background: #fff;
+    border: 1px solid $global-border;
+    border-radius: 4px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+
+    // Apply Coupon button — extend UIKit primary button
+    button[name="apply_coupon"] {
+      @extend .uk-button;
+      @extend .uk-button-primary;
+    }
+  }
+}
