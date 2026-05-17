@@ -3,8 +3,8 @@
   div.product,
   #content div.product {
     @media (min-width: $breakpoint-small) {
-      display: grid;
       column-gap: 30px;
+      display: grid;
       grid-template-columns: repeat(2, calc(50% - 15px));
     }
 

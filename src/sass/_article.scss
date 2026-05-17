@@ -56,8 +56,8 @@
     &.uk-article.type-post {
       .alignright {
         @media (max-width: $breakpoint-small-max) {
-          margin-left: 0;
           float: none;
+          margin-left: 0;
         }
       }
     }

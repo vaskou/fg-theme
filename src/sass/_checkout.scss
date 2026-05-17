@@ -10,19 +10,19 @@
     // Eyebrow label at the top of the card — matches the uppercase burgundy
     // tags on the left column sections (BILLING & SHIPPING etc.).
     .fg-order-review > h3#order_review_heading {
-      margin: 0 0 12px;
+      color: $global-link-color;
       font-size: 0.75rem;
       font-weight: 700;
-      text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: $global-link-color;
+      margin: 0 0 12px;
+      text-transform: uppercase;
     }
 
     @media (min-width: $breakpoint-medium) {
+      align-items: start;
+      column-gap: 30px;
       display: grid;
       grid-template-columns: 1fr 380px;
-      column-gap: 30px;
-      align-items: start;
     }
 
     // Reset WooCommerce float-based col2-set layout
@@ -45,16 +45,16 @@
       background: #fff;
       border: 1px solid $global-border;
       border-radius: 4px;
-      padding: 20px 24px;
       margin-bottom: 20px;
+      padding: 20px 24px;
 
       h3 {
+        color: $global-link-color;
         font-size: 0.75rem;
         font-weight: 700;
-        text-transform: uppercase;
         letter-spacing: 0.08em;
-        color: $global-link-color;
         margin-bottom: 16px;
+        text-transform: uppercase;
       }
     }
 
@@ -70,14 +70,14 @@
     .woocommerce-billing-fields__field-wrapper,
     .woocommerce-shipping-fields__field-wrapper {
       @media (min-width: $breakpoint-small) {
+        column-gap: 20px;
         display: grid;
         grid-template-columns: 1fr 1fr;
-        column-gap: 20px;
 
         .form-row {
+          float: none;
           grid-column: 1 / -1;
           width: 100%;
-          float: none;
         }
 
         .form-row-first {
@@ -113,8 +113,8 @@
     }
 
     label {
-      font-size: 0.85rem;
       color: $global-muted-color;
+      font-size: 0.85rem;
     }
 
     // Brand-colored focus ring — softer and more legible than UIKit's default
@@ -132,14 +132,14 @@
       background: #f7f3f0;
       border: 1px solid darken(#f7f3f0, 8%);
       border-radius: 4px;
-      padding: 20px 24px;
-      // Breathing room when the right rail collapses below the form on mobile.
       margin-top: 20px;
+      // Breathing room when the right rail collapses below the form on mobile.
+      padding: 20px 24px;
 
       @media (min-width: $breakpoint-medium) {
+        margin-top: 0; // Grid handles vertical alignment on desktop.
         position: sticky;
         top: 30px;
-        margin-top: 0; // Grid handles vertical alignment on desktop.
       }
     }
 
@@ -149,14 +149,14 @@
 
       // Order summary table
       .woocommerce-checkout-review-order-table {
-        width: 100%;
         border-collapse: collapse;
+        width: 100%;
 
         th,
         td {
-          padding: 8px 0;
           border-bottom: 1px solid darken(#f7f3f0, 8%);
           font-size: 0.9rem;
+          padding: 8px 0;
         }
 
         // Right-align the price column so totals stack down a clean edge —
@@ -177,39 +177,39 @@
 
         .order-total th,
         .order-total td {
-          font-weight: 700;
-          font-size: 1rem;
           border-bottom: none;
+          font-size: 1rem;
+          font-weight: 700;
         }
 
         // VAT/tax note ("(includes $X VAT)") — break onto its own muted line
         // beneath the total instead of wrapping mid-amount. WooCommerce wraps
         // it in <small class="includes_tax">.
         .includes_tax {
+          color: $global-muted-color;
           display: block;
-          margin-top: 4px;
           font-size: 0.75rem;
           font-weight: 400;
-          color: $global-muted-color;
+          margin-top: 4px;
         }
       }
 
       // Payment methods block
       #payment {
+        background: transparent;
+        border-bottom: none;
+        border-left: none;
+        border-radius: 0;
+        border-right: none;
         border-top: 1px solid darken(#f7f3f0, 8%);
         margin-top: 16px;
-        padding-top: 16px;
-        background: transparent;
-        border-left: none;
-        border-right: none;
-        border-bottom: none;
-        border-radius: 0;
         padding-left: 0;
         padding-right: 0;
+        padding-top: 16px;
 
         label {
-          font-size: 0.85rem;
           color: $global-muted-color;
+          font-size: 0.85rem;
         }
       }
 
@@ -217,16 +217,16 @@
       #place_order {
         @extend .uk-button;
         @extend .uk-button-primary;
-        width: 100%;
-        margin-top: 16px;
-        padding-top: 12px;
-        padding-bottom: 12px;
         font-weight: 700;
+        margin-top: 16px;
+        padding-bottom: 12px;
+        padding-top: 12px;
         transition: transform 0.15s ease, box-shadow 0.15s ease;
+        width: 100%;
 
         &:hover {
-          transform: translateY(-1px);
           box-shadow: 0 6px 16px rgba(139, 0, 0, 0.22);
+          transform: translateY(-1px);
         }
       }
 
@@ -262,25 +262,25 @@
     width: 100% !important; // Select2 inlines its own width; force fluid.
 
     .select2-selection--single {
-      height: 40px;
-      padding: 0 10px;
       background: #fff;
       border: 1px solid $global-border;
       border-radius: 0;
+      height: 40px;
+      padding: 0 10px;
       transition: 0.2s ease-in-out;
       transition-property: color, background-color, border, box-shadow;
 
       .select2-selection__rendered {
+        color: $global-color;
         line-height: 38px; // 40 − 2*border, matches UIKit single-line.
         padding-left: 0;
         padding-right: 22px; // Room for the caret on the right.
-        color: $global-color;
       }
 
       .select2-selection__arrow {
         height: 38px;
-        top: 0;
         right: 6px;
+        top: 0;
       }
     }
 
@@ -300,16 +300,16 @@
   }
 
   .select2-search--dropdown .select2-search__field {
-    padding: 6px 10px;
+    background: #fff;
     border: 1px solid $global-border;
     border-radius: 0;
-    background: #fff;
     color: $global-color;
+    padding: 6px 10px;
 
     &:focus {
-      outline: none;
       border-color: $global-link-color;
       box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.12);
+      outline: none;
     }
   }
 
@@ -343,8 +343,8 @@
     background: #fff;
     border: 1px solid $global-border;
     border-radius: 4px;
-    padding: 20px 24px;
     margin-bottom: 20px;
+    padding: 20px 24px;
 
     // Apply Coupon button — extend UIKit primary button
     button[name="apply_coupon"] {

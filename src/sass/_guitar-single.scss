@@ -15,11 +15,11 @@
 }
 
 .fg-guitar-gallery {
-  --fg-guitar-gallery-cols: 3;
   background-color: #111111;
   display: grid;
-  grid-template-columns: repeat(var(--fg-guitar-gallery-cols), minmax(0, 1fr));
   gap: 20px;
+  grid-template-columns: repeat(var(--fg-guitar-gallery-cols), minmax(0, 1fr));
+  --fg-guitar-gallery-cols: 3;
 
   @media (min-width: $breakpoint-small) {
     --fg-guitar-gallery-cols: 3;
@@ -30,9 +30,9 @@
   }
 
   & > a {
-    padding-top: calc(100% - 2px);
     aspect-ratio: 1;
     border: 1px solid #858585;
+    padding-top: calc(100% - 2px);
     //overflow: hidden;
     //position: relative;
     //margin: 20px;
@@ -261,12 +261,12 @@
 
 .fg-some-versions {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 20px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 
   a {
-    padding-top: 100%;
     aspect-ratio: 1;
+    padding-top: 100%;
   }
 }
 
