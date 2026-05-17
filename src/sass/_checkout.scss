@@ -1,9 +1,15 @@
 .woocommerce-page.woocommerce-checkout {
   form.woocommerce-checkout {
-    // "Order Review" heading sibling of #order_review — restyle as an eyebrow
-    // label so it reads as the order-summary card's section title on every
-    // viewport (keeps WooCommerce's translatable string intact for WPML).
-    > h3#order_review_heading {
+    // .fg-order-review wraps #order_review_heading + #order_review (injected
+    // by Fremediti_Guitars_Woocommerce::order_review_wrapper_open/close via
+    // woocommerce_checkout_before_order_review_heading and
+    // woocommerce_checkout_after_order_review hooks). The wrapper is the
+    // visual card and the sticky element; the heading and #order_review
+    // become inert children with their own styling stripped of chrome.
+
+    // Eyebrow label at the top of the card — matches the uppercase burgundy
+    // tags on the left column sections (BILLING & SHIPPING etc.).
+    .fg-order-review > h3#order_review_heading {
       margin: 0 0 12px;
       font-size: 0.75rem;
       font-weight: 700;
@@ -15,26 +21,8 @@
     @media (min-width: $breakpoint-medium) {
       display: grid;
       grid-template-columns: 1fr 380px;
-      grid-template-rows: auto 1fr;
       column-gap: 30px;
       align-items: start;
-
-      > h3#order_review_heading {
-        grid-column: 2;
-        grid-row: 1;
-      }
-
-      #customer_details {
-        grid-column: 1;
-        grid-row: 1 / span 2;
-      }
-
-      #order_review {
-        grid-column: 2;
-        grid-row: 2;
-        position: sticky;
-        top: 30px;
-      }
     }
 
     // Reset WooCommerce float-based col2-set layout
@@ -102,10 +90,28 @@
       }
     }
 
-    // Form inputs already inherit UIKit styling from _general.scss (which
-    // extends .uk-input/.uk-select/.uk-textarea/.uk-checkbox/.uk-radio onto
-    // every form element site-wide). Only the checkout-specific tweaks live
-    // here.
+    // WooCommerce 10.x ships its own form chrome at `.woocommerce form
+    // .form-row .input-text` (specificity 0,3,1) — that beats the site-wide
+    // `@extend .uk-input` in _general.scss, which compiles to
+    // `input:not([type=checkbox]):not([type=radio])` (specificity 0,2,1).
+    //
+    // Re-extending here, scoped to the checkout form, makes SCSS append
+    // `.woocommerce-page.woocommerce-checkout form.woocommerce-checkout
+    // input.input-text` (0,4,2) onto every rule in UIKit that touches
+    // `.uk-input` — high enough to win the cascade without !important.
+    //
+    // Inputs and textareas need separate extends: WC puts `.input-text` on
+    // both, but `.uk-input` includes UIKit's single-line `height: 40px`
+    // rule that would force-shrink a textarea. `.uk-textarea` omits that
+    // single-line height rule precisely so multi-line content can grow.
+    input.input-text {
+      @extend .uk-input;
+    }
+
+    textarea.input-text {
+      @extend .uk-textarea;
+    }
+
     label {
       font-size: 0.85rem;
       color: $global-muted-color;
@@ -120,15 +126,26 @@
       box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.12);
     }
 
-    // Sticky summary panel
-    #order_review {
+    // Sticky summary card — wraps the heading + #order_review so they pin
+    // together on scroll without any calc() math (single sticky element).
+    .fg-order-review {
       background: #f7f3f0;
       border: 1px solid darken(#f7f3f0, 8%);
       border-radius: 4px;
       padding: 20px 24px;
       // Breathing room when the right rail collapses below the form on mobile.
-      // No effect on the desktop sticky layout since the grid handles spacing.
       margin-top: 20px;
+
+      @media (min-width: $breakpoint-medium) {
+        position: sticky;
+        top: 30px;
+        margin-top: 0; // Grid handles vertical alignment on desktop.
+      }
+    }
+
+    // #order_review is now an inert inner container — all chrome lives on
+    // the .fg-order-review wrapper above.
+    #order_review {
 
       // Order summary table
       .woocommerce-checkout-review-order-table {
@@ -228,6 +245,78 @@
       }
     }
 
+  }
+
+  // Select2 (country/state dropdowns) — WooCommerce swaps the native <select>
+  // for a <span>-based widget, which bypasses the site-wide `@extend .uk-select`
+  // in _general.scss. Re-create UIKit's .uk-input chrome on the widget so the
+  // row aligns with its sibling text inputs (40px height, 1px $global-border,
+  // 10px padding, 0 radius, same transition curve, brand-burgundy focus ring).
+  //
+  // Styled at page scope (not inside form.woocommerce-checkout): the dropdown
+  // panel is appended to <body> by Select2, and `.woocommerce-page.woocommerce-checkout`
+  // sits on <body>, so the descendant combinator still matches both the inline
+  // widget AND the body-level dropdown — while keeping the rule from leaking
+  // onto Select2 instances on other pages of the site.
+  .select2-container--default {
+    width: 100% !important; // Select2 inlines its own width; force fluid.
+
+    .select2-selection--single {
+      height: 40px;
+      padding: 0 10px;
+      background: #fff;
+      border: 1px solid $global-border;
+      border-radius: 0;
+      transition: 0.2s ease-in-out;
+      transition-property: color, background-color, border, box-shadow;
+
+      .select2-selection__rendered {
+        line-height: 38px; // 40 − 2*border, matches UIKit single-line.
+        padding-left: 0;
+        padding-right: 22px; // Room for the caret on the right.
+        color: $global-color;
+      }
+
+      .select2-selection__arrow {
+        height: 38px;
+        top: 0;
+        right: 6px;
+      }
+    }
+
+    &.select2-container--focus,
+    &.select2-container--open {
+      .select2-selection--single {
+        border-color: $global-link-color;
+        box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.12);
+      }
+    }
+  }
+
+  .select2-dropdown {
+    background: #fff;
+    border: 1px solid $global-border;
+    border-radius: 0;
+  }
+
+  .select2-search--dropdown .select2-search__field {
+    padding: 6px 10px;
+    border: 1px solid $global-border;
+    border-radius: 0;
+    background: #fff;
+    color: $global-color;
+
+    &:focus {
+      outline: none;
+      border-color: $global-link-color;
+      box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.12);
+    }
+  }
+
+  .select2-results__option--highlighted[aria-selected],
+  .select2-results__option--highlighted[data-selected] {
+    background: $global-link-color;
+    color: #fff;
   }
 
   // The coupon toggle and coupon form sit OUTSIDE form.woocommerce-checkout
