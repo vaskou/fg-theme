@@ -36,6 +36,12 @@
         float: none;
         width: 100%;
       }
+
+      .col-2 {
+        .woocommerce-additional-fields:last-of-type {
+          margin-bottom: 0;
+        }
+      }
     }
 
     // Boxed form sections
@@ -149,6 +155,7 @@
 
       // Order summary table
       .woocommerce-checkout-review-order-table {
+        border: none;
         border-collapse: collapse;
         width: 100%;
 
@@ -156,7 +163,17 @@
         td {
           border-bottom: 1px solid darken(#f7f3f0, 8%);
           font-size: 0.9rem;
-          padding: 8px 0;
+          padding: 12px 0;
+        }
+
+        thead th {
+          border-bottom: 1px solid darken(#f7f3f0, 12%);
+          color: $global-muted-color;
+          font-size: 0.7rem;
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          padding-bottom: 10px;
+          text-transform: uppercase;
         }
 
         // Right-align the price column so totals stack down a clean edge —
@@ -166,20 +183,48 @@
           text-align: right;
         }
 
-        .product-name {
+        // Scoped to td. Without this, the rule would also match the thead's
+        // <th class="product-name">PRODUCT</th> and override the eyebrow
+        // styling above (.product-name's 0,1,0 specificity beats thead th's
+        // 0,0,2). Same reason `td.product-total` is used in the rule below.
+        td.product-name {
           color: $base-heading-color;
+          font-weight: 600;
+
+          .product-quantity {
+            color: $global-muted-color;
+            font-weight: 400;
+            margin-left: 4px;
+          }
         }
 
-        .product-total,
+        td.product-total,
         .order-total td {
           color: $global-link-color;
         }
 
+        // Heavier divider between the last product row and the totals band,
+        // giving the cart-item list a visual "close" before subtotals begin.
+        tfoot {
+          tr:first-child th,
+          tr:first-child td {
+            border-top: 1px solid darken(#f7f3f0, 12%);
+            padding-top: 14px;
+          }
+        }
+
+        // vertical-align: top keeps the "Total" label aligned with the
+        // amount when the VAT note wraps in the narrow card — otherwise the
+        // taller <td> (amount + multi-line VAT) leaves the single-line <th>
+        // floating in the vertical middle of the row.
         .order-total th,
         .order-total td {
           border-bottom: none;
-          font-size: 1rem;
+          border-top: 1px solid darken(#f7f3f0, 12%);
+          font-size: 1.05rem;
           font-weight: 700;
+          padding-top: 14px;
+          vertical-align: top;
         }
 
         // VAT/tax note ("(includes $X VAT)") — break onto its own muted line
@@ -191,6 +236,34 @@
           font-size: 0.75rem;
           font-weight: 400;
           margin-top: 4px;
+        }
+      }
+
+      // Shipping methods radio list (rendered inside .shipping td when more
+      // than one shipping method is configured). WooCommerce emits a plain
+      // <ul> which inherits browser-default bullets + indent — strip both,
+      // then opt the label back into $global-color since the page-level
+      // `label { color: $global-muted-color }` rule above is for form-field
+      // captions, not selectable shipping options.
+      #shipping_method {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        li {
+          margin: 0;
+          padding: 2px 0;
+
+          label {
+            color: $global-color;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-left: 6px;
+          }
+
+          input[type="radio"] {
+            vertical-align: middle;
+          }
         }
       }
 
@@ -241,6 +314,10 @@
         &::before {
           // The little triangle "pointer" above the info box
           border-bottom-color: $global-border !important;
+          left: 2em;
+          margin: 0;
+          top: 0;
+          transform: translateY(-100%);
         }
       }
     }
@@ -273,8 +350,7 @@
       .select2-selection__rendered {
         color: $global-color;
         line-height: 38px; // 40 − 2*border, matches UIKit single-line.
-        padding-left: 0;
-        padding-right: 22px; // Room for the caret on the right.
+        padding: 0 22px 0 0;
       }
 
       .select2-selection__arrow {

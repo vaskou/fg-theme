@@ -5,3 +5,5 @@ yarn.log
 
 .claude/*.local.*
 .claude/*.log
+
+.playwright-mcp/
