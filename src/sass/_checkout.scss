@@ -157,6 +157,7 @@
       .woocommerce-checkout-review-order-table {
         border: none;
         border-collapse: collapse;
+        margin: 0;
         width: 100%;
 
         th,
@@ -275,14 +276,21 @@
         border-radius: 0;
         border-right: none;
         border-top: 1px solid darken(#f7f3f0, 8%);
-        margin-top: 16px;
-        padding-left: 0;
-        padding-right: 0;
-        padding-top: 16px;
+        padding: 0;
+
+        ul.payment_methods {
+          padding-inline: 0;
+        }
 
         label {
           color: $global-muted-color;
           font-size: 0.85rem;
+        }
+
+        div.form-row {
+          margin-bottom: 0;
+          padding-bottom: 0;
+          padding-inline: 0;
         }
       }
 
