@@ -28,6 +28,10 @@ class Fremediti_Guitars_Woocommerce {
 		// Checkout — wrap #order_review_heading + #order_review in a single card.
 		add_action( 'woocommerce_checkout_before_order_review_heading', [ $this, 'order_review_wrapper_open' ] );
 		add_action( 'woocommerce_checkout_after_order_review', [ $this, 'order_review_wrapper_close' ] );
+
+		// Cart — wrap .woocommerce-cart-form + .cart-collaterals in a grid container.
+		add_action( 'woocommerce_before_cart', [ $this, 'cart_layout_wrapper_open' ] );
+		add_action( 'woocommerce_after_cart', [ $this, 'cart_layout_wrapper_close' ] );
 	}
 
 	public function remove_wp_hooks() {
@@ -71,6 +75,18 @@ class Fremediti_Guitars_Woocommerce {
 	}
 
 	public function order_review_wrapper_close() {
+		?>
+        </div>
+		<?php
+	}
+
+	public function cart_layout_wrapper_open() {
+		?>
+        <div class="fg-cart-layout">
+		<?php
+	}
+
+	public function cart_layout_wrapper_close() {
 		?>
         </div>
 		<?php

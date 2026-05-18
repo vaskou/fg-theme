@@ -1,0 +1,569 @@
+// Cart page styles — scoped to .woocommerce-cart so nothing leaks onto
+// other WooCommerce pages (the classes .shop_table, .cart_totals, etc.
+// also appear on the checkout and order-received pages).
+//
+// Assumes the classic [woocommerce_cart] shortcode markup (cart.php template
+// from WooCommerce core, currently v10.1.0). If the site ever switches to the
+// new Cart block (<!-- wp:woocommerce/cart -->), the selectors here will not
+// match — the block emits `.wc-block-cart-*` instead.
+.woocommerce-cart {
+
+  // .fg-cart-layout wraps form.woocommerce-cart-form + div.cart-collaterals
+  // (injected by Fremediti_Guitars_Woocommerce::cart_layout_wrapper_open/close
+  // via woocommerce_before_cart and woocommerce_after_cart hooks). Notices
+  // stay full-width above the grid because they're emitted outside the
+  // do_action('woocommerce_before_cart') call site.
+  .fg-cart-layout {
+    @media (min-width: $breakpoint-medium) {
+      align-items: start;
+      column-gap: 30px;
+      display: grid;
+      grid-template-columns: 1fr 380px;
+    }
+  }
+
+  // ----- Cart form / items table ------------------------------------------
+
+  // Boxed white card wrapping the items table.
+  form.woocommerce-cart-form {
+    background: #fff;
+    border: 1px solid $global-border;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    padding: 20px 24px;
+
+    @media (min-width: $breakpoint-medium) {
+      margin-bottom: 0; // Grid handles vertical alignment on desktop.
+    }
+  }
+
+  table.shop_table.cart {
+    background: transparent;
+    border: none;
+    border-collapse: collapse;
+    margin: 0;
+    width: 100%;
+
+    // Uppercase muted column headers — matches the order-summary thead
+    // treatment on the checkout for visual continuity between pages.
+    thead th {
+      border-bottom: 1px solid $global-border;
+      color: $global-muted-color;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 0 8px 12px;
+      text-transform: uppercase;
+    }
+
+    // Right-align the price columns so amounts stack down a clean edge.
+    thead th.product-price,
+    thead th.product-subtotal,
+    tbody td.product-price,
+    tbody td.product-subtotal {
+      text-align: right;
+    }
+
+    tbody tr.cart_item td {
+      border-bottom: 1px solid $global-border;
+      font-size: 0.9rem;
+      padding: 16px 8px;
+      vertical-align: middle;
+    }
+
+    // Product thumbnail — WooCommerce inlines a width attribute on the <img>
+    // (e.g. <img width="300">) which beats class-based CSS, so the override
+    // needs !important. height:auto preserves the aspect ratio.
+    td.product-thumbnail {
+      width: 88px;
+
+      img {
+        border-radius: 4px;
+        display: block;
+        height: auto;
+        width: 72px !important;
+      }
+    }
+
+    td.product-name {
+      color: $base-heading-color;
+      font-weight: 600;
+
+      a {
+        color: $base-heading-color;
+        text-decoration: none;
+        transition: color 0.15s ease;
+
+        &:hover {
+          color: $global-link-color;
+        }
+      }
+
+      // Variation labels and item meta inherit a muted, lighter weight.
+      .variation,
+      dl.variation {
+        color: $global-muted-color;
+        font-size: 0.8rem;
+        font-weight: 400;
+        margin-top: 4px;
+      }
+    }
+
+    td.product-subtotal {
+      color: $global-link-color;
+      font-weight: 600;
+    }
+
+    // Remove ("×") button. WooCommerce ships `color: red !important` inline
+    // in its stylesheet, so the override has to use !important too. Sized as
+    // a small circular hit target with a subtle burgundy hover wash.
+    td.product-remove {
+      width: 40px;
+
+      a.remove {
+        align-items: center;
+        background: transparent;
+        border-radius: 50%;
+        color: $global-muted-color !important;
+        display: inline-flex;
+        font-size: 1.4rem;
+        height: 28px;
+        justify-content: center;
+        line-height: 1;
+        text-decoration: none;
+        transition: background-color 0.15s ease, color 0.15s ease;
+        width: 28px;
+
+        &:hover {
+          background: rgba(139, 0, 0, 0.08);
+          color: $global-link-color !important;
+        }
+      }
+    }
+
+    // Quantity input. WooCommerce 10.x ships `.woocommerce .quantity .qty`
+    // with enough specificity to beat the site-wide @extend .uk-input in
+    // _general.scss (same problem documented in _checkout.scss:99–119).
+    // Re-extending here, scoped under the page selector, compounds the
+    // selector specificity onto every UIKit input rule.
+    td.product-quantity {
+      .quantity {
+        display: inline-block;
+      }
+
+      input.qty {
+        @extend .uk-input;
+        text-align: center;
+        width: 70px;
+
+        &:focus {
+          border-color: $global-link-color;
+          box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.12);
+        }
+      }
+    }
+
+    // ----- Actions row (coupon + update cart) -----------------------------
+    //
+    // WooCommerce stuffs BOTH the coupon form AND the Update Cart button
+    // inside a single <td colspan="6" class="actions">. Float the children
+    // left/right instead of putting `display: flex` on the <td> — flex on a
+    // table cell removes its `display: table-cell` behavior, which drops the
+    // cell out of the table's column-width algorithm and collapses it to
+    // content width.
+    tr td.actions {
+      border-bottom: none;
+      border-top: 1px solid $global-border;
+      padding: 20px 0 0;
+
+      // Clearfix so the cell expands around its floated children.
+      &::after {
+        clear: both;
+        content: "";
+        display: block;
+      }
+
+      .coupon {
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        float: left;
+        gap: 8px;
+
+        // Same WC 10.x specificity story as .qty above — re-extend within
+        // the page scope so .uk-input chrome wins.
+        input#coupon_code {
+          @extend .uk-input;
+          min-width: 200px;
+          width: auto;
+
+          &:focus {
+            border-color: $global-link-color;
+            box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.12);
+          }
+        }
+
+        button[name="apply_coupon"] {
+          @extend .uk-button;
+          @extend .uk-button-primary;
+        }
+      }
+
+      button[name="update_cart"] {
+        @extend .uk-button;
+        @extend .uk-button-primary;
+        float: right;
+
+        // WC disables this until something changes — keep the disabled look
+        // visible but unmistakable.
+        &:disabled {
+          cursor: not-allowed;
+          opacity: 0.55;
+        }
+      }
+    }
+  }
+
+  // ----- Cart collaterals (right rail) ------------------------------------
+
+  // WooCommerce sets .cart-collaterals to a 48% float by default. Reset
+  // it so the grid column controls the width.
+  .cart-collaterals {
+    float: none;
+    width: 100% !important;
+
+    // WC core also floats `.cart_totals` itself at width:48% via
+    // `.woocommerce .cart-collaterals .cart_totals` (specificity 0,2,1) —
+    // resetting it at .woocommerce-cart .cart_totals (0,2,0) loses. Nesting
+    // the reset here lifts our selector to (0,3,0) and beats WC by one class.
+    // `width: auto` (not 100%) lets the natural block-level box model fill
+    // the column without the content-box padding/border pushing the card past
+    // its 380px grid track.
+    .cart_totals {
+      float: none;
+      width: auto;
+    }
+
+    // Cross-sells render above .cart_totals inside .cart-collaterals via the
+    // woocommerce_cart_collaterals hook. In a 380px right rail the default
+    // 4-column product grid is unreadable — collapse to one column.
+    .cross-sells {
+      margin-bottom: 20px;
+
+      h2 {
+        color: $global-link-color;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        margin: 0 0 12px;
+        text-transform: uppercase;
+      }
+
+      ul.products li.product {
+        float: none;
+        margin-bottom: 16px;
+        width: 100% !important;
+      }
+    }
+  }
+
+  // .cart_totals is the sticky summary card — mirrors the checkout's
+  // .fg-order-review styling exactly so the two pages feel like siblings.
+  .cart_totals {
+    background: #f7f3f0;
+    border: 1px solid darken(#f7f3f0, 8%);
+    border-radius: 4px;
+    padding: 20px 24px;
+
+    @media (min-width: $breakpoint-medium) {
+      position: sticky;
+      top: 30px;
+    }
+
+    h2 {
+      color: $global-link-color;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      margin: 0 0 12px;
+      text-transform: uppercase;
+    }
+
+    table.shop_table {
+      border: none;
+      border-collapse: collapse;
+      margin: 0;
+      width: 100%;
+
+      th,
+      td {
+        border-bottom: 1px solid darken(#f7f3f0, 8%);
+        font-size: 0.9rem;
+        padding: 12px 0;
+      }
+
+      // Right-align the amount column (consistent with checkout).
+      th:last-child,
+      td:last-child {
+        text-align: right;
+      }
+
+      th {
+        color: $base-heading-color;
+        font-weight: 600;
+      }
+
+      // Total row gets a heavier divider above and bigger, burgundy amount.
+      // vertical-align:top keeps the label aligned with the amount when the
+      // VAT note wraps onto a second line in the narrow card.
+      .order-total th,
+      .order-total td {
+        border-bottom: none;
+        border-top: 1px solid darken(#f7f3f0, 12%);
+        font-size: 1.05rem;
+        font-weight: 700;
+        padding-top: 14px;
+        vertical-align: top;
+      }
+
+      .order-total td {
+        color: $global-link-color;
+      }
+
+      // VAT/tax note: break onto its own muted line beneath the total.
+      .includes_tax,
+      small.tax_label {
+        color: $global-muted-color;
+        display: block;
+        font-size: 0.75rem;
+        font-weight: 400;
+        margin-top: 4px;
+      }
+    }
+
+    // Shipping methods radio list — same reset as checkout's #shipping_method.
+    #shipping_method {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+        margin: 0;
+        padding: 2px 0;
+
+        label {
+          color: $global-color;
+          cursor: pointer;
+          font-size: 0.9rem;
+          margin-left: 6px;
+        }
+
+        input[type="radio"] {
+          vertical-align: middle;
+        }
+      }
+    }
+
+    // Shipping calculator expandable form (when no address is set).
+    .shipping-calculator-button {
+      color: $global-link-color;
+      font-size: 0.85rem;
+      text-decoration: underline;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
+    .shipping-calculator-form {
+      margin-top: 12px;
+
+      .form-row {
+        margin-bottom: 10px;
+      }
+
+      input.input-text {
+        @extend .uk-input;
+
+        &:focus {
+          border-color: $global-link-color;
+          box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.12);
+        }
+      }
+
+      button {
+        @extend .uk-button;
+        @extend .uk-button-primary;
+      }
+
+      // Country / State use Select2, which swaps the native <select> for a
+      // span-based widget. Its default stylesheet ships a 28px-tall pill that
+      // doesn't match the .uk-input chrome (40px) used by Town/City and ZIP
+      // Code, and `.uk-input` only targets real <input>s so @extend doesn't
+      // help here. Realign the CLOSED widget — the OPEN dropdown is portal-
+      // appended to <body> and styled at the bottom of this file.
+      .select2-container--default .select2-selection--single {
+        background: #fff;
+        border: 1px solid $global-border;
+        border-radius: 0;
+        box-sizing: border-box;
+        height: 40px;
+        outline: none;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+        // Selected-text container. line-height accounts for the 2px borders
+        // so text centers vertically without a flex hack. The right padding
+        // makes safe room for the arrow regardless of Select2's absolute
+        // positioning quirks.
+        .select2-selection__rendered {
+          color: $global-color;
+          line-height: 38px;
+          padding-left: 10px;
+          padding-right: 30px;
+        }
+
+        // Arrow column on the right.
+        .select2-selection__arrow {
+          height: 38px;
+          right: 5px;
+          top: 0;
+        }
+      }
+
+      // Focus + open state: match the input.input-text focus ring so the
+      // calculator form's three field types feel like siblings.
+      .select2-container--default.select2-container--focus .select2-selection--single,
+      .select2-container--default.select2-container--open .select2-selection--single {
+        border-color: $global-link-color;
+        box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.12);
+      }
+    }
+  }
+
+  // Proceed-to-Checkout button — mirrors checkout's #place_order treatment.
+  .wc-proceed-to-checkout {
+    margin-top: 16px;
+    padding: 0;
+
+    a.checkout-button {
+      @extend .uk-button;
+      @extend .uk-button-primary;
+      display: block;
+      font-weight: 700;
+      padding-bottom: 12px;
+      padding-top: 12px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      width: 100%;
+
+      &:hover {
+        box-shadow: 0 6px 16px rgba(139, 0, 0, 0.22);
+        transform: translateY(-1px);
+      }
+    }
+  }
+
+  // ----- Empty cart state -------------------------------------------------
+  //
+  // Renders via cart-empty.php (NOT cart.php), so the wrapper hooks don't
+  // fire — these rules need to stand on their own at .woocommerce-cart scope.
+  .cart-empty.woocommerce-info {
+    background: #fff;
+    border: 1px solid $global-border;
+    border-top: 3px solid $global-link-color;
+    color: $global-color;
+    padding: 20px 24px;
+
+    &::before {
+      color: $global-link-color;
+    }
+  }
+
+  .return-to-shop {
+    margin-top: 20px;
+
+    .button {
+      @extend .uk-button;
+      @extend .uk-button-primary;
+    }
+  }
+
+  // ----- Select2 dropdown portal ------------------------------------------
+  //
+  // Select2 appends its dropdown to <body> outside this wrapper, so it can't
+  // be styled under .woocommerce-cart. The block at the very bottom of this
+  // file (after the .woocommerce-cart closing brace) handles that portal —
+  // gated on body.woocommerce-cart so other pages' Select2 widgets keep their
+  // default look.
+
+  // ----- Mobile (shop_table_responsive) -----------------------------------
+  //
+  // Below $breakpoint-small WooCommerce reflows the items table: each <td>
+  // becomes a stacked row with a pseudo-label generated from data-title.
+  // Style those labels to read as eyebrow tags, matching the column
+  // headers visible on desktop.
+  @media (max-width: $breakpoint-small - 1px) {
+    table.shop_table.cart {
+      tbody tr.cart_item td {
+        padding: 12px 8px;
+
+        &::before {
+          color: $global-muted-color;
+          font-size: 0.7rem;
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+        }
+      }
+
+      td.product-thumbnail {
+        width: auto;
+      }
+    }
+  }
+}
+
+// ----- Select2 dropdown portal (Country / State on the cart) --------------
+//
+// Select2's dropdown is appended to <body> outside .woocommerce-cart, so it
+// has to be styled at top level. body.woocommerce-cart gates the overrides
+// to cart-only use: other WC pages (checkout, etc.) keep Select2's default
+// look until they're explicitly themed.
+//
+// Specificity note: Select2's base rule for highlighted options is
+// `.select2-container--default .select2-results__option--highlighted[aria-selected]`
+// (specificity 0,3,1). Adding `body.woocommerce-cart` lifts our selector to
+// (1,4,1) (one type + four classes + one attribute), beating Select2.
+body.woocommerce-cart {
+  .select2-dropdown {
+    border: 1px solid $global-border;
+    border-radius: 0;
+  }
+
+  .select2-search--dropdown .select2-search__field {
+    border: 1px solid $global-border;
+    border-radius: 0;
+    font-size: 0.9rem;
+    padding: 6px 10px;
+
+    &:focus {
+      border-color: $global-link-color;
+      box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.12);
+      outline: none;
+    }
+  }
+
+  .select2-container--default {
+    .select2-results__option {
+      font-size: 0.9rem;
+      padding: 8px 10px;
+    }
+
+    // Hover / keyboard-highlight — swap Select2's default blue for the
+    // site's burgundy. Match the [aria-selected] form to outrank Select2.
+    .select2-results__option--highlighted[aria-selected],
+    .select2-results__option--highlighted[data-selected] {
+      background-color: $global-link-color;
+      color: #fff;
+    }
+  }
+}
