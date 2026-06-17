@@ -1,0 +1,327 @@
+.woocommerce-account {
+
+  // ── Layout wrapper ──────────────────────────────────────────────────────────
+
+  // .fg-my-account-layout wraps the nav + content in a single unified card
+  // (injected by the theme's myaccount/my-account.php template override).
+  // Notices rendered by WooCommerce above the wrapper remain full-width.
+  .fg-my-account-layout {
+    background: #ffffff;
+    border: 1px solid $global-border;
+    border-radius: 3px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, .07);
+    display: flex;
+    overflow: hidden;
+
+    @media (max-width: $breakpoint-medium) {
+      flex-direction: column;
+    }
+  }
+
+  // ── Sidebar navigation ───────────────────────────────────────────────────────
+
+  .woocommerce-MyAccount-navigation {
+    background: #fafafa;
+    border-right: 1px solid $global-border;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    padding: 24px 16px;
+    width: 240px;
+
+    @media (max-width: $breakpoint-medium) {
+      border-bottom: 1px solid $global-border;
+      border-right: none;
+      padding: 16px;
+      width: 100%;
+    }
+
+    // "Navigation" label above the list
+    &::before {
+      border-bottom: 2px solid $global-link-color;
+      color: $global-link-color;
+      content: 'Navigation';
+      display: block;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    ul {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      @media (max-width: $breakpoint-medium) {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 4px;
+      }
+    }
+
+    li {
+      margin: 0;
+
+      a {
+        color: $global-color;
+        display: block;
+        font-size: 0.875rem;
+        padding: 8px 10px;
+        text-decoration: none;
+        transition: color 150ms ease;
+
+        &:hover {
+          color: $global-link-color;
+        }
+      }
+
+      // Active state: white card with burgundy left accent
+      &.is-active a {
+        background: #ffffff;
+        border: 1px solid $global-border;
+        border-left: 3px solid $global-link-color;
+        border-radius: 2px;
+        color: $base-heading-color;
+        font-weight: 600;
+        padding-left: 8px;
+      }
+
+      // Logout pushed to the bottom (last item)
+      &:last-child {
+        border-top: 1px solid $global-border;
+        margin-top: auto;
+        padding-top: 14px;
+
+        a {
+          color: $global-link-color;
+        }
+
+        @media (max-width: $breakpoint-medium) {
+          border-top: none;
+          margin-top: 0;
+          padding-top: 0;
+        }
+      }
+    }
+  }
+
+  // ── Content area ─────────────────────────────────────────────────────────────
+
+  .woocommerce-MyAccount-content {
+    background: #ffffff;
+    flex: 1;
+    min-width: 0; // prevent flex overflow
+    padding: 28px 30px;
+
+    @media (max-width: $breakpoint-medium) {
+      padding: 20px 16px;
+    }
+
+    // Section headings — uppercase burgundy with bottom border accent
+    h2 {
+      border-bottom: 2px solid $global-link-color;
+      color: $global-link-color;
+      display: inline-block;
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      margin-bottom: 20px;
+      padding-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    p {
+      color: $global-color;
+      line-height: 1.7;
+
+      a {
+        color: $global-link-color;
+      }
+    }
+
+    // ── Orders / downloads table ─────────────────────────────────────────────
+
+    .shop_table {
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      width: 100%;
+
+      thead tr {
+        border-bottom: 1px solid $global-border;
+      }
+
+      th {
+        color: $base-heading-color;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        padding: 8px;
+        text-align: left;
+      }
+
+      td {
+        border-bottom: 1px solid #f0f0f0;
+        color: $global-color;
+        padding: 10px 8px;
+        vertical-align: middle;
+      }
+
+      .order-number a {
+        color: $global-link-color;
+        font-weight: 600;
+      }
+
+      // Status badges
+      .woocommerce-order-status {
+        border-radius: 2px;
+        display: inline-block;
+        font-size: 0.6875rem;
+        font-weight: 600;
+        padding: 2px 8px;
+
+        &.status-completed   { background: #f0f7e6; color: #4a7c1f; }
+        &.status-processing  { background: #fff8e1; color: #b07d00; }
+        &.status-on-hold     { background: #f5f5f5; color: #676767; }
+        &.status-cancelled,
+        &.status-failed      { background: #fde8e8; color: #a00000; }
+        &.status-refunded    { background: #f0f0f0; color: #676767; }
+        &.status-pending     { background: #fff3cd; color: #856404; }
+      }
+
+      // View / pay action buttons
+      .woocommerce-button,
+      .button {
+        @extend .uk-button;
+        @extend .uk-button-primary;
+        font-size: 0.75rem;
+        padding: 4px 12px;
+      }
+
+      // Totals / key-value rows (order details page)
+      tfoot td,
+      tfoot th {
+        border-top: 1px solid $global-border;
+        color: $base-heading-color;
+        font-weight: 600;
+      }
+    }
+
+    // Downloadable file table — reuse shop_table but slightly less padding
+    .woocommerce-table--order-downloads {
+      td { padding: 8px; }
+    }
+
+    // ── Addresses page ───────────────────────────────────────────────────────
+
+    .woocommerce-Addresses {
+      display: flex;
+      gap: 24px;
+
+      @media (max-width: $breakpoint-medium) {
+        flex-direction: column;
+      }
+    }
+
+    .woocommerce-Address {
+      border: 1px solid $global-border;
+      border-radius: 2px;
+      flex: 1;
+      padding: 20px;
+
+      .woocommerce-column__title {
+        border-bottom: 2px solid $global-link-color;
+        color: $global-link-color;
+        display: inline-block;
+        font-size: 0.625rem;
+        font-weight: 700;
+        letter-spacing: .1em;
+        margin-bottom: 14px;
+        padding-bottom: 8px;
+        text-transform: uppercase;
+      }
+
+      address {
+        color: $global-color;
+        font-size: 0.875rem;
+        font-style: normal;
+        line-height: 1.7;
+        margin-bottom: 14px;
+      }
+
+      .edit {
+        color: $global-link-color;
+        font-size: 0.8125rem;
+      }
+    }
+
+    // ── Account details / password form ──────────────────────────────────────
+
+    fieldset {
+      border: 1px solid $global-border;
+      border-radius: 2px;
+      margin-bottom: 24px;
+      padding: 20px;
+
+      legend {
+        color: $global-link-color;
+        font-size: 0.625rem;
+        font-weight: 700;
+        letter-spacing: .1em;
+        padding: 0 6px;
+        text-transform: uppercase;
+      }
+    }
+
+    .woocommerce-Button,
+    input[type="submit"] {
+      @extend .uk-button;
+      @extend .uk-button-primary;
+      margin-top: 8px;
+    }
+  }
+
+  // ── Login / register (logged-out state) ──────────────────────────────────────
+
+  &:not(.logged-in) {
+    .woocommerce {
+      align-items: flex-start;
+      display: flex;
+      gap: 32px;
+
+      @media (max-width: $breakpoint-medium) {
+        flex-direction: column;
+      }
+    }
+
+    .u-column1,
+    .u-column2 {
+      background: #ffffff;
+      border: 1px solid $global-border;
+      flex: 1;
+      padding: 28px;
+
+      h2 {
+        border-bottom: 2px solid $global-link-color;
+        color: $global-link-color;
+        display: inline-block;
+        font-size: 0.625rem;
+        font-weight: 700;
+        letter-spacing: .1em;
+        margin-bottom: 20px;
+        padding-bottom: 8px;
+        text-transform: uppercase;
+      }
+
+      .button,
+      input[type="submit"] {
+        @extend .uk-button;
+        @extend .uk-button-primary;
+      }
+    }
+  }
+}

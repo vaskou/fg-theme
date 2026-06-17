@@ -7,3 +7,4 @@ yarn.log
 .claude/*.log
 
 .playwright-mcp/
+.superpowers/
