@@ -270,8 +270,8 @@
   // .cart_totals is the sticky summary card — mirrors the checkout's
   // .fg-order-review styling exactly so the two pages feel like siblings.
   .cart_totals {
-    background: #f7f3f0;
-    border: 1px solid darken(#f7f3f0, 8%);
+    background: #ffffff;
+    border: 1px solid $global-border;
     border-radius: 4px;
     padding: 20px 24px;
 
@@ -297,7 +297,7 @@
 
       th,
       td {
-        border-bottom: 1px solid darken(#f7f3f0, 8%);
+        border-bottom: 1px solid $global-border;
         font-size: 0.9rem;
         padding: 12px 0;
       }
@@ -319,7 +319,7 @@
       .order-total th,
       .order-total td {
         border-bottom: none;
-        border-top: 1px solid darken(#f7f3f0, 12%);
+        border-top: 1px solid $global-border;
         font-size: 1.05rem;
         font-weight: 700;
         padding-top: 14px;
@@ -418,6 +418,7 @@
         .select2-selection__rendered {
           color: $global-color;
           line-height: 38px;
+          padding-block: 0;
           padding-left: 10px;
           padding-right: 30px;
         }

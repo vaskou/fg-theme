@@ -135,8 +135,8 @@
     // Sticky summary card — wraps the heading + #order_review so they pin
     // together on scroll without any calc() math (single sticky element).
     .fg-order-review {
-      background: #f7f3f0;
-      border: 1px solid darken(#f7f3f0, 8%);
+      background: #ffffff;
+      border: 1px solid $global-border;
       border-radius: 4px;
       margin-top: 20px;
       // Breathing room when the right rail collapses below the form on mobile.
@@ -162,13 +162,13 @@
 
         th,
         td {
-          border-bottom: 1px solid darken(#f7f3f0, 8%);
+          border-bottom: 1px solid $global-border;
           font-size: 0.9rem;
           padding: 12px 0;
         }
 
         thead th {
-          border-bottom: 1px solid darken(#f7f3f0, 12%);
+          border-bottom: 1px solid $global-border;
           color: $global-muted-color;
           font-size: 0.7rem;
           font-weight: 700;
@@ -209,7 +209,7 @@
         tfoot {
           tr:first-child th,
           tr:first-child td {
-            border-top: 1px solid darken(#f7f3f0, 12%);
+            border-top: 1px solid $global-border;
             padding-top: 14px;
           }
         }
@@ -221,7 +221,7 @@
         .order-total th,
         .order-total td {
           border-bottom: none;
-          border-top: 1px solid darken(#f7f3f0, 12%);
+          border-top: 1px solid $global-border;
           font-size: 1.05rem;
           font-weight: 700;
           padding-top: 14px;
@@ -275,11 +275,19 @@
         border-left: none;
         border-radius: 0;
         border-right: none;
-        border-top: 1px solid darken(#f7f3f0, 8%);
+        border-top: 1px solid $global-border;
         padding: 0;
 
         ul.payment_methods {
           padding-inline: 0;
+
+          li {
+            padding-block: 0;
+          }
+        }
+
+        .payment_method_stripe_cc label {
+
         }
 
         label {

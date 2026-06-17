@@ -92,6 +92,10 @@
             return;
         }
 
+        if (window.location.pathname.startsWith('/el')) {
+            return;
+        }
+
         let new_url = `${window.location.origin}/el${window.location.pathname}`;
 
         Cookies.set('fg-lang-redirected', true);
