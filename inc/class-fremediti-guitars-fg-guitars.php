@@ -329,6 +329,7 @@ class Fremediti_Guitars_FG_Guitars {
 		}
 
 		$versions               = $this->some_versions->getVersions( $post_id );
+		$featured_guitar_price  = $this->some_versions->getFeaturedGuitarPrice( $post_id );
 		$price_range_form       = $this->some_versions->getPriceRangeFrom( $post_id );
 		$price_range_to         = $this->some_versions->getPriceRangeTo( $post_id );
 		$approximate_time       = $this->some_versions->getApproximateTime( $post_id );
@@ -340,39 +341,12 @@ class Fremediti_Guitars_FG_Guitars {
 
 		?>
 
-        <div class="uk-h3" style="height: 2.1rem"></div>
+        <div class="uk-h4" style="height: 2.1rem">
+			<?php if ( ! empty( $featured_guitar_price ) ): ?>
+				<?php printf( __( 'Featured guitar price: %s', 'fremediti-guitars' ), Fremediti_Guitars_Template_Functions::price_format( $featured_guitar_price ) ); ?>
+			<?php endif; ?>
+        </div>
         <hr>
-
-		<?php if ( ! empty( $versions ) ): ?>
-
-            <h4 style="margin-top: 0"><?php printf( '%s - %s', $this->short_description->getName( $post_id ), __( 'Some Versions', 'fremediti-guitars' ) ); ?></h4>
-
-            <div class="fg-some-versions">
-				<?php foreach ( $versions as $version ): ?>
-					<?php
-					$main_image_id = $version['main_image_id'] ?? '';
-					$alt_image_id  = $version['alt_image_id'] ?? '';
-
-					$main_image = wp_get_attachment_image( $main_image_id, 'full', false, [ 'class' => 'uk-position-center' ] );
-
-					if ( empty( $main_image_id ) || empty( $main_image ) ) {
-						continue;
-					}
-
-					$_alt_image_url = wp_get_attachment_image_url( $alt_image_id, 'full' );
-					$alt_image_url  = empty( $_alt_image_url ) ?
-						wp_get_attachment_image_url( $main_image_id, 'full' ) :
-						$_alt_image_url;
-					?>
-                    <div class="fg-some-versions--version" uk-lightbox>
-                        <a href="<?php echo $alt_image_url; ?>" class="uk-display-block uk-height-1-1 uk-cover-container">
-							<?php echo $main_image; ?>
-                        </a>
-                    </div>
-				<?php endforeach; ?>
-            </div>
-
-		<?php endif; ?>
 
 		<?php if ( ! empty( $price_range_form ) && ! empty( $price_range_to ) ): ?>
 
@@ -418,6 +392,37 @@ class Fremediti_Guitars_FG_Guitars {
 			<?php endif; ?>
 
         </div>
+
+		<?php if ( ! empty( $versions ) ): ?>
+
+            <h4><?php printf( '%s - %s', $this->short_description->getName( $post_id ), __( 'Other Versions', 'fremediti-guitars' ) ); ?></h4>
+
+            <div class="fg-some-versions">
+				<?php foreach ( $versions as $version ): ?>
+					<?php
+					$main_image_id = $version['main_image_id'] ?? '';
+					$alt_image_id  = $version['alt_image_id'] ?? '';
+
+					$main_image = wp_get_attachment_image( $main_image_id, 'full', false, [ 'class' => 'uk-position-center' ] );
+
+					if ( empty( $main_image_id ) || empty( $main_image ) ) {
+						continue;
+					}
+
+					$_alt_image_url = wp_get_attachment_image_url( $alt_image_id, 'full' );
+					$alt_image_url  = empty( $_alt_image_url ) ?
+						wp_get_attachment_image_url( $main_image_id, 'full' ) :
+						$_alt_image_url;
+					?>
+                    <div class="fg-some-versions--version" uk-lightbox>
+                        <a href="<?php echo $alt_image_url; ?>" class="uk-display-block uk-height-1-1 uk-cover-container">
+							<?php echo $main_image; ?>
+                        </a>
+                    </div>
+				<?php endforeach; ?>
+            </div>
+
+		<?php endif; ?>
 
 		<?php
 
