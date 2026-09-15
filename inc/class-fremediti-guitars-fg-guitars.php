@@ -341,9 +341,9 @@ class Fremediti_Guitars_FG_Guitars {
 
 		?>
 
-        <div class="uk-h4" style="height: 2.1rem">
+        <div class="uk-h4 fg-some-versions-wrapper__title" style="height: 2.1rem">
 			<?php if ( ! empty( $featured_guitar_price ) ): ?>
-				<?php printf( __( 'Featured guitar price: %s', 'fremediti-guitars' ), Fremediti_Guitars_Template_Functions::price_format( $featured_guitar_price ) ); ?>
+				<?php printf( __( 'Showcase Guitar Price: %s', 'fremediti-guitars' ), Fremediti_Guitars_Template_Functions::price_format( $featured_guitar_price ) ); ?>
 			<?php endif; ?>
         </div>
         <hr>

@@ -259,6 +259,12 @@
   }
 }
 
+.fg-some-versions-wrapper {
+  &__title {
+    color: $global-color;
+  }
+}
+
 .fg-some-versions {
   display: grid;
   gap: 20px;
